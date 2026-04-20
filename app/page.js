@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { loadLedger, computeStatus, summarizeLedger } from '../lib/engine.js';
+import { loadLedger, computeStatus, summarizeLedger, computeEventPriority } from '../lib/engine.js';
 import ParityMeter from '../components/ParityMeter.js';
 import FilterBar from '../components/FilterBar.js';
 import SeedDataBanner from '../components/SeedDataBanner.js';
@@ -17,7 +17,12 @@ function loadData() {
     comparison_direction: ev.comparison_direction,
     human_record: ev.human_record,
     computed: computeStatus(ev),
+    priority: computeEventPriority(ev),
   }));
+  events.sort((a, b) => {
+    if (b.priority !== a.priority) return b.priority - a.priority;
+    return a.event_name.localeCompare(b.event_name);
+  });
   return { events, summary };
 }
 

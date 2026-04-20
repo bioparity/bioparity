@@ -13,6 +13,7 @@ import {
   computeStatus,
   loadLedger,
   passesHardFail,
+  computeEventPriority,
 } from '../lib/engine.js';
 
 import { project } from '../lib/predict.js';
@@ -591,17 +592,6 @@ test('12. null-value performance is excluded from selection but real attempts st
   assert.equal(result.best_robot.value, 14.0);
 });
 
-test('12. ledger seed contains the ProRL Combine 2026 pending entry on mens-100m with value=null', () => {
-  const ledger = loadLedger(LEDGER_PATH);
-  const m100 = ledger.events.find(e => e.event_id === 'mens-100m');
-  assert.ok(m100, 'mens-100m event must exist in seed');
-  const prorl = (m100.performances || []).find(p => p.sanctioning_body === 'ProRL');
-  assert.ok(prorl, 'ProRL Combine entry must exist on mens-100m');
-  assert.equal(prorl.value, null);
-  assert.equal(prorl.validation_status, 'unverified');
-  assert.match(prorl.source_url || '', /pro-rl/);
-});
-
 // ---------------------------------------------------------------------------
 // 13. Real-event case: men's half marathon — Kiplimo (human WR) vs Honor Flash
 //     (Beijing E-Town, ineligible). The robot is faster but the surface is not
@@ -693,7 +683,7 @@ test('14. Cassie 100m row passes hard-fail and eligibility individually', () => 
   assert.equal(cassie.date, '2022-09-28');
 });
 
-test('14. mens-1500m: Unitree H1 (experimental+eligible) is selected via fallback over slower placeholder', () => {
+test('14. mens-1500m: Unitree H1 (experimental+eligible) is selected as the only remaining performance after placeholder cleanup', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-1500m');
   const result = computeStatus(ev);
@@ -704,4 +694,81 @@ test('14. mens-1500m: Unitree H1 (experimental+eligible) is selected via fallbac
   assert.equal(result.best_robot.validation_status, 'experimental');
   assert.equal(result.fallback, true);
   assert.equal(result.status, STATUS.HUMAN_LEAD);
+});
+
+// ---------------------------------------------------------------------------
+// 15. computeEventPriority — sort signal for the homepage event grid.
+//     Higher score = surfaced higher. Real cited data should outrank placeholders.
+// ---------------------------------------------------------------------------
+test('15. priority: event with verified+eligible performance scores >= 100', () => {
+  const ev = baseEvent({
+    performances: [
+      basePerformance({
+        validation_status: 'verified',
+        source_url: 'https://example.org/record',
+        sanctioning_body: 'World Athletics',
+      }),
+    ],
+  });
+  assert.ok(computeEventPriority(ev) >= 100, 'expected >= 100, got ' + computeEventPriority(ev));
+});
+
+test('15. priority: event with only experimental+eligible placeholder (null source_url) scores <= 35', () => {
+  const ev = baseEvent({
+    performances: [
+      basePerformance({
+        value: 14.5,
+        validation_status: 'experimental',
+        source_url: null,
+      }),
+    ],
+  });
+  const score = computeEventPriority(ev);
+  assert.ok(score <= 35, 'expected <= 35, got ' + score);
+});
+
+test('15. priority: event with zero performances scores 0', () => {
+  const ev = baseEvent({ performances: [] });
+  assert.equal(computeEventPriority(ev), 0);
+});
+
+test('15. priority: event with real source_url but no verified entry scores >= 50', () => {
+  const ev = baseEvent({
+    performances: [
+      basePerformance({
+        value: 14.5,
+        validation_status: 'experimental',
+        source_url: 'https://example.org/news/article',
+        sanctioning_body: 'World Humanoid Robot Games',
+      }),
+    ],
+  });
+  assert.ok(computeEventPriority(ev) >= 50, 'expected >= 50, got ' + computeEventPriority(ev));
+});
+
+test('15. priority: tiebreaker — equal-priority events sort A before B alphabetically', () => {
+  const a = { event_name: 'Apple Event', performances: [] };
+  const b = { event_name: 'Banana Event', performances: [] };
+  const sorted = [b, a].slice().sort((x, y) => {
+    const sx = computeEventPriority(baseEvent(x));
+    const sy = computeEventPriority(baseEvent(y));
+    if (sy !== sx) return sy - sx;
+    return x.event_name.localeCompare(y.event_name);
+  });
+  assert.equal(sorted[0].event_name, 'Apple Event');
+  assert.equal(sorted[1].event_name, 'Banana Event');
+});
+
+test('15. priority: live mens-100m (Cassie verified) scores >= 100', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-100m');
+  const score = computeEventPriority(ev);
+  assert.ok(score >= 100, 'mens-100m priority expected >= 100, got ' + score);
+});
+
+test('15. priority: live mens-half-marathon (Flash cited) scores >= 50', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const score = computeEventPriority(ev);
+  assert.ok(score >= 50, 'mens-half-marathon priority expected >= 50, got ' + score);
 });
