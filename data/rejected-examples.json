@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "description": "Performances that fail the HARD FAIL biomechanical constraints. These NEVER enter the ledger; they exist solely to demonstrate the validator catches them. The validator throws an Error on each of these inputs.",
+  "rejected": [
+    {
+      "case_id": "non-bipedal",
+      "intended_event_id": "mens-100m",
+      "expected_error": "HARD FAIL: locomotion_type must be bipedal, got quadrupedal",
+      "performance": {
+        "performance_id": "ffffffff-ffff-4fff-8fff-ffffffffff01",
+        "robot_model": "Cheetah-Class Sprint Quadruped",
+        "manufacturer": "Synthetic Example Robotics",
+        "value": 6.20,
+        "date": "2025-09-01",
+        "validation_status": "experimental",
+        "source_url": null,
+        "sanctioning_body": null,
+        "notes": "Rejected example: a four-legged robot is not eligible regardless of speed. Wheels and legs that do not mirror human bipedalism do not answer the biological-parity question.",
+        "compliance": {
+          "locomotion_type": "quadrupedal",
+          "energy_source": "integrated",
+          "terrain_match": true
+        },
+        "environment": {
+          "surface": "track",
+          "conditions": "standardized",
+          "location": "Example Lab",
+          "altitude_m": 100
+        },
+        "conditions_adjustment": {
+          "wind_speed_mps": 0.0,
+          "wind_legal": true,
+          "surface_standardized": true,
+          "equipment_compliant": true
+        },
+        "record_eligibility": {
+          "eligible": true,
+          "reason": null
+        }
+      }
+    },
+    {
+      "case_id": "tethered-power",
+      "intended_event_id": "mens-marathon",
+      "expected_error": "HARD FAIL: energy_source must be integrated, got tethered",
+      "performance": {
+        "performance_id": "ffffffff-ffff-4fff-8fff-ffffffffff02",
+        "robot_model": "Tethered Endurance Walker Prototype",
+        "manufacturer": "Synthetic Example Robotics",
+        "value": 8400,
+        "date": "2025-10-15",
+        "validation_status": "experimental",
+        "source_url": null,
+        "sanctioning_body": null,
+        "notes": "Rejected example: external power supply via overhead cable. Parity requires the robot to carry its own energy budget the way a human carries glycogen and ATP.",
+        "compliance": {
+          "locomotion_type": "bipedal",
+          "energy_source": "tethered",
+          "terrain_match": true
+        },
+        "environment": {
+          "surface": "road",
+          "conditions": "standardized",
+          "location": "Example Test Loop",
+          "altitude_m": 50
+        },
+        "conditions_adjustment": {
+          "wind_speed_mps": 1.0,
+          "wind_legal": true,
+          "surface_standardized": true,
+          "equipment_compliant": true
+        },
+        "record_eligibility": {
+          "eligible": true,
+          "reason": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+import './globals.css';
+import Footer from '../components/Footer.js';
+
+export const metadata = {
+  metadataBase: new URL('https://bioparity.io'),
+  title: 'Bioparity — Human vs Robot Olympic Parity Ledger',
+  description: 'A public, auditable ledger tracking when humanoid bipedal robots match or surpass human Olympic world records.',
+  alternates: {
+    canonical: 'https://bioparity.io',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://bioparity.io',
+    siteName: 'Bioparity',
+    title: 'Bioparity — Human vs Robot Olympic Parity Ledger',
+    description: 'Tracking when humanoid robots match human Olympic world records. A public ledger.',
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Bioparity — Tracking when humanoid robots match human Olympic world records',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bioparity — Human vs Robot Olympic Parity Ledger',
+    description: 'Tracking when humanoid robots match human Olympic world records. A public ledger.',
+    images: ['/og.png'],
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className="bg-ink text-paper min-h-screen flex flex-col">
+        <header className="border-b border-rule">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" className="font-bold tracking-tight text-lg">
+              Bioparity<span className="text-robot">.</span>
+            </a>
+            <nav className="flex gap-6 text-sm text-muted">
+              <a href="/methodology" className="hover:text-paper">Methodology</a>
+              <a href="/submit" className="hover:text-paper">Submit</a>
+              <a href="/audit" className="hover:text-paper">Audit</a>
+              <a href="/about" className="hover:text-paper">About</a>
+            </nav>
+          </div>
+        </header>
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
+    </html>
+  );
+}

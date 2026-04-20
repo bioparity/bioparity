@@ -1,0 +1,999 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-04-19",
+  "events": [
+    {
+      "event_id": "mens-100m",
+      "event_name": "Men's 100 metres",
+      "sport_category": "track-sprint",
+      "season": "summer",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 9.58,
+        "holder": "Usain Bolt",
+        "date": "2009-08-16",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-100000000001",
+          "robot_model": "Tesla Optimus Gen 3",
+          "manufacturer": "Tesla",
+          "value": 14.50,
+          "date": "2025-09-12",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: indoor straightaway sprint demo, single-camera timing. Not validated by a sanctioning body.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Tesla Gigafactory, Austin TX",
+            "altitude_m": 149
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.0,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        },
+        {
+          "performance_id": "11111111-1111-4111-8111-100000000002",
+          "robot_model": "Helios Sprint Mk2",
+          "manufacturer": "Helios Robotics",
+          "value": 9.50,
+          "date": "2025-08-04",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: tailwind 3.5 m/s makes this ineligible per World Athletics rules. Demonstrates wind-rule enforcement.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Boulder, CO",
+            "altitude_m": 1655
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 3.5,
+            "wind_legal": false,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "wind_speed_mps=3.5 exceeds 2.0; wind_legal=false"
+          }
+        },
+        {
+          "performance_id": "11111111-1111-4111-8111-100000000003",
+          "robot_model": "ProRL Combine 2026 — TBD",
+          "manufacturer": "Various (ProRL Combine entrants)",
+          "value": null,
+          "date": "2026-04-19",
+          "validation_status": "unverified",
+          "source_url": "https://pro-rl.com",
+          "sanctioning_body": "ProRL",
+          "notes": "Inaugural ProRL Combine, Boston, 2026-04-19. Results pending ingestion.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Boston, MA",
+            "altitude_m": 43
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "womens-100m",
+      "event_name": "Women's 100 metres",
+      "sport_category": "track-sprint",
+      "season": "summer",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 10.49,
+        "holder": "Florence Griffith-Joyner",
+        "date": "1988-07-16",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-200000000001",
+          "robot_model": "Figure 02 Sprint",
+          "manufacturer": "Figure AI",
+          "value": 10.4895,
+          "date": "2025-11-22",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: marginal Parity case — robot is numerically faster than the human record but within the time_sprint epsilon (1e-4). Demonstrates Parity-beats-Robot-Lead precedence.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Mountain View, CA",
+            "altitude_m": 32
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.5,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-200m",
+      "event_name": "Men's 200 metres",
+      "sport_category": "track-sprint",
+      "season": "summer",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 19.19,
+        "holder": "Usain Bolt",
+        "date": "2009-08-20",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-300000000001",
+          "robot_model": "Boston Dynamics Atlas Athletica",
+          "manufacturer": "Boston Dynamics",
+          "value": 28.90,
+          "date": "2025-09-15",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: 200m time-trial on a regulation 400m oval.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Cambridge, MA",
+            "altitude_m": 12
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.8,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-400m",
+      "event_name": "Men's 400 metres",
+      "sport_category": "track-sprint",
+      "season": "summer",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 43.03,
+        "holder": "Wayde van Niekerk",
+        "date": "2016-08-14",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-400000000001",
+          "robot_model": "Apptronik Apollo Motion",
+          "manufacturer": "Apptronik",
+          "value": 90.50,
+          "date": "2025-10-04",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: full lap time-trial.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Austin, TX",
+            "altitude_m": 149
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 1.2,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-800m",
+      "event_name": "Men's 800 metres",
+      "sport_category": "track-middle-distance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 100.91,
+        "holder": "David Rudisha",
+        "date": "2012-08-09",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-500000000001",
+          "robot_model": "Unitree H1 Sport",
+          "manufacturer": "Unitree Robotics",
+          "value": 240.00,
+          "date": "2025-08-22",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: two-lap time-trial.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Hangzhou, China",
+            "altitude_m": 12
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.4,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-1500m",
+      "event_name": "Men's 1500 metres",
+      "sport_category": "track-middle-distance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 206.00,
+        "holder": "Hicham El Guerrouj",
+        "date": "1998-07-14",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-600000000001",
+          "robot_model": "Unitree H1 Sport",
+          "manufacturer": "Unitree Robotics",
+          "value": 600.00,
+          "date": "2025-08-23",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: 1500m time-trial.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Hangzhou, China",
+            "altitude_m": 12
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.6,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-marathon",
+      "event_name": "Men's Marathon",
+      "sport_category": "track-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 7235,
+        "holder": "Kelvin Kiptum",
+        "date": "2023-10-08",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "womens-marathon",
+      "event_name": "Women's Marathon",
+      "sport_category": "track-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 7796,
+        "holder": "Ruth Chepngetich",
+        "date": "2024-10-13",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-high-jump",
+      "event_name": "Men's High Jump",
+      "sport_category": "field-jump",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 2.45,
+        "holder": "Javier Sotomayor",
+        "date": "1993-07-27",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-700000000001",
+          "robot_model": "Sanctuary Phoenix Track",
+          "manufacturer": "Sanctuary AI",
+          "value": 1.50,
+          "date": "2025-07-19",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: standing approach high jump.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Vancouver, BC",
+            "altitude_m": 70
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-long-jump",
+      "event_name": "Men's Long Jump",
+      "sport_category": "field-jump",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 8.95,
+        "holder": "Mike Powell",
+        "date": "1991-08-30",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-800000000001",
+          "robot_model": "Boston Dynamics Atlas Athletica",
+          "manufacturer": "Boston Dynamics",
+          "value": 4.20,
+          "date": "2025-09-16",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: regulation runway approach.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Cambridge, MA",
+            "altitude_m": 12
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 1.1,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "womens-high-jump",
+      "event_name": "Women's High Jump",
+      "sport_category": "field-jump",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 2.10,
+        "holder": "Yaroslava Mahuchikh",
+        "date": "2024-07-07",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-triple-jump",
+      "event_name": "Men's Triple Jump",
+      "sport_category": "field-jump",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 18.29,
+        "holder": "Jonathan Edwards",
+        "date": "1995-08-07",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-shot-put",
+      "event_name": "Men's Shot Put",
+      "sport_category": "field-throw",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 23.56,
+        "holder": "Ryan Crouser",
+        "date": "2023-05-27",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-900000000001",
+          "robot_model": "Apptronik Apollo Motion",
+          "manufacturer": "Apptronik",
+          "value": 12.50,
+          "date": "2025-10-05",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: regulation 7.26 kg implement, glide technique.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Austin, TX",
+            "altitude_m": 149
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.7,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-javelin",
+      "event_name": "Men's Javelin Throw",
+      "sport_category": "field-throw",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 98.48,
+        "holder": "Jan Železný",
+        "date": "1996-05-25",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-a00000000001",
+          "robot_model": "1X Neo Athletic",
+          "manufacturer": "1X Technologies",
+          "value": 35.00,
+          "date": "2025-09-30",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: regulation 800 g javelin, 4-step approach.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Oslo, Norway",
+            "altitude_m": 23
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.9,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-hammer",
+      "event_name": "Men's Hammer Throw",
+      "sport_category": "field-throw",
+      "season": "summer",
+      "metric_type": "distance",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 86.74,
+        "holder": "Yuriy Sedykh",
+        "date": "1986-08-30",
+        "source_url": "https://worldathletics.org/records/by-category/world-records",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-b00000000001",
+          "robot_model": "Tesla Optimus Gen 3",
+          "manufacturer": "Tesla",
+          "value": 25.00,
+          "date": "2025-10-12",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: regulation 7.26 kg hammer, single-rotation throw.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Austin, TX",
+            "altitude_m": 149
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 0.5,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-50m-freestyle-lcm",
+      "event_name": "Men's 50m Freestyle (Long Course)",
+      "sport_category": "swimming-sprint",
+      "season": "summer",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 20.91,
+        "holder": "César Cielo",
+        "date": "2009-12-18",
+        "source_url": "https://www.worldaquatics.com/swimming/records",
+        "verified_by": "FINA"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-c00000000001",
+          "robot_model": "Sanctuary Phoenix AquaKit",
+          "manufacturer": "Sanctuary AI",
+          "value": 35.50,
+          "date": "2025-08-30",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: bipedal humanoid in experimental aquatic configuration, 50m long-course pool.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "pool",
+            "conditions": "standardized",
+            "location": "Toronto, ON",
+            "altitude_m": 76
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-100m-freestyle-lcm",
+      "event_name": "Men's 100m Freestyle (Long Course)",
+      "sport_category": "swimming-sprint",
+      "season": "summer",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 46.40,
+        "holder": "Pan Zhanle",
+        "date": "2024-07-31",
+        "source_url": "https://www.worldaquatics.com/swimming/records",
+        "verified_by": "FINA"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-d00000000001",
+          "robot_model": "Sanctuary Phoenix AquaKit",
+          "manufacturer": "Sanctuary AI",
+          "value": 78.20,
+          "date": "2025-08-30",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: 100m long-course freestyle.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "pool",
+            "conditions": "standardized",
+            "location": "Toronto, ON",
+            "altitude_m": 76
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-200m-freestyle-lcm",
+      "event_name": "Men's 200m Freestyle (Long Course)",
+      "sport_category": "swimming-middle-distance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 102.00,
+        "holder": "Paul Biedermann",
+        "date": "2009-07-28",
+        "source_url": "https://www.worldaquatics.com/swimming/records",
+        "verified_by": "FINA"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-e00000000001",
+          "robot_model": "Sanctuary Phoenix AquaKit",
+          "manufacturer": "Sanctuary AI",
+          "value": 175.00,
+          "date": "2025-08-30",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: 200m long-course freestyle.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "pool",
+            "conditions": "standardized",
+            "location": "Toronto, ON",
+            "altitude_m": 76
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-1500m-freestyle-lcm",
+      "event_name": "Men's 1500m Freestyle (Long Course)",
+      "sport_category": "swimming-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 871.02,
+        "holder": "Sun Yang",
+        "date": "2012-08-04",
+        "source_url": "https://www.worldaquatics.com/swimming/records",
+        "verified_by": "FINA"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-500m-speed-skating",
+      "event_name": "Men's 500m Speed Skating (Long Track)",
+      "sport_category": "speed-skating",
+      "season": "winter",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 33.61,
+        "holder": "Pavel Kulizhnikov",
+        "date": "2019-03-09",
+        "source_url": "https://www.isu.org/speed-skating/records",
+        "verified_by": "ISU"
+      },
+      "performances": [
+        {
+          "performance_id": "11111111-1111-4111-8111-f00000000001",
+          "robot_model": "Boston Dynamics Atlas IceKit",
+          "manufacturer": "Boston Dynamics",
+          "value": 45.20,
+          "date": "2025-12-08",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: bipedal humanoid with skate-blade end effectors, regulation 400m oval.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "ice",
+            "conditions": "standardized",
+            "location": "Salt Lake City, UT",
+            "altitude_m": 1288
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-archery-70m",
+      "event_name": "Men's Recurve Archery — 70m, 72-arrow ranking round",
+      "sport_category": "archery",
+      "season": "summer",
+      "metric_type": "score",
+      "comparison_direction": "higher_is_better",
+      "human_record": {
+        "value": 702,
+        "holder": "Kim Woo-jin",
+        "date": "2019-06-09",
+        "source_url": "https://www.worldarchery.sport/records",
+        "verified_by": "World Archery"
+      },
+      "performances": [
+        {
+          "performance_id": "22222222-2222-4222-8222-100000000001",
+          "robot_model": "Apptronik Apollo Archer Variant",
+          "manufacturer": "Apptronik",
+          "value": 715,
+          "date": "2025-11-15",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: bipedal humanoid drawing a regulation 48 lb recurve at 70m. Demonstrates Robot Lead status under epsilon=0.01.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Austin, TX",
+            "altitude_m": 149
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": 1.0,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-single-sculls-2000m",
+      "event_name": "Men's Single Sculls — 2000m",
+      "sport_category": "rowing",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 390.74,
+        "holder": "Robbie Manson",
+        "date": "2017-06-18",
+        "source_url": "https://worldrowing.com/events/best-times",
+        "verified_by": "World Rowing"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-500m-short-track",
+      "event_name": "Men's 500m Short Track Speed Skating",
+      "sport_category": "short-track-speed-skating",
+      "season": "winter",
+      "metric_type": "time_sprint",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 39.505,
+        "holder": "Wu Dajing",
+        "date": "2018-02-22",
+        "source_url": "https://www.isu.org/short-track/records",
+        "verified_by": "ISU"
+      },
+      "performances": [
+        {
+          "performance_id": "33333333-3333-4333-8333-100000000001",
+          "robot_model": "Boston Dynamics Atlas IceKit",
+          "manufacturer": "Boston Dynamics",
+          "value": 50.00,
+          "date": "2025-12-08",
+          "validation_status": "experimental",
+          "source_url": null,
+          "sanctioning_body": null,
+          "notes": "Illustrative seed: bipedal humanoid with short-track skate blades, regulation 111m oval.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "ice",
+            "conditions": "standardized",
+            "location": "Salt Lake City, UT",
+            "altitude_m": 1288
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
+    }
+  ]
+}

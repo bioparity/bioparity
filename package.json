@@ -1,0 +1,32 @@
+{
+  "name": "bioparity",
+  "version": "0.1.0",
+  "private": false,
+  "license": "MIT",
+  "type": "module",
+  "description": "A public, auditable ledger tracking when humanoid bipedal robots match human Olympic world records.",
+  "homepage": "https://bioparity.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bioparity/bioparity.git"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "node scripts/build-og.js && next build",
+    "start": "next start",
+    "test": "node --test tests/*.test.js",
+    "build-og": "node scripts/build-og.js"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "recharts": "2.13.0"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "2.6.2",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.13"
+  }
+}
