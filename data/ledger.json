@@ -377,6 +377,55 @@
       "performances": []
     },
     {
+      "event_id": "mens-half-marathon",
+      "event_name": "Men's Half Marathon",
+      "sport_category": "athletics",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 3440,
+        "holder": "Jacob Kiplimo",
+        "date": "2026-03-08",
+        "source_url": "https://worldathletics.org/competitions/world-athletics-label-road-races/news/jacob-kiplimo-half-marathon-world-record-lisbon",
+        "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "44444444-4444-4444-8444-100000000001",
+          "robot_model": "Flash",
+          "manufacturer": "Honor",
+          "value": 3026,
+          "date": "2026-04-19",
+          "validation_status": "experimental",
+          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "sanctioning_body": "Beijing E-Town Half Marathon",
+          "notes": "Real event: winning autonomous-navigation robot at the 2026 Beijing E-Town Half Marathon and Humanoid Robot Half Marathon, April 19, 2026. Completed the 21.0975km course in 50:26. First widely-documented humanoid bipedal robot to beat the human half marathon world record numerically. Ineligible under strict methodology: race used parallel separated lanes (not a direct comparable environment) and was organized by Beijing E-Town, not sanctioned by World Athletics.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "road",
+            "conditions": "variable",
+            "location": "Beijing E-Town, Yizhuang, Beijing, China",
+            "altitude_m": 45
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": false,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "surface_standardized=false: race was run on parallel separated lanes from human competitors, not a directly comparable race environment. Additionally, race organized by Beijing E-Town, not sanctioned by World Athletics."
+          }
+        }
+      ]
+    },
+    {
       "event_id": "womens-marathon",
       "event_name": "Women's Marathon",
       "sport_category": "track-endurance",

@@ -255,11 +255,17 @@ test('5. precedence: outside epsilon and faster (lower_is_better) = Robot Lead',
 // ---------------------------------------------------------------------------
 // 6. Selection determinism — same input always same best
 // ---------------------------------------------------------------------------
-test('6. selection determinism: lower_is_better picks the lowest eligible value', () => {
+test('6. selection determinism: lower_is_better picks the lowest eligible value (verified set)', () => {
+  const verified = (overrides) => basePerformance({
+    validation_status: 'verified',
+    source_url: 'https://example.org/record',
+    sanctioning_body: 'World Athletics',
+    ...overrides,
+  });
   const perfs = [
-    basePerformance({ value: 11.0, date: '2025-01-01' }),
-    basePerformance({ value: 9.5, date: '2025-02-01' }),
-    basePerformance({ value: 10.0, date: '2025-03-01' }),
+    verified({ value: 11.0, date: '2025-01-01' }),
+    verified({ value: 9.5, date: '2025-02-01' }),
+    verified({ value: 10.0, date: '2025-03-01' }),
   ];
   const r1 = selectBestPerformance(perfs, 'lower_is_better');
   const r2 = selectBestPerformance(perfs.slice().reverse(), 'lower_is_better');
@@ -281,7 +287,7 @@ test('6. selection determinism: higher_is_better picks the highest eligible valu
 // ---------------------------------------------------------------------------
 // 7. Fallback flag: experimental chosen when no eligible row exists
 // ---------------------------------------------------------------------------
-test('7. fallback: when no eligible+validated row, best experimental ineligible row is selected with fallback=true', () => {
+test('7. selection: ineligible experimental rows are NEVER selected as best (eligibility required for both primary AND fallback)', () => {
   const perfs = [
     basePerformance({
       value: 9.0,
@@ -291,11 +297,45 @@ test('7. fallback: when no eligible+validated row, best experimental ineligible 
     }),
   ];
   const r = selectBestPerformance(perfs, 'lower_is_better');
+  assert.equal(r.performance, null);
+  assert.equal(r.fallback, false);
+});
+
+test('7. selection: experimental+eligible row is selected as fallback when no verified row exists', () => {
+  const perfs = [
+    basePerformance({
+      value: 9.0,
+      validation_status: 'experimental',
+      record_eligibility: { eligible: true, reason: null },
+    }),
+  ];
+  const r = selectBestPerformance(perfs, 'lower_is_better');
   assert.equal(r.performance.value, 9.0);
   assert.equal(r.fallback, true);
 });
 
-test('7. fallback: unverified rows are NEVER selected (even with eligible=true)', () => {
+test('7. selection: verified+eligible is preferred over experimental+eligible even when experimental is better', () => {
+  const perfs = [
+    basePerformance({
+      value: 10.0,
+      validation_status: 'verified',
+      source_url: 'https://example.org/record',
+      sanctioning_body: 'World Athletics',
+      record_eligibility: { eligible: true, reason: null },
+    }),
+    basePerformance({
+      value: 9.0,
+      validation_status: 'experimental',
+      record_eligibility: { eligible: true, reason: null },
+    }),
+  ];
+  const r = selectBestPerformance(perfs, 'lower_is_better');
+  assert.equal(r.performance.value, 10.0);
+  assert.equal(r.performance.validation_status, 'verified');
+  assert.equal(r.fallback, false);
+});
+
+test('7. selection: unverified rows are NEVER selected (even with eligible=true)', () => {
   const perfs = [
     basePerformance({
       value: 9.0,
@@ -560,4 +600,63 @@ test('12. ledger seed contains the ProRL Combine 2026 pending entry on mens-100m
   assert.equal(prorl.value, null);
   assert.equal(prorl.validation_status, 'unverified');
   assert.match(prorl.source_url || '', /pro-rl/);
+});
+
+// ---------------------------------------------------------------------------
+// 13. Real-event case: men's half marathon — Kiplimo (human WR) vs Honor Flash
+//     (Beijing E-Town, ineligible). The robot is faster but the surface is not
+//     standardized, so it must NOT be selected as best and the event must
+//     resolve to "Human Lead (no eligible robot performance)".
+// ---------------------------------------------------------------------------
+test('13. half marathon event loads from the seed without throwing', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  assert.ok(ev, 'mens-half-marathon must exist in the ledger');
+  assert.equal(ev.human_record.holder, 'Jacob Kiplimo');
+  assert.equal(ev.human_record.value, 3440);
+  assert.equal(ev.human_record.verified_by, 'World Athletics');
+});
+
+test('13. Honor Flash performance passes hard-fail validation', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const flash = ev.performances.find(p => p.robot_model === 'Flash');
+  assert.ok(flash, 'Flash performance must exist');
+  assert.equal(passesHardFail(flash), true);
+});
+
+test('13. Honor Flash record_eligibility resolves to false on surface_standardized', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const flash = ev.performances.find(p => p.robot_model === 'Flash');
+  const elig = checkEligibility(flash);
+  assert.equal(elig.eligible, false);
+  assert.match(elig.reason, /surface_standardized=false/);
+});
+
+test('13. selectBestPerformance returns null for the half marathon (no eligible row)', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const sel = selectBestPerformance(ev.performances, ev.comparison_direction);
+  assert.equal(sel.performance, null);
+  assert.equal(sel.fallback, false);
+});
+
+test('13. computeStatus returns "Human Lead (no eligible robot performance)" for the half marathon', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const result = computeStatus(ev);
+  assert.equal(result.status, STATUS.HUMAN_LEAD_NO_ELIGIBLE);
+  assert.equal(result.best_robot, null);
+});
+
+test('13. Flash row is preserved in event.performances (not filtered out) so the UI can render it as ineligible', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  assert.ok(ev.performances.length >= 1, 'performances array must retain ineligible attempts');
+  const flash = ev.performances.find(p => p.robot_model === 'Flash');
+  assert.ok(flash, 'Flash row must remain in event.performances even though ineligible');
+  assert.equal(flash.value, 3026);
+  assert.equal(flash.manufacturer, 'Honor');
+  assert.equal(flash.sanctioning_body, 'Beijing E-Town Half Marathon');
 });

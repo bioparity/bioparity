@@ -16,7 +16,7 @@ const SEASON_DOT = {
 
 export default function EventCard({ event }) {
   const { computed } = event;
-  const { status, best_robot, delta_to_parity, percent_to_parity, fallback } = computed;
+  const { status, best_robot, delta_to_parity, percent_to_parity } = computed;
   const styleKey = status in STATUS_STYLES ? status : 'Human Lead';
   const badgeClass = STATUS_STYLES[styleKey];
   const shortStatus = status.startsWith('Human Lead (no')
@@ -81,11 +81,6 @@ export default function EventCard({ event }) {
         </div>
       )}
 
-      {fallback && (
-        <div className="mt-3 text-[10px] uppercase tracking-wider text-warn">
-          Fallback: experimental
-        </div>
-      )}
     </a>
   );
 }

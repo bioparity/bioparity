@@ -105,11 +105,6 @@ export default function EventPage({ params }) {
                 <span className="text-paper font-mono">{formatDelta(computed.delta_to_parity, event.metric_type)}</span>{' '}
                 <span className="text-dim">({formatPercent(computed.percent_to_parity)})</span>
               </div>
-              {computed.fallback && (
-                <div className="text-[10px] uppercase tracking-wider text-warn mt-2">
-                  Fallback: experimental
-                </div>
-              )}
             </>
           ) : (
             <div className="text-sm text-faint italic">No selectable performance.</div>
@@ -126,6 +121,57 @@ export default function EventPage({ params }) {
           <a href="/submit" className="underline hover:text-paper not-italic">submit a verified performance</a>.
         </p>
       )}
+
+      {(() => {
+        const ineligible = (event.performances || []).filter(p =>
+          p && p.value !== null && p.value !== undefined && p.record_eligibility && p.record_eligibility.eligible === false
+        );
+        if (ineligible.length === 0) return null;
+        return (
+          <section className="mt-10">
+            <h2 className="text-xs uppercase tracking-widest text-dim mb-3">Ineligible attempts</h2>
+            <div className="space-y-3">
+              {ineligible.map(p => (
+                <div key={p.performance_id} className="border border-rule rounded-lg p-5 bg-panel">
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <div className="min-w-0">
+                      <div className="text-3xl font-mono tabular-nums text-paper">{formatValue(p.value, event.metric_type)}</div>
+                      <div className="text-sm text-muted mt-2">{p.robot_model}</div>
+                      <div className="text-xs text-dim mt-1">
+                        {formatDate(p.date)} · {p.manufacturer}
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end gap-2 shrink-0">
+                      <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 border rounded bg-red-500/15 text-red-400 border-red-500/40 whitespace-nowrap">
+                        Ineligible
+                      </span>
+                      <ValidationBadge status={p.validation_status} />
+                    </div>
+                  </div>
+                  {p.record_eligibility.reason && (
+                    <p className="text-xs text-warn italic mt-3 leading-relaxed">
+                      {p.record_eligibility.reason}
+                    </p>
+                  )}
+                  {p.notes && (
+                    <p className="text-xs text-dim mt-3 leading-relaxed">{p.notes}</p>
+                  )}
+                  {p.source_url && (
+                    <a
+                      href={p.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs underline text-dim hover:text-paper mt-3 inline-block"
+                    >
+                      Source: {p.sanctioning_body || 'view'} →
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {projection.projected_year && (
         <section className="mt-10">
