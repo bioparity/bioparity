@@ -112,7 +112,7 @@ export default function EventPage({ params }) {
         </div>
       </div>
 
-      {computed.best_robot && computed.best_robot.validation_status !== 'verified' && (
+      {computed.best_robot && computed.best_robot.validation_status !== 'verified' && computed.best_robot.source_url === null && (
         <p className="text-xs text-dim italic mt-3 leading-relaxed">
           This performance is illustrative seed data, not a cited event. Real robot attempts
           require a citation from a recognized sanctioning body — see{' '}

@@ -772,3 +772,91 @@ test('15. priority: live mens-half-marathon (Flash cited) scores >= 50', () => {
   const score = computeEventPriority(ev);
   assert.ok(score >= 50, 'mens-half-marathon priority expected >= 50, got ' + score);
 });
+
+// ---------------------------------------------------------------------------
+// 16. Recency bonus: any performance dated within the last 30 days adds +5.
+//     Surfaces today's news above older real-data events when their other
+//     priority components tie.
+// ---------------------------------------------------------------------------
+function isoDaysAgo(n) {
+  return new Date(Date.now() - n * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+test('16. recency: a performance dated within 30 days adds +5 over the same event with an older date', () => {
+  const evRecent = baseEvent({ performances: [basePerformance({ date: isoDaysAgo(5) })] });
+  const evOld = baseEvent({ performances: [basePerformance({ date: '2020-01-01' })] });
+  const diff = computeEventPriority(evRecent) - computeEventPriority(evOld);
+  assert.equal(diff, 5);
+});
+
+test('16. recency: a performance older than 30 days does NOT add the recency bonus', () => {
+  // value=50 vs baseEvent.human_record.value=10 → status is Human Lead (avoids Parity +25)
+  const ev = baseEvent({ performances: [basePerformance({ date: isoDaysAgo(60), value: 50.0 })] });
+  // No verified, no source_url, no Parity/RobotLead, +10 for compliant attempt, no recency = 10
+  assert.equal(computeEventPriority(ev), 10);
+});
+
+test('16. recency: live mens-half-marathon (Flash dated 2026-04-19) ranks above mens-1500m (H1 2025-08-15) when build is within 30 days of Flash', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const half = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const m1500 = ledger.events.find(e => e.event_id === 'mens-1500m');
+  // The recency window is rolling — only assert ordering when we are still inside it.
+  const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+  const flashWithinWindow = Date.parse('2026-04-19') >= cutoff;
+  if (flashWithinWindow) {
+    assert.ok(
+      computeEventPriority(half) > computeEventPriority(m1500),
+      'with Flash inside the recency window, half-marathon must outrank 1500m'
+    );
+  } else {
+    // Outside the window the two scores tie at 60; either ordering is acceptable.
+    assert.equal(computeEventPriority(half), computeEventPriority(m1500));
+  }
+});
+
+// ---------------------------------------------------------------------------
+// 17. Disclaimer gating: the "illustrative seed data" disclaimer should fire
+//     only on rows with source_url === null. Real cited entries (H1, Flash)
+//     must have a non-null source_url so the disclaimer is suppressed.
+// ---------------------------------------------------------------------------
+test('17. disclaimer gating: H1 (mens-1500m best) has non-null source_url so the disclaimer is suppressed', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-1500m');
+  const best = computeStatus(ev).best_robot;
+  assert.ok(best, 'mens-1500m must select a best robot');
+  assert.notEqual(best.source_url, null, 'H1 must have a non-null source_url for the disclaimer to suppress');
+});
+
+test('17. disclaimer gating: Flash (mens-half-marathon ineligible) has non-null source_url', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
+  const flash = ev.performances.find(p => p.robot_model === 'Flash');
+  assert.notEqual(flash.source_url, null, 'Flash must have a non-null source_url');
+});
+
+test('17. disclaimer gating: a placeholder row (Humanoid C on womens-100m) has null source_url so the disclaimer DOES fire', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'womens-100m');
+  const best = computeStatus(ev).best_robot;
+  assert.ok(best, 'womens-100m must select a best robot');
+  assert.equal(best.source_url, null, 'Humanoid C placeholder must have null source_url to trigger the disclaimer');
+});
+
+// ---------------------------------------------------------------------------
+// 18. ProRL Combine 2026 placeholder is restored on mens-100m as a strategic
+//     signal to the Professional Robotics League. value=null, unverified,
+//     ineligible (pending). Must not be selected; must not affect Cassie's
+//     selection as best.
+// ---------------------------------------------------------------------------
+test('18. mens-100m contains the ProRL Combine 2026 placeholder with value=null', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const m100 = ledger.events.find(e => e.event_id === 'mens-100m');
+  const prorl = (m100.performances || []).find(p => p.sanctioning_body === 'ProRL');
+  assert.ok(prorl, 'ProRL Combine entry must exist on mens-100m');
+  assert.equal(prorl.value, null);
+  assert.equal(prorl.validation_status, 'unverified');
+  assert.match(prorl.source_url || '', /pro-rl/);
+  // Cassie must still be selected as best despite ProRL being present
+  const result = computeStatus(m100);
+  assert.equal(result.best_robot.robot_model, 'Cassie');
+});

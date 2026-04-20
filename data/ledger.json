@@ -80,6 +80,38 @@
             "eligible": true,
             "reason": null
           }
+        },
+        {
+          "performance_id": "88888888-8888-4888-8888-100000000001",
+          "robot_model": "ProRL Combine Participant (pending)",
+          "manufacturer": "Pending",
+          "value": null,
+          "date": "2026-04-19",
+          "validation_status": "unverified",
+          "source_url": "https://pro-rl.com",
+          "sanctioning_body": "ProRL",
+          "notes": "Placeholder for the inaugural ProRL Combine, Boston Seaport District, April 19, 2026. Awaiting ingestion of verified results. ProRL is recognized as a sanctioning body for robotic athletic performances; this ledger is wired to receive ProRL-sanctioned entries directly.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "road",
+            "conditions": "standardized",
+            "location": "Boston Seaport District, Boston, Massachusetts, USA",
+            "altitude_m": 3
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "Pending result ingestion. No recorded time yet."
+          }
         }
       ]
     },
