@@ -660,3 +660,48 @@ test('13. Flash row is preserved in event.performances (not filtered out) so the
   assert.equal(flash.manufacturer, 'Honor');
   assert.equal(flash.sanctioning_body, 'Beijing E-Town Half Marathon');
 });
+
+// ---------------------------------------------------------------------------
+// 14. Historical real performances: Cassie (Guinness, 2022, verified) on
+//     mens-100m must beat Tiangong (experimental) and the placeholders, even
+//     though placeholders are numerically faster. Unitree H1 (experimental) on
+//     mens-1500m must be selected via fallback path over the slower placeholder.
+// ---------------------------------------------------------------------------
+test('14. mens-100m: Cassie (verified+eligible) is selected as best over experimental Tiangong and faster experimental placeholders', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-100m');
+  const result = computeStatus(ev);
+  assert.ok(result.best_robot, 'mens-100m must select a best robot');
+  assert.equal(result.best_robot.robot_model, 'Cassie');
+  assert.equal(result.best_robot.value, 24.73);
+  assert.equal(result.best_robot.validation_status, 'verified');
+  assert.equal(result.best_robot.sanctioning_body, 'Guinness World Records');
+  assert.equal(result.fallback, false);
+  assert.equal(result.status, STATUS.HUMAN_LEAD);
+});
+
+test('14. Cassie 100m row passes hard-fail and eligibility individually', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-100m');
+  const cassie = ev.performances.find(p => p.robot_model === 'Cassie');
+  assert.ok(cassie, 'Cassie performance must exist');
+  assert.equal(passesHardFail(cassie), true);
+  const elig = checkEligibility(cassie);
+  assert.equal(elig.eligible, true);
+  assert.equal(elig.reason, null);
+  assert.equal(cassie.manufacturer, 'Agility Robotics');
+  assert.equal(cassie.date, '2022-09-28');
+});
+
+test('14. mens-1500m: Unitree H1 (experimental+eligible) is selected via fallback over slower placeholder', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const ev = ledger.events.find(e => e.event_id === 'mens-1500m');
+  const result = computeStatus(ev);
+  assert.ok(result.best_robot, 'mens-1500m must select a best robot');
+  assert.equal(result.best_robot.robot_model, 'H1');
+  assert.equal(result.best_robot.manufacturer, 'Unitree Robotics');
+  assert.equal(result.best_robot.value, 394.4);
+  assert.equal(result.best_robot.validation_status, 'experimental');
+  assert.equal(result.fallback, true);
+  assert.equal(result.status, STATUS.HUMAN_LEAD);
+});

@@ -26,7 +26,7 @@
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. indoor straightaway sprint demo, single-camera timing. Not validated by a sanctioning body.",
+          "notes": "Illustrative seed placeholder. Superseded in display by the verified Cassie (Guinness, 2022) entry; retained for methodology demonstration and selection-logic integrity. Original premise: indoor straightaway sprint demo, single-camera timing.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -58,7 +58,7 @@
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. tailwind 3.5 m/s makes this ineligible per World Athletics rules. Demonstrates wind-rule enforcement.",
+          "notes": "Illustrative seed placeholder. Superseded in display by the verified Cassie (Guinness, 2022) entry; retained for methodology demonstration and selection-logic integrity. Original premise: tailwind 3.5 m/s makes this ineligible per World Athletics rules. Demonstrates wind-rule enforcement.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -101,6 +101,70 @@
             "conditions": "standardized",
             "location": "Boston, MA",
             "altitude_m": 43
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        },
+        {
+          "performance_id": "55555555-5555-4555-8555-100000000001",
+          "robot_model": "Cassie",
+          "manufacturer": "Agility Robotics",
+          "value": 24.73,
+          "date": "2022-09-28",
+          "validation_status": "verified",
+          "source_url": "https://news.oregonstate.edu/news/bipedal-robot-developed-oregon-state-achieves-guinness-world-record-100-meters",
+          "sanctioning_body": "Guinness World Records",
+          "notes": "Guinness World Record for fastest 100m by a bipedal robot, set at Oregon State University's Whyte Track and Field Center. Cassie started from a standing position, ran the 100m, and returned to a standing position without falling. Developed under Agility Robotics and OSU College of Engineering (Jonathan Hurst, Alan Fern). First bipedal robot to use machine learning to control a running gait on outdoor terrain. Record remains standing as of April 2026 (peak speed claims by other robots do not establish ratified 100m times).",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "Whyte Track and Field Center, Oregon State University, Corvallis, Oregon, USA",
+            "altitude_m": 70
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        },
+        {
+          "performance_id": "66666666-6666-4666-8666-100000000001",
+          "robot_model": "Tiangong Ultra",
+          "manufacturer": "Beijing Innovation Center of Humanoid Robots",
+          "value": 26.87,
+          "date": "2025-08-15",
+          "validation_status": "experimental",
+          "source_url": "https://www.globaltimes.cn/page/202508/1341057.shtml",
+          "sanctioning_body": "World Humanoid Robot Games",
+          "notes": "Actual raw 100m time of 26.87s at the inaugural 2025 World Humanoid Robot Games in Beijing (August 15-17, 2025). The Games awarded Tiangong Ultra a 'winning' time of 21.50s under a time-credit bonus for full autonomy compared to remote-controlled entrants — that 21.50s figure is NOT a comparable 100m time and is excluded from this ledger. The raw 26.87s is the actual course completion time and is recorded here as experimental because the event is not a recognized governing-body record but is a real, publicly documented competition.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "National Speed Skating Oval, Beijing, China",
+            "altitude_m": 44
           },
           "conditions_adjustment": {
             "wind_speed_mps": null,
@@ -335,7 +399,7 @@
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. 1500m time-trial.",
+          "notes": "Illustrative seed placeholder. Superseded in display by the H1 (experimental, 2025 World Humanoid Robot Games) entry; retained for methodology demonstration and selection-logic integrity. Original premise: 1500m time-trial.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -350,6 +414,38 @@
           "conditions_adjustment": {
             "wind_speed_mps": 0.6,
             "wind_legal": true,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        },
+        {
+          "performance_id": "77777777-7777-4777-8777-100000000001",
+          "robot_model": "H1",
+          "manufacturer": "Unitree Robotics",
+          "value": 394.4,
+          "date": "2025-08-15",
+          "validation_status": "experimental",
+          "source_url": "https://english.news.cn/20250818/158ade6ea3324b0686eeccde7185035c/c.html",
+          "sanctioning_body": "World Humanoid Robot Games",
+          "notes": "Gold medal, men's 1500m at the inaugural 2025 World Humanoid Robot Games in Beijing. Operated by team Lingyi Technology using a Unitree H1 humanoid. Team reported challenges with bend running, stride frequency, and stability at distance. First widely documented 1500m by a humanoid bipedal robot.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "National Speed Skating Oval, Beijing, China",
+            "altitude_m": 44
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
             "surface_standardized": true,
             "equipment_compliant": true
           },
