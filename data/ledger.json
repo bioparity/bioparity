@@ -19,14 +19,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-100000000001",
-          "robot_model": "Tesla Optimus Gen 3",
-          "manufacturer": "Tesla",
+          "robot_model": "Humanoid A",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 14.50,
           "date": "2025-09-12",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: indoor straightaway sprint demo, single-camera timing. Not validated by a sanctioning body.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. indoor straightaway sprint demo, single-camera timing. Not validated by a sanctioning body.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -35,7 +35,7 @@
           "environment": {
             "surface": "track",
             "conditions": "standardized",
-            "location": "Tesla Gigafactory, Austin TX",
+            "location": "Austin, TX",
             "altitude_m": 149
           },
           "conditions_adjustment": {
@@ -51,14 +51,14 @@
         },
         {
           "performance_id": "11111111-1111-4111-8111-100000000002",
-          "robot_model": "Helios Sprint Mk2",
-          "manufacturer": "Helios Robotics",
+          "robot_model": "Humanoid B",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 9.50,
           "date": "2025-08-04",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: tailwind 3.5 m/s makes this ineligible per World Athletics rules. Demonstrates wind-rule enforcement.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. tailwind 3.5 m/s makes this ineligible per World Athletics rules. Demonstrates wind-rule enforcement.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -83,8 +83,8 @@
         },
         {
           "performance_id": "11111111-1111-4111-8111-100000000003",
-          "robot_model": "ProRL Combine 2026 — TBD",
-          "manufacturer": "Various (ProRL Combine entrants)",
+          "robot_model": "ProRL Combine Participant (pending)",
+          "manufacturer": "Placeholder Manufacturer",
           "value": null,
           "date": "2026-04-19",
           "validation_status": "unverified",
@@ -132,14 +132,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-200000000001",
-          "robot_model": "Figure 02 Sprint",
-          "manufacturer": "Figure AI",
+          "robot_model": "Humanoid C",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 10.4895,
           "date": "2025-11-22",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: marginal Parity case — robot is numerically faster than the human record but within the time_sprint epsilon (1e-4). Demonstrates Parity-beats-Robot-Lead precedence.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. marginal Parity case — robot is numerically faster than the human record but within the time_sprint epsilon (1e-4). Demonstrates Parity-beats-Robot-Lead precedence.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -181,14 +181,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-300000000001",
-          "robot_model": "Boston Dynamics Atlas Athletica",
-          "manufacturer": "Boston Dynamics",
+          "robot_model": "Humanoid D",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 28.90,
           "date": "2025-09-15",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: 200m time-trial on a regulation 400m oval.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. 200m time-trial on a regulation 400m oval.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -230,14 +230,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-400000000001",
-          "robot_model": "Apptronik Apollo Motion",
-          "manufacturer": "Apptronik",
+          "robot_model": "Humanoid E",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 90.50,
           "date": "2025-10-04",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: full lap time-trial.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. full lap time-trial.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -279,14 +279,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-500000000001",
-          "robot_model": "Unitree H1 Sport",
-          "manufacturer": "Unitree Robotics",
+          "robot_model": "Humanoid F",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 240.00,
           "date": "2025-08-22",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: two-lap time-trial.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. two-lap time-trial.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -328,14 +328,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-600000000001",
-          "robot_model": "Unitree H1 Sport",
-          "manufacturer": "Unitree Robotics",
+          "robot_model": "Humanoid F",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 600.00,
           "date": "2025-08-23",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: 1500m time-trial.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. 1500m time-trial.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -409,14 +409,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-700000000001",
-          "robot_model": "Sanctuary Phoenix Track",
-          "manufacturer": "Sanctuary AI",
+          "robot_model": "Humanoid G",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 1.50,
           "date": "2025-07-19",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: standing approach high jump.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. standing approach high jump.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -458,14 +458,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-800000000001",
-          "robot_model": "Boston Dynamics Atlas Athletica",
-          "manufacturer": "Boston Dynamics",
+          "robot_model": "Humanoid D",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 4.20,
           "date": "2025-09-16",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: regulation runway approach.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. regulation runway approach.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -539,14 +539,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-900000000001",
-          "robot_model": "Apptronik Apollo Motion",
-          "manufacturer": "Apptronik",
+          "robot_model": "Humanoid E",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 12.50,
           "date": "2025-10-05",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: regulation 7.26 kg implement, glide technique.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. regulation 7.26 kg implement, glide technique.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -588,14 +588,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-a00000000001",
-          "robot_model": "1X Neo Athletic",
-          "manufacturer": "1X Technologies",
+          "robot_model": "Humanoid H",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 35.00,
           "date": "2025-09-30",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: regulation 800 g javelin, 4-step approach.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. regulation 800 g javelin, 4-step approach.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -637,14 +637,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-b00000000001",
-          "robot_model": "Tesla Optimus Gen 3",
-          "manufacturer": "Tesla",
+          "robot_model": "Humanoid A",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 25.00,
           "date": "2025-10-12",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: regulation 7.26 kg hammer, single-rotation throw.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. regulation 7.26 kg hammer, single-rotation throw.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -686,14 +686,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-c00000000001",
-          "robot_model": "Sanctuary Phoenix AquaKit",
-          "manufacturer": "Sanctuary AI",
+          "robot_model": "Humanoid I",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 35.50,
           "date": "2025-08-30",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: bipedal humanoid in experimental aquatic configuration, 50m long-course pool.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. bipedal humanoid in experimental aquatic configuration, 50m long-course pool.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -735,14 +735,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-d00000000001",
-          "robot_model": "Sanctuary Phoenix AquaKit",
-          "manufacturer": "Sanctuary AI",
+          "robot_model": "Humanoid I",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 78.20,
           "date": "2025-08-30",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: 100m long-course freestyle.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. 100m long-course freestyle.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -784,14 +784,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-e00000000001",
-          "robot_model": "Sanctuary Phoenix AquaKit",
-          "manufacturer": "Sanctuary AI",
+          "robot_model": "Humanoid I",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 175.00,
           "date": "2025-08-30",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: 200m long-course freestyle.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. 200m long-course freestyle.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -849,14 +849,14 @@
       "performances": [
         {
           "performance_id": "11111111-1111-4111-8111-f00000000001",
-          "robot_model": "Boston Dynamics Atlas IceKit",
-          "manufacturer": "Boston Dynamics",
+          "robot_model": "Humanoid J",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 45.20,
           "date": "2025-12-08",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: bipedal humanoid with skate-blade end effectors, regulation 400m oval.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. bipedal humanoid with skate-blade end effectors, regulation 400m oval.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -898,14 +898,14 @@
       "performances": [
         {
           "performance_id": "22222222-2222-4222-8222-100000000001",
-          "robot_model": "Apptronik Apollo Archer Variant",
-          "manufacturer": "Apptronik",
+          "robot_model": "Humanoid K",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 715,
           "date": "2025-11-15",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: bipedal humanoid drawing a regulation 48 lb recurve at 70m. Demonstrates Robot Lead status under epsilon=0.01.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. bipedal humanoid drawing a regulation 48 lb recurve at 70m. Demonstrates Robot Lead status under epsilon=0.01.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -963,14 +963,14 @@
       "performances": [
         {
           "performance_id": "33333333-3333-4333-8333-100000000001",
-          "robot_model": "Boston Dynamics Atlas IceKit",
-          "manufacturer": "Boston Dynamics",
+          "robot_model": "Humanoid J",
+          "manufacturer": "Placeholder Manufacturer",
           "value": 50.00,
           "date": "2025-12-08",
           "validation_status": "experimental",
           "source_url": null,
           "sanctioning_body": null,
-          "notes": "Illustrative seed: bipedal humanoid with short-track skate blades, regulation 111m oval.",
+          "notes": "Illustrative seed data — placeholder, not a real recorded attempt. Awaiting a cited submission from a recognized sanctioning body. bipedal humanoid with short-track skate blades, regulation 111m oval.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",

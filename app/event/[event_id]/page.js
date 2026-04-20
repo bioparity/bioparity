@@ -5,6 +5,7 @@ import { project } from '../../../lib/predict.js';
 import { formatValue, formatDelta, formatPercent, formatDate } from '../../../lib/format.js';
 import PerformanceTable from '../../../components/PerformanceTable.js';
 import ProjectionChart from '../../../components/ProjectionChart.js';
+import ValidationBadge from '../../../components/ValidationBadge.js';
 
 function getLedger() {
   return loadLedger(path.join(process.cwd(), 'data', 'ledger.json'));
@@ -86,7 +87,12 @@ export default function EventPage({ params }) {
           </div>
         </div>
         <div className="border border-rule rounded-lg p-5 bg-panel">
-          <div className="text-xs uppercase tracking-wider text-dim mb-2">Best robot performance</div>
+          <div className="flex items-start justify-between gap-3 mb-2">
+            <div className="text-xs uppercase tracking-wider text-dim">Best robot performance</div>
+            {computed.best_robot && computed.best_robot.validation_status !== 'verified' && (
+              <ValidationBadge status={computed.best_robot.validation_status} />
+            )}
+          </div>
           {computed.best_robot ? (
             <>
               <div className="text-3xl font-mono tabular-nums">{formatValue(computed.best_robot.value, event.metric_type)}</div>
@@ -110,6 +116,16 @@ export default function EventPage({ params }) {
           )}
         </div>
       </div>
+
+      {computed.best_robot && computed.best_robot.validation_status !== 'verified' && (
+        <p className="text-xs text-dim italic mt-3 leading-relaxed">
+          This performance is illustrative seed data, not a cited event. Real robot attempts
+          require a citation from a recognized sanctioning body — see{' '}
+          <a href="/methodology" className="underline hover:text-paper not-italic">methodology</a>{' '}
+          or{' '}
+          <a href="/submit" className="underline hover:text-paper not-italic">submit a verified performance</a>.
+        </p>
+      )}
 
       {projection.projected_year && (
         <section className="mt-10">

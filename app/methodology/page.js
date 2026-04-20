@@ -26,6 +26,26 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
+        <h2 className="text-xl font-semibold tracking-tight">Seed data vs. verified performances</h2>
+        <p className="text-muted leading-relaxed mt-3">
+          The site you are reading right now is a seed release. Every <em className="text-paper not-italic">human</em> world record in the ledger is real, current as of publication, and cited to its sanctioning body. Every <em className="text-paper not-italic">robot</em> performance, by contrast, is an illustrative placeholder — generated to exercise the validation engine across the full range of status cases:
+        </p>
+        <ul className="list-disc pl-6 mt-3 text-muted space-y-1">
+          <li><span className="text-paper">Parity</span> — a robot within the metric-type epsilon, even if numerically better</li>
+          <li><span className="text-paper">Robot Lead</span> — outside epsilon and beating the human</li>
+          <li><span className="text-paper">Fallback</span> — best experimental row when no eligible+validated row exists</li>
+          <li><span className="text-paper">Eligibility fail</span> — a wind, surface, or equipment violation that would otherwise win</li>
+          <li><span className="text-paper">Hard fail</span> — non-bipedal, tethered, or terrain-mismatched submissions that never enter the ledger at all</li>
+        </ul>
+        <p className="text-muted leading-relaxed mt-4">
+          A row graduates from <span className="text-warn">experimental</span> or <span className="text-orange-500">unverified</span> to <span className="text-robot">verified</span> when a contributor opens a pull request supplying a <code className="text-paper">source_url</code> from one of the recognized sanctioning bodies listed below. Until that happens, every robot card on the site carries a clear validation badge so a casual reader can tell a placeholder from a sanctioned record at a glance.
+        </p>
+        <p className="text-muted leading-relaxed mt-4 text-sm">
+          The infrastructure — schema, validator, projection engine, audit trail, contribution flow — is ready and tested. The data pipeline is open. Real performances are welcome via PR; see <a href="/submit" className="underline hover:text-paper">/submit</a>.
+        </p>
+      </section>
+
+      <section className="mt-10">
         <h2 className="text-xl font-semibold tracking-tight">Hard fail constraints</h2>
         <p className="text-muted leading-relaxed mt-3">
           A robot performance is rejected outright — never enters the ledger — if any of:
