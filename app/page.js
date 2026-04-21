@@ -2,7 +2,6 @@ import path from 'node:path';
 import { loadLedger, computeStatus, summarizeLedger, computeEventPriority } from '../lib/engine.js';
 import ParityMeter from '../components/ParityMeter.js';
 import FilterBar from '../components/FilterBar.js';
-import SeedDataBanner from '../components/SeedDataBanner.js';
 
 function loadData() {
   const ledgerPath = path.join(process.cwd(), 'data', 'ledger.json');
@@ -41,7 +40,6 @@ export default function HomePage() {
       </section>
 
       <section className="mb-10 md:mb-14">
-        <SeedDataBanner />
         <ParityMeter summary={summary} />
       </section>
 

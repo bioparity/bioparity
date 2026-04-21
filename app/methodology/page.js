@@ -26,9 +26,77 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Seed data vs. verified performances</h2>
+        <h2 className="text-xl font-semibold tracking-tight">Scope: Why Summer Olympics Only</h2>
         <p className="text-muted leading-relaxed mt-3">
-          The site you are reading right now is a seed release. Every <em className="text-paper not-italic">human</em> world record in the ledger is real, current as of publication, and cited to its sanctioning body. Every <em className="text-paper not-italic">robot</em> performance, by contrast, is an illustrative placeholder — generated to exercise the validation engine across the full range of status cases:
+          The ledger tracks Summer Olympic events only. Winter sports are excluded because they depend on equipment-based locomotion — skates, skis, sleds — which sits outside the biological parity question this ledger tracks. A robot that beats a speed skater is beating a human on steel blades, not on human legs; that result would not tell us what we are here to measure.
+        </p>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-xl font-semibold tracking-tight">Scope: What's Tracked</h2>
+        <p className="text-muted leading-relaxed mt-3">
+          Nineteen events, split by discipline and gender:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-sm">
+          <div>
+            <div className="text-xs uppercase tracking-wider text-dim mb-2">Running — Men's</div>
+            <ul className="list-disc pl-5 text-muted space-y-0.5">
+              <li>100 metres</li>
+              <li>200 metres</li>
+              <li>400 metres</li>
+              <li>800 metres</li>
+              <li>1500 metres</li>
+              <li>Half Marathon</li>
+              <li>Marathon</li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-wider text-dim mb-2">Running — Women's</div>
+            <ul className="list-disc pl-5 text-muted space-y-0.5">
+              <li>100 metres</li>
+              <li>200 metres</li>
+              <li>Half Marathon</li>
+              <li>Marathon</li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-wider text-dim mb-2">Field — Men's</div>
+            <ul className="list-disc pl-5 text-muted space-y-0.5">
+              <li>High Jump</li>
+              <li>Long Jump</li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-wider text-dim mb-2">Field — Women's</div>
+            <ul className="list-disc pl-5 text-muted space-y-0.5">
+              <li>High Jump</li>
+              <li>Long Jump</li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-wider text-dim mb-2">Hurdles</div>
+            <ul className="list-disc pl-5 text-muted space-y-0.5">
+              <li>Men's 110 metres Hurdles</li>
+              <li>Women's 100 metres Hurdles</li>
+            </ul>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-wider text-dim mb-2">Archery (70m, 72-arrow)</div>
+            <ul className="list-disc pl-5 text-muted space-y-0.5">
+              <li>Men's Recurve</li>
+              <li>Women's Recurve</li>
+            </ul>
+          </div>
+        </div>
+        <p className="text-muted leading-relaxed mt-5 text-sm">
+          Throws (shot put, javelin, hammer, discus) and swimming are excluded because no current humanoid bipedal robot platform has demonstrated capability in those modalities — inclusion would be speculative fiction, not ledger. When a real bipedal humanoid throws a real regulation implement or swims a real 50m freestyle, the event will be added.
+        </p>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-xl font-semibold tracking-tight">Verified vs. experimental performances</h2>
+        <p className="text-muted leading-relaxed mt-3">
+          Every <em className="text-paper not-italic">human</em> world record in the ledger is real and cited to its sanctioning body. Every <em className="text-paper not-italic">robot</em> performance is a real, documented attempt — no illustrative placeholders. The engine distinguishes status cases regardless:
         </p>
         <ul className="list-disc pl-6 mt-3 text-muted space-y-1">
           <li><span className="text-paper">Parity</span> — a robot within the metric-type epsilon, even if numerically better</li>
@@ -38,10 +106,7 @@ export default function MethodologyPage() {
           <li><span className="text-paper">Hard fail</span> — non-bipedal, tethered, or terrain-mismatched submissions that never enter the ledger at all</li>
         </ul>
         <p className="text-muted leading-relaxed mt-4">
-          A row graduates from <span className="text-warn">experimental</span> or <span className="text-orange-500">unverified</span> to <span className="text-robot">verified</span> when a contributor opens a pull request supplying a <code className="text-paper">source_url</code> from one of the recognized sanctioning bodies listed below. Until that happens, every robot card on the site carries a clear validation badge so a casual reader can tell a placeholder from a sanctioned record at a glance.
-        </p>
-        <p className="text-muted leading-relaxed mt-4 text-sm">
-          The infrastructure — schema, validator, projection engine, audit trail, contribution flow — is ready and tested. The data pipeline is open. Real performances are welcome via PR; see <a href="/submit" className="underline hover:text-paper">/submit</a>.
+          A row graduates from <span className="text-warn">experimental</span> or <span className="text-orange-500">unverified</span> to <span className="text-robot">verified</span> when a contributor supplies a <code className="text-paper">source_url</code> from one of the recognized sanctioning bodies listed below. Real performances are welcome via PR; see <a href="/submit" className="underline hover:text-paper">/submit</a>.
         </p>
       </section>
 
@@ -78,7 +143,7 @@ export default function MethodologyPage() {
         </p>
         <ul className="list-disc pl-6 mt-3 text-muted space-y-1">
           <li><span className="text-robot">verified</span> — citation from a recognized sanctioning body. Required for primary ledger status.</li>
-          <li><span className="text-warn">experimental</span> — illustrative seed data or unsanctioned demos. Surfaces with a "Fallback: experimental" flag when no verified+eligible row exists.</li>
+          <li><span className="text-warn">experimental</span> — real but unsanctioned performances (e.g., exhibition events, lab demos). Surfaces with a "Fallback: experimental" flag when no verified+eligible row exists.</li>
           <li><span className="text-dim">unverified</span> — pending or unsourced. Never selected for status.</li>
         </ul>
       </section>

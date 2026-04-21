@@ -14,6 +14,7 @@ import {
   loadLedger,
   passesHardFail,
   computeEventPriority,
+  summarizeLedger,
 } from '../lib/engine.js';
 
 import { project } from '../lib/predict.js';
@@ -834,29 +835,73 @@ test('17. disclaimer gating: Flash (mens-half-marathon ineligible) has non-null 
   assert.notEqual(flash.source_url, null, 'Flash must have a non-null source_url');
 });
 
-test('17. disclaimer gating: a placeholder row (Humanoid C on womens-100m) has null source_url so the disclaimer DOES fire', () => {
+// ---------------------------------------------------------------------------
+// 18. Real-data-only guardrails: after scope cleanup the ledger must contain
+//     exactly 19 events, exactly 4 real performances (Cassie, Tiangong Ultra,
+//     Unitree H1, Honor Flash), and no fabricated placeholder rows.
+// ---------------------------------------------------------------------------
+test('18. ledger contains exactly 19 tracked events', () => {
   const ledger = loadLedger(LEDGER_PATH);
-  const ev = ledger.events.find(e => e.event_id === 'womens-100m');
-  const best = computeStatus(ev).best_robot;
-  assert.ok(best, 'womens-100m must select a best robot');
-  assert.equal(best.source_url, null, 'Humanoid C placeholder must have null source_url to trigger the disclaimer');
+  assert.equal(ledger.events.length, 19, 'expected 19 events, got ' + ledger.events.length);
+});
+
+test('18. every event id is one of the 19 approved ids', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const approved = new Set([
+    'mens-100m', 'mens-200m', 'mens-400m', 'mens-800m', 'mens-1500m',
+    'mens-half-marathon', 'mens-marathon',
+    'womens-100m', 'womens-200m', 'womens-half-marathon', 'womens-marathon',
+    'mens-high-jump', 'mens-long-jump',
+    'womens-high-jump', 'womens-long-jump',
+    'mens-archery-70m', 'womens-archery-70m',
+    'mens-110m-hurdles', 'womens-100m-hurdles',
+  ]);
+  for (const ev of ledger.events) {
+    assert.ok(approved.has(ev.event_id), 'unexpected event id in ledger: ' + ev.event_id);
+  }
+});
+
+test('18. no fabricated placeholder performances remain (Humanoid [A-Z] or Placeholder Manufacturer)', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  for (const ev of ledger.events) {
+    for (const p of ev.performances || []) {
+      assert.ok(!/^Humanoid [A-Z]$/.test(p.robot_model || ''), 'placeholder robot_model found: ' + p.robot_model);
+      assert.notEqual(p.manufacturer, 'Placeholder Manufacturer', 'placeholder manufacturer on event ' + ev.event_id);
+    }
+  }
+});
+
+test('18. exactly 4 real performances across the full ledger', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const all = ledger.events.flatMap(ev => ev.performances || []);
+  assert.equal(all.length, 4, 'expected 4 performances, got ' + all.length);
+  const models = all.map(p => p.robot_model).sort();
+  assert.deepEqual(models, ['Cassie', 'Flash', 'H1', 'Tiangong Ultra']);
+});
+
+test('18. no cut sports remain (swimming, throws, winter, triple jump, rowing)', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const forbiddenCategories = [
+    'swimming-sprint', 'swimming-middle-distance', 'swimming-endurance',
+    'field-throw', 'speed-skating', 'short-track-speed-skating', 'rowing',
+  ];
+  for (const ev of ledger.events) {
+    assert.ok(!forbiddenCategories.includes(ev.sport_category), 'cut category survived: ' + ev.sport_category + ' on ' + ev.event_id);
+    assert.notEqual(ev.season, 'winter', 'winter event survived: ' + ev.event_id);
+    assert.ok(!/triple-jump/.test(ev.event_id), 'triple jump survived: ' + ev.event_id);
+  }
 });
 
 // ---------------------------------------------------------------------------
-// 18. ProRL Combine 2026 placeholder is restored on mens-100m as a strategic
-//     signal to the Professional Robotics League. value=null, unverified,
-//     ineligible (pending). Must not be selected; must not affect Cassie's
-//     selection as best.
+// 19. Parity meter math: with only real data, no event is at Parity or Robot
+//     Lead yet. Both denominators must resolve to 0%.
 // ---------------------------------------------------------------------------
-test('18. mens-100m contains the ProRL Combine 2026 placeholder with value=null', () => {
+test('19. summarizeLedger reports 0 parity_or_better and 0% on both denominators', () => {
   const ledger = loadLedger(LEDGER_PATH);
-  const m100 = ledger.events.find(e => e.event_id === 'mens-100m');
-  const prorl = (m100.performances || []).find(p => p.sanctioning_body === 'ProRL');
-  assert.ok(prorl, 'ProRL Combine entry must exist on mens-100m');
-  assert.equal(prorl.value, null);
-  assert.equal(prorl.validation_status, 'unverified');
-  assert.match(prorl.source_url || '', /pro-rl/);
-  // Cassie must still be selected as best despite ProRL being present
-  const result = computeStatus(m100);
-  assert.equal(result.best_robot.robot_model, 'Cassie');
+  const summary = summarizeLedger(ledger);
+  assert.equal(summary.total_events, 19);
+  assert.equal(summary.parity_or_better, 0, 'no event should be at Parity or Robot Lead');
+  assert.equal(summary.primary_pct, 0);
+  assert.equal(summary.secondary_pct, 0);
+  assert.ok(summary.events_with_attempts >= 1, 'at least one event has a compliance-valid attempt');
 });

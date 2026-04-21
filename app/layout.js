@@ -1,5 +1,6 @@
 import './globals.css';
 import Footer from '../components/Footer.js';
+import SiteNav from '../components/SiteNav.js';
 
 export const metadata = {
   metadataBase: new URL('https://bioparity.io'),
@@ -42,17 +43,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-ink text-paper min-h-screen flex flex-col">
-        <header className="border-b border-rule">
+        <header className="border-b border-rule relative z-50 bg-ink">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" className="font-bold tracking-tight text-lg">
               Bioparity<span className="text-robot">.</span>
             </a>
-            <nav className="flex gap-6 text-sm text-muted">
-              <a href="/methodology" className="hover:text-paper">Methodology</a>
-              <a href="/submit" className="hover:text-paper">Submit</a>
-              <a href="/audit" className="hover:text-paper">Audit</a>
-              <a href="/about" className="hover:text-paper">About</a>
-            </nav>
+            <SiteNav />
           </div>
         </header>
         <main className="flex-1">{children}</main>
