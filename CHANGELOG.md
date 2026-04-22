@@ -3,6 +3,29 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Commit 15 — Parity ratio bars on leaderboard rows (2026-04-22)
+
+Adds a horizontal progress bar under each leaderboard row's text content. Each bar visualizes the row's parity ratio against a single shared "PARITY" line at the 100% mark. The effect: scanning the page, one green bar breaks past the line (Men's Half Marathon) and everything else falls short — the whole parity story in one glance.
+
+Bar scale is anchored at `BAR_MAX_RATIO = 1.5`, so Robot Lead bars (ratio > 1) visibly extend past the parity line without blowing out the layout. The parity line therefore sits at `100/150 ≈ 66.67%` of the bar track on every row.
+
+Added:
+- `lib/parity-bar.js` — pure module exporting `BAR_MAX_RATIO`, `computeBarWidth(ratio, maxRatio)`, and `parityLinePercent(maxRatio)`. Extracted as a separate file so the client component can import the math without pulling `lib/engine.js`'s `node:fs` dependency through the bundle.
+- `tests/leaderboard.test.js` — one new assertion block covering `computeBarWidth` null/zero/negative → 0, clamping at max ratio, parity-position equivalence with `parityLinePercent`, and spot-check of Men's Half Marathon ~76% width.
+
+Changed:
+- `lib/leaderboard.js` — re-exports the bar utilities from `parity-bar.js` for convenient test access; otherwise unchanged.
+- `components/ParityLeaderboard.js`:
+  - Imports bar utilities from `../lib/parity-bar.js` (client-safe).
+  - Each row now renders a 2-unit-tall track with a filled inner bar and a vertical parity line at 66.67%. Bar colors: green (`accent-verified`) for Robot Lead, amber (`accent-experimental`) for Near Parity, muted gray (`bg-dim/50`) for Human Lead. NO DATA rows render no bar.
+  - Animation on mount: width grows from 0% to computed% over 800ms, staggered 100ms per row. Respects `prefers-reduced-motion` by setting final widths immediately.
+  - Single `PARITY` label in small caps / faint color sits above the list, aligned at the same 66.67% column as every row's parity line.
+  - Row layout refactored to stack content + bar vertically; the existing rank / event name / status badge / gap summary / percentage content is unchanged and still flex-row on md+.
+  - Each bar carries `role="img"` and an accessible label describing the ratio and parity reference.
+
+Tests: 98/98 passing (was 97 — added one bar-math test block).
+Build: clean (37 static routes).
+
 ## Commit 14 — Closest-to-Parity leaderboard replaces Timeline Hero (2026-04-22)
 
 Replaces the horizontal dot-timeline (`TimelineHero`) on the homepage with a ranked "Closest to Parity" leaderboard that answers the single most pressing question for readers: which events are closest to robots matching humans?

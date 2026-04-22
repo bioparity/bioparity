@@ -10,6 +10,9 @@ import {
   bucketFor,
   BUCKET,
   NEAR_PARITY_THRESHOLD,
+  BAR_MAX_RATIO,
+  computeBarWidth,
+  parityLinePercent,
 } from '../lib/leaderboard.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -74,6 +77,24 @@ test('21. computeParityRatio: lower_is_better inverts human/robot correctly', ()
   };
   const { ratio } = computeParityRatio(event);
   assert.ok(ratio > 1.13 && ratio < 1.14, 'expected ratio ~1.136 for half marathon, got ' + ratio);
+});
+
+test('21. computeBarWidth: null/zero/negative → 0; clamped at BAR_MAX_RATIO=1.5', () => {
+  assert.equal(computeBarWidth(null), 0);
+  assert.equal(computeBarWidth(undefined), 0);
+  assert.equal(computeBarWidth(0), 0);
+  assert.equal(computeBarWidth(-0.2), 0);
+  assert.equal(BAR_MAX_RATIO, 1.5);
+  // ratio = 0.5 → 0.5 / 1.5 = 33.333...%
+  assert.ok(Math.abs(computeBarWidth(0.5) - (100 / 3)) < 1e-9);
+  // ratio at parity (1.0) → 1.0 / 1.5 = 66.666...% and matches parityLinePercent
+  assert.ok(Math.abs(computeBarWidth(1.0) - parityLinePercent()) < 1e-9);
+  // ratio past max → clamped to 100%
+  assert.equal(computeBarWidth(1.5), 100);
+  assert.equal(computeBarWidth(2.0), 100);
+  // Men's Half Marathon ratio ~1.1367 → 75.78%
+  const halfMarathonPct = computeBarWidth(1.1367);
+  assert.ok(halfMarathonPct > 70 && halfMarathonPct < 80, 'expected ~76%, got ' + halfMarathonPct);
 });
 
 test('21. bucketFor: thresholds', () => {
