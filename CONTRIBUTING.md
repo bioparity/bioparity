@@ -31,6 +31,7 @@ people do not happen here.
    - `value` (canonical units: seconds, meters, or points — never raw display strings)
    - `date` (`YYYY-MM-DD`)
    - `validation_status` (`verified` for sanctioned, `experimental` otherwise)
+   - `autonomy` — one of `autonomous`, `assisted`, `teleoperated`, or `unknown`. Required on every entry. Does not affect eligibility, but labels what the result means.
    - `source_url` — **required** for `verified`. Must point to the sanctioning body's
      official record or result page.
    - `sanctioning_body` — must be one of the recognized bodies listed in

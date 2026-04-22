@@ -6,6 +6,7 @@ import { formatValue, formatDelta, formatPercent, formatDate } from '../../../li
 import PerformanceTable from '../../../components/PerformanceTable.js';
 import ProjectionChart from '../../../components/ProjectionChart.js';
 import ValidationBadge from '../../../components/ValidationBadge.js';
+import AutonomyBadge from '../../../components/AutonomyBadge.js';
 
 function getLedger() {
   return loadLedger(path.join(process.cwd(), 'data', 'ledger.json'));
@@ -89,8 +90,13 @@ export default function EventPage({ params }) {
         <div className="border border-rule rounded-lg p-5 bg-panel">
           <div className="flex items-start justify-between gap-3 mb-2">
             <div className="text-xs uppercase tracking-wider text-dim">Best robot performance</div>
-            {computed.best_robot && computed.best_robot.validation_status !== 'verified' && (
-              <ValidationBadge status={computed.best_robot.validation_status} />
+            {computed.best_robot && (
+              <div className="flex flex-wrap gap-1 justify-end">
+                {computed.best_robot.validation_status !== 'verified' && (
+                  <ValidationBadge status={computed.best_robot.validation_status} />
+                )}
+                <AutonomyBadge autonomy={computed.best_robot.autonomy} />
+              </div>
             )}
           </div>
           {computed.best_robot ? (
@@ -146,6 +152,7 @@ export default function EventPage({ params }) {
                         Ineligible
                       </span>
                       <ValidationBadge status={p.validation_status} />
+                      <AutonomyBadge autonomy={p.autonomy} />
                     </div>
                   </div>
                   {p.record_eligibility.reason && (

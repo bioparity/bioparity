@@ -24,6 +24,7 @@
           "value": 24.73,
           "date": "2022-09-28",
           "validation_status": "verified",
+          "autonomy": "autonomous",
           "source_url": "https://news.oregonstate.edu/news/bipedal-robot-developed-oregon-state-achieves-guinness-world-record-100-meters",
           "sanctioning_body": "Guinness World Records",
           "notes": "Guinness World Record for fastest 100m by a bipedal robot, set at Oregon State University's Whyte Track and Field Center. Cassie started from a standing position, ran the 100m, and returned to a standing position without falling. Developed under Agility Robotics and OSU College of Engineering (Jonathan Hurst, Alan Fern). First bipedal robot to use machine learning to control a running gait on outdoor terrain. Record remains standing as of April 2026 (peak speed claims by other robots do not establish ratified 100m times).",
@@ -56,6 +57,7 @@
           "value": 26.87,
           "date": "2025-08-15",
           "validation_status": "experimental",
+          "autonomy": "autonomous",
           "source_url": "https://www.globaltimes.cn/page/202508/1341057.shtml",
           "sanctioning_body": "World Humanoid Robot Games",
           "notes": "Actual raw 100m time of 26.87s at the inaugural 2025 World Humanoid Robot Games in Beijing (August 15-17, 2025). The Games awarded Tiangong Ultra a 'winning' time of 21.50s under a time-credit bonus for full autonomy compared to remote-controlled entrants — that 21.50s figure is NOT a comparable 100m time and is excluded from this ledger. The raw 26.87s is the actual course completion time and is recorded here as experimental because the event is not a recognized governing-body record but is a real, publicly documented competition.",
@@ -153,6 +155,7 @@
           "value": 394.4,
           "date": "2025-08-15",
           "validation_status": "experimental",
+          "autonomy": "autonomous",
           "source_url": "https://english.news.cn/20250818/158ade6ea3324b0686eeccde7185035c/c.html",
           "sanctioning_body": "World Humanoid Robot Games",
           "notes": "Gold medal, men's 1500m at the inaugural 2025 World Humanoid Robot Games in Beijing. Operated by team Lingyi Technology using a Unitree H1 humanoid. Team reported challenges with bend running, stride frequency, and stability at distance. First widely documented 1500m by a humanoid bipedal robot.",
@@ -202,6 +205,7 @@
           "value": 3026,
           "date": "2026-04-19",
           "validation_status": "experimental",
+          "autonomy": "assisted",
           "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
           "sanctioning_body": "Beijing E-Town Half Marathon",
           "notes": "Real event: winning autonomous-navigation robot at the 2026 Beijing E-Town Half Marathon and Humanoid Robot Half Marathon, April 19, 2026. Completed the 21.0975km course in 50:26. First widely-documented humanoid bipedal robot to beat the human half marathon world record numerically. Ineligible under strict methodology: race used parallel separated lanes (not a direct comparable environment) and was organized by Beijing E-Town, not sanctioned by World Athletics.",
@@ -224,7 +228,7 @@
           },
           "record_eligibility": {
             "eligible": false,
-            "reason": "surface_standardized=false: race was run on parallel separated lanes from human competitors, not a directly comparable race environment. Additionally, race organized by Beijing E-Town, not sanctioned by World Athletics."
+            "reason": "surface_standardized=false: race was run on parallel separated lanes from human competitors, not a directly comparable race environment. Additionally, race organized by Beijing E-Town, not sanctioned by World Athletics. Autonomy: assisted — the run involved human handlers on-course, mid-event battery swaps, and manual course corrections, which further disqualifies it from unassisted parity comparison."
           }
         }
       ]

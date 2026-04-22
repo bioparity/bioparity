@@ -905,3 +905,44 @@ test('19. summarizeLedger reports 0 parity_or_better and 0% on both denominators
   assert.equal(summary.secondary_pct, 0);
   assert.ok(summary.events_with_attempts >= 1, 'at least one event has a compliance-valid attempt');
 });
+
+// ---------------------------------------------------------------------------
+// 20. Autonomy schema (Commit 7.5): every real performance has an explicit
+//     autonomy tag from the four allowed values.
+// ---------------------------------------------------------------------------
+test('20. every ledger performance has an explicit autonomy value from the allowed set', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const allowed = new Set(['autonomous', 'assisted', 'teleoperated', 'unknown']);
+  for (const event of ledger.events) {
+    for (const perf of event.performances || []) {
+      assert.ok(
+        Object.prototype.hasOwnProperty.call(perf, 'autonomy'),
+        'event ' + event.event_id + ' performance ' + perf.performance_id + ' missing autonomy field'
+      );
+      assert.ok(
+        allowed.has(perf.autonomy),
+        'event ' + event.event_id + ' performance ' + perf.performance_id + ' autonomy=' + perf.autonomy + ' not in allowed set'
+      );
+    }
+  }
+});
+
+test('20. autonomy: three autonomous + one assisted across the four real entries', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const perfs = ledger.events.flatMap(e => e.performances || []);
+  assert.equal(perfs.length, 4, 'expected exactly 4 real performances');
+  const counts = perfs.reduce((acc, p) => {
+    acc[p.autonomy] = (acc[p.autonomy] || 0) + 1;
+    return acc;
+  }, {});
+  assert.equal(counts.autonomous, 3);
+  assert.equal(counts.assisted, 1);
+});
+
+test('20. autonomy: selectBestPerformance preserves autonomy on the returned performance', () => {
+  const ledger = loadLedger(LEDGER_PATH);
+  const mens100m = ledger.events.find(e => e.event_id === 'mens-100m');
+  const sel = selectBestPerformance(mens100m.performances, mens100m.comparison_direction);
+  assert.ok(sel.performance, 'best performance should exist');
+  assert.equal(sel.performance.autonomy, 'autonomous');
+});

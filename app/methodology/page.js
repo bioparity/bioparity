@@ -94,6 +94,16 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
+        <h2 className="text-xl font-semibold tracking-tight">What Counts as an Attempt</h2>
+        <p className="text-muted leading-relaxed mt-3">
+          Bioparity tracks capability parity, not head-to-head competition. A robot does not have to race a human to set a verified parity attempt. It has to perform the event, under sanctioned conditions, to the measurement standards of the event's governing body. Solo runs count. Timed trials count. Head-to-head races count. What does not count: simulation, wind-aided results outside legal thresholds, shortened distances, assisted propulsion, or any result where the robot's locomotion was substantially provided by a human or a wheeled platform.
+        </p>
+        <p className="text-muted leading-relaxed mt-4">
+          Every performance in Bioparity is also tagged with an autonomy level — autonomous, assisted, teleoperated, or unknown. Autonomy does not determine eligibility, but it does determine what a result means. A teleoperated robot finishing a half marathon is a very different result from an autonomous one. Both are tracked. Neither is hidden.
+        </p>
+      </section>
+
+      <section className="mt-10">
         <h2 className="text-xl font-semibold tracking-tight">Verified vs. experimental performances</h2>
         <p className="text-muted leading-relaxed mt-3">
           Every <em className="text-paper not-italic">human</em> world record in the ledger is real and cited to its sanctioning body. Every <em className="text-paper not-italic">robot</em> performance is a real, documented attempt — no illustrative placeholders. The engine distinguishes status cases regardless:

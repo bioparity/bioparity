@@ -1,5 +1,6 @@
 import { formatValue, formatDelta, formatPercent, formatDate } from '../lib/format.js';
 import ValidationBadge from './ValidationBadge.js';
+import AutonomyBadge from './AutonomyBadge.js';
 
 const STATUS_STYLES = {
   'Robot Lead': 'bg-robot/15 text-robot border-robot/40',
@@ -60,11 +61,12 @@ export default function EventCard({ event }) {
                 {formatValue(best_robot.value, event.metric_type)}
               </div>
               <div className="text-xs text-dim truncate">{best_robot.robot_model}</div>
-              {best_robot.validation_status !== 'verified' && (
-                <div className="mt-1.5">
+              <div className="mt-1.5 flex flex-wrap gap-1">
+                {best_robot.validation_status !== 'verified' && (
                   <ValidationBadge status={best_robot.validation_status} size="sm" />
-                </div>
-              )}
+                )}
+                <AutonomyBadge autonomy={best_robot.autonomy} size="sm" />
+              </div>
             </>
           ) : (
             <div className="text-xs text-faint italic">No selectable performance</div>
