@@ -1,4 +1,5 @@
 import { formatValue, formatDelta, formatPercent, formatDate } from '../lib/format.js';
+import { glyphForEvent } from '../lib/sport-glyphs.js';
 import ValidationBadge from './ValidationBadge.js';
 import AutonomyBadge from './AutonomyBadge.js';
 
@@ -23,6 +24,7 @@ export default function EventCard({ event }) {
   const shortStatus = status.startsWith('Human Lead (no')
     ? (status.includes('eligible') ? 'No eligible attempt' : 'No attempts')
     : status;
+  const Glyph = glyphForEvent(event);
 
   return (
     <a
@@ -31,14 +33,17 @@ export default function EventCard({ event }) {
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <div className="flex items-center gap-2 text-xs text-dim mb-1">
+          <div className="flex items-center gap-2 text-micro text-dim mb-1">
             <span
               className={'inline-block w-2 h-2 rounded-full ' + (SEASON_DOT[event.season] || 'bg-dim')}
               aria-label={event.season}
             />
-            <span className="uppercase tracking-wider">{event.sport_category}</span>
+            <span className="uppercase">{event.sport_category}</span>
           </div>
-          <h3 className="text-base font-semibold text-paper truncate">{event.event_name}</h3>
+          <div className="flex items-center gap-2 min-w-0">
+            <Glyph size={20} className="shrink-0 text-paper" />
+            <h3 className="text-h3 font-semibold text-paper truncate">{event.event_name}</h3>
+          </div>
         </div>
         <span className={'text-[10px] uppercase tracking-wider px-2 py-1 rounded border whitespace-nowrap ' + badgeClass}>
           {shortStatus}

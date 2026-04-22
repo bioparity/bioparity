@@ -1,4 +1,5 @@
 import { SANCTIONING_BODIES } from '../../lib/sanctioning-bodies.js';
+import { SignatureDot, SectionRule } from '../../components/Brand.js';
 
 export const metadata = {
   title: 'Methodology — Bioparity',
@@ -8,13 +9,17 @@ export const metadata = {
 export default function MethodologyPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-10 md:py-16 prose prose-invert">
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight">Methodology</h1>
+      <h1 className="font-bold tracking-tight text-4xl md:text-h1 inline-flex items-baseline gap-[0.08em]">
+        Methodology<SignatureDot />
+      </h1>
       <p className="text-muted text-lg mt-3">
         How Bioparity decides what counts as parity, what counts as a valid robot performance, and what the ledger refuses to score at all.
       </p>
 
+      <SectionRule className="mt-10" />
+
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Why bipedal?</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Why bipedal?</h2>
         <p className="text-muted leading-relaxed mt-3">
           Parity is a biological question, not a performance question. We are not tracking the
           fastest mechanism — wheels will beat legs at flat-ground speed indefinitely. We are
@@ -26,16 +31,22 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Scope: Why Summer Olympics Only</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Scope: Why World Athletics–Ratified Records</h2>
         <p className="text-muted leading-relaxed mt-3">
-          The ledger tracks Summer Olympic events only. Winter sports are excluded because they depend on equipment-based locomotion — skates, skis, sleds — which sits outside the biological parity question this ledger tracks. A robot that beats a speed skater is beating a human on steel blades, not on human legs; that result would not tell us what we are here to measure.
+          Bioparity anchors on the current <span className="text-paper">World Athletics</span>–ratified world records because that list is the highest sanctioned human performance ceiling we have. Those records also come with codified eligibility rules — wind thresholds, track surface standards, equipment compliance, anti-doping verification — that translate cleanly onto a robot attempt. A robot that beats Cheptegei's 12:35.36 over 5000 metres, on a standardized 400 m track, under legal conditions, has cleared the same bar a human did. The rules give us something rigorous to test against.
+        </p>
+        <p className="text-muted leading-relaxed mt-3">
+          The ratified list also covers the full range of individual bipedal locomotion events — sprints, middle distance, long distance, hurdles, steeplechase, high jump, long jump — rather than the IOC's quadrennial, television-selected subset. The Games are a window into a subset of these records every four years; the records themselves are the continuous ceiling. We anchor on the ceiling.
+        </p>
+        <p className="text-muted leading-relaxed mt-3">
+          Winter events and equipment-mediated events (pole vault, throws, wheeled disciplines) stay out of scope for the same reason as before: non-bipedal or equipment-dominant locomotion is outside the biological parity question. A robot that beats a speed skater is beating a human on steel blades, not on human legs. A robot that throws a javelin further than Zelezny is beating a human with a spear, not a human body. Neither tells us what this ledger is here to measure. Archery is the one exception already seeded — it is shoulder-and-eye biomechanics, not locomotion, but the test stays bipedal-only.
         </p>
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Scope: What's Tracked</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Scope: What's Tracked</h2>
         <p className="text-muted leading-relaxed mt-3">
-          Nineteen events, split by discipline and gender:
+          Twenty-five events, split by discipline and gender:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-sm">
           <div>
@@ -46,6 +57,9 @@ export default function MethodologyPage() {
               <li>400 metres</li>
               <li>800 metres</li>
               <li>1500 metres</li>
+              <li>5000 metres</li>
+              <li>10,000 metres</li>
+              <li>3000 metres steeplechase</li>
               <li>Half Marathon</li>
               <li>Marathon</li>
             </ul>
@@ -55,6 +69,9 @@ export default function MethodologyPage() {
             <ul className="list-disc pl-5 text-muted space-y-0.5">
               <li>100 metres</li>
               <li>200 metres</li>
+              <li>5000 metres</li>
+              <li>10,000 metres</li>
+              <li>3000 metres steeplechase</li>
               <li>Half Marathon</li>
               <li>Marathon</li>
             </ul>
@@ -89,22 +106,44 @@ export default function MethodologyPage() {
           </div>
         </div>
         <p className="text-muted leading-relaxed mt-5 text-sm">
-          Throws (shot put, javelin, hammer, discus) and swimming are excluded because no current humanoid bipedal robot platform has demonstrated capability in those modalities — inclusion would be speculative fiction, not ledger. When a real bipedal humanoid throws a real regulation implement or swims a real 50m freestyle, the event will be added.
+          Throws (shot put, javelin, hammer, discus), pole vault, and swimming are excluded because either no current humanoid bipedal robot platform has demonstrated capability in the modality, or the event is equipment-dominant rather than locomotion-dominant. When a real bipedal humanoid throws a real regulation implement, clears a regulation pole vault, or swims a sanctioned 50 m freestyle, the event will be added.
         </p>
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">What Counts as an Attempt</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">What Counts as an Attempt</h2>
         <p className="text-muted leading-relaxed mt-3">
           Bioparity tracks capability parity, not head-to-head competition. A robot does not have to race a human to set a verified parity attempt. It has to perform the event, under sanctioned conditions, to the measurement standards of the event's governing body. Solo runs count. Timed trials count. Head-to-head races count. What does not count: simulation, wind-aided results outside legal thresholds, shortened distances, assisted propulsion, or any result where the robot's locomotion was substantially provided by a human or a wheeled platform.
         </p>
         <p className="text-muted leading-relaxed mt-4">
+          The parity meter measures against World Athletics world records. An attempt that would beat the record but fails sanctioning rules (wind, surface, equipment, handler intervention) is recorded as ineligible and does not move the meter.
+        </p>
+        <p className="text-muted leading-relaxed mt-4">
           Every performance in Bioparity is also tagged with an autonomy level — autonomous, assisted, teleoperated, or unknown. Autonomy does not determine eligibility, but it does determine what a result means. A teleoperated robot finishing a half marathon is a very different result from an autonomous one. Both are tracked. Neither is hidden.
+        </p>
+        <p className="text-muted leading-relaxed mt-4">
+          Three recording rules govern how large-field events, teleoperated entries, and approximate-format events are handled. See <span className="text-paper">Recording Rules</span> below.
         </p>
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Verified vs. experimental performances</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Recording Rules</h2>
+        <h3 className="text-h3 font-semibold tracking-tight mt-6">Teleoperation is automatically ineligible.</h3>
+        <p className="text-muted leading-relaxed mt-3">
+          Any performance where autonomy is classified as teleoperated is automatically ineligible for parity meter purposes. Teleoperation does not represent humanoid capability parity because the locomotion decisions are being made by a human pilot, not the robot. Teleoperated entries are recorded for completeness — they document what machines and pilots can do together — but they do not move the parity meter.
+        </p>
+        <h3 className="text-h3 font-semibold tracking-tight mt-6">Large-field events are capped at five entries per autonomy tier.</h3>
+        <p className="text-muted leading-relaxed mt-3">
+          For sanctioned events with more than ten completing performances, Bioparity records the top 5 finishers per autonomy tier (autonomous, assisted, teleoperated, unknown) where verifiable times exist. The full field count is noted on the event detail page. This curation keeps the ledger usable without suppressing the shape of the field.
+        </p>
+        <h3 className="text-h3 font-semibold tracking-tight mt-6">Approximate or category-mismatched events are not treated as parity attempts.</h3>
+        <p className="text-muted leading-relaxed mt-3">
+          Humanoid competitions sometimes feature events that approximate but do not match sanctioned human events — for example, a &ldquo;100m hurdles&rdquo; event where the barrier specifications, gender category, or other sanctioning details do not align with World Athletics' ratified version. Bioparity may record such performances for completeness, but they are marked ineligible with the specific mismatch documented in the eligibility reason. The parity meter is computed only from performances that meet full sanctioned-conformance on the World Athletics version of the event.
+        </p>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-h2 font-semibold tracking-tight">Verified vs. experimental performances</h2>
         <p className="text-muted leading-relaxed mt-3">
           Every <em className="text-paper not-italic">human</em> world record in the ledger is real and cited to its sanctioning body. Every <em className="text-paper not-italic">robot</em> performance is a real, documented attempt — no illustrative placeholders. The engine distinguishes status cases regardless:
         </p>
@@ -121,7 +160,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Hard fail constraints</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Hard fail constraints</h2>
         <p className="text-muted leading-relaxed mt-3">
           A robot performance is rejected outright — never enters the ledger — if any of:
         </p>
@@ -133,7 +172,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Eligibility (independent of validation)</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Eligibility (independent of validation)</h2>
         <p className="text-muted leading-relaxed mt-3">
           A performance that passes hard-fail can still be ineligible for record purposes. Each
           condition below independently sets <code className="text-paper">eligible = false</code>; the rejection reason lists every failing condition, not just the first:
@@ -147,7 +186,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Validation status</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Validation status</h2>
         <p className="text-muted leading-relaxed mt-3">
           A separate axis from eligibility. Three values:
         </p>
@@ -159,7 +198,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Status precedence</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Status precedence</h2>
         <p className="text-muted leading-relaxed mt-3">
           Computed at read time. Stored values are inputs only — derived fields are never persisted to disk.
         </p>
@@ -175,7 +214,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Two parity meters</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Two parity meters</h2>
         <p className="text-muted leading-relaxed mt-3">
           The homepage shows two denominators side by side, never one without the other:
         </p>
@@ -189,7 +228,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Recognized sanctioning bodies</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Recognized sanctioning bodies</h2>
         <p className="text-muted leading-relaxed mt-3">
           A robot performance is treated as <span className="text-robot">verified</span> only when cited from one of these bodies:
         </p>
@@ -203,7 +242,7 @@ export default function MethodologyPage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Projections</h2>
+        <h2 className="text-h2 font-semibold tracking-tight">Projections</h2>
         <p className="text-muted leading-relaxed mt-3">
           Linear least-squares regression on compliance-valid + eligible performances. Requires at least 3 points. Suppressed when r² &lt; 0.3, the trend regresses, projection lands in the past, projection lands beyond 2100, or status is already Parity / Robot Lead.
         </p>

@@ -7,6 +7,7 @@ import PerformanceTable from '../../../components/PerformanceTable.js';
 import ProjectionChart from '../../../components/ProjectionChart.js';
 import ValidationBadge from '../../../components/ValidationBadge.js';
 import AutonomyBadge from '../../../components/AutonomyBadge.js';
+import { SignatureDot } from '../../../components/Brand.js';
 
 function getLedger() {
   return loadLedger(path.join(process.cwd(), 'data', 'ledger.json'));
@@ -62,22 +63,30 @@ export default function EventPage({ params }) {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10 md:py-14">
-      <a href="/" className="text-xs text-dim hover:text-paper">← All events</a>
+      <a href="/" className="text-xs text-dim hover:text-paper inline-flex items-baseline gap-[0.15em]">
+        ← All events<SignatureDot className="opacity-70" />
+      </a>
       <div className="flex items-start justify-between gap-4 mt-3 mb-2">
         <div>
-          <div className="text-xs uppercase tracking-widest text-dim mb-2">
+          <div className="text-micro uppercase text-dim mb-2">
             {event.sport_category} · {event.season}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{event.event_name}</h1>
+          <h1 className="text-3xl md:text-h1 font-bold tracking-tight">{event.event_name}</h1>
         </div>
         <span className={'text-[10px] uppercase tracking-wider px-3 py-1.5 rounded border ' + (STATUS_BADGE[computed.status] || STATUS_BADGE['Human Lead'])}>
           {computed.status}
         </span>
       </div>
 
+      {event.event_notes && (
+        <div className="mt-6 border border-dashed border-rule rounded-lg px-4 py-3 text-sm text-ink-muted leading-relaxed">
+          {event.event_notes}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         <div className="border border-rule rounded-lg p-5 bg-panel">
-          <div className="text-xs uppercase tracking-wider text-dim mb-2">Human world record</div>
+          <div className="text-micro uppercase text-dim mb-2">Human world record</div>
           <div className="text-3xl font-mono tabular-nums">{formatValue(event.human_record.value, event.metric_type)}</div>
           <div className="text-sm text-muted mt-2">{event.human_record.holder}</div>
           <div className="text-xs text-dim mt-1">
@@ -89,7 +98,7 @@ export default function EventPage({ params }) {
         </div>
         <div className="border border-rule rounded-lg p-5 bg-panel">
           <div className="flex items-start justify-between gap-3 mb-2">
-            <div className="text-xs uppercase tracking-wider text-dim">Best robot performance</div>
+            <div className="text-micro uppercase text-dim">Best robot performance</div>
             {computed.best_robot && (
               <div className="flex flex-wrap gap-1 justify-end">
                 {computed.best_robot.validation_status !== 'verified' && (
@@ -135,7 +144,7 @@ export default function EventPage({ params }) {
         if (ineligible.length === 0) return null;
         return (
           <section className="mt-10">
-            <h2 className="text-xs uppercase tracking-widest text-dim mb-3">Ineligible attempts</h2>
+            <h2 className="text-micro uppercase text-dim mb-3">Ineligible attempts</h2>
             <div className="space-y-3">
               {ineligible.map(p => (
                 <div key={p.performance_id} className="border border-rule rounded-lg p-5 bg-panel">
@@ -182,7 +191,7 @@ export default function EventPage({ params }) {
 
       {projection.projected_year && (
         <section className="mt-10">
-          <h2 className="text-xs uppercase tracking-widest text-dim mb-3">Projection</h2>
+          <h2 className="text-micro uppercase text-dim mb-3">Projection</h2>
           <ProjectionChart
             historical={histPoints}
             humanRecord={event.human_record.value}
@@ -201,7 +210,7 @@ export default function EventPage({ params }) {
 
       {!projection.projected_year && projection.reason && (
         <section className="mt-10">
-          <h2 className="text-xs uppercase tracking-widest text-dim mb-3">Projection</h2>
+          <h2 className="text-micro uppercase text-dim mb-3">Projection</h2>
           <div className="border border-dashed border-rule rounded-lg p-5 text-sm text-dim">
             No projection: <span className="text-paper">{projection.reason.replace(/_/g, ' ')}</span>.
           </div>
@@ -209,7 +218,7 @@ export default function EventPage({ params }) {
       )}
 
       <section className="mt-10">
-        <h2 className="text-xs uppercase tracking-widest text-dim mb-3">Performance history</h2>
+        <h2 className="text-micro uppercase text-dim mb-3">Performance history</h2>
         <PerformanceTable event={event} />
       </section>
 

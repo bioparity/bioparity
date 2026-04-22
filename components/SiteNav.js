@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 
+// Home is the logo/wordmark click target in the header (app/layout.js), so it
+// is not duplicated here. Final order matches the 8a-final spec.
 const LINKS = [
+  { href: '/pipeline', label: 'Pipeline' },
+  { href: '/calendar', label: 'Calendar' },
+  { href: '/briefs', label: 'Briefs' },
   { href: '/methodology', label: 'Methodology' },
   { href: '/submit', label: 'Submit' },
   { href: '/audit', label: 'Audit' },
@@ -43,7 +48,7 @@ export default function SiteNav() {
 
       {open && (
         <div
-          className="lg:hidden fixed inset-0 top-[57px] z-40 bg-ink/95 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 top-[57px] z-40 bg-bg/95 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         >
           <nav

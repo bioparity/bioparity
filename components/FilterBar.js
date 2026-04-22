@@ -80,7 +80,7 @@ export default function FilterBar({ events }) {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search…"
-            className="text-xs px-3 py-1.5 rounded border border-rule bg-ink text-paper placeholder-faint focus:outline-none focus:border-paper w-40"
+            className="text-xs px-3 py-1.5 rounded border border-rule bg-bg text-paper placeholder-faint focus:outline-none focus:border-paper w-40"
           />
         </div>
       </div>
