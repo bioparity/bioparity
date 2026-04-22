@@ -3,6 +3,71 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased] — Commit 8e — Final /about copy + pre-push fixes (2026-04-22)
+
+Last commit before the 8a–8e stack pushes to `main`. Tests stay at 79.
+
+### Changed
+- `app/about/page.js` — replaced the 8d scaffold with the final reviewed copy across all 5 sections (Who / Why Bioparity exists / How it was built / What I'm looking for / Contact) plus the subhead. Every `<Placeholder>` dashed-box wrapper removed. Contact section uses a mailto link for `hello@bioparity.io`, an external `target="_blank" rel="noopener noreferrer"` link to `github.com/bioparity/bioparity`, and a Next.js `<Link>` to `/methodology`.
+- `tests/about.test.js` — the 8d scaffold-guard was replaced with a final-copy anchor test: exactly two "Fallujah" mentions (city + "Second Battle of Fallujah" — matches the final copy) and presence of `hello@bioparity.io`.
+- `lib/timeline.js` — timeline entries now include `manufacturer` alongside `robot_name`.
+- `components/TimelineHero.js` — robot display label in the tooltip and `aria-label` is now `{manufacturer} {robot_model}`. When the combined string exceeds 36 characters, the manufacturer portion is truncated at a word boundary ≤ 24 characters with an ellipsis.
+- `components/SiteNav.js` — restored `Submit` and `Audit` after the 8d trim. Final order: (Home via logo) · Pipeline · Calendar · Briefs · Methodology · Submit · Audit · About. Seven entries in `LINKS`; Home is the header wordmark click target.
+
+### Notes — reported items
+- **Test count after 8a + 8b + 8c + 8d + 8e: 79.**
+- **Manufacturer truncation applied on the timeline:** only the Tiangong Ultra entry triggered it (manufacturer "Beijing Innovation Center of Humanoid Robots" → 45 chars; combined with model → 59 chars → exceeded the 36-char threshold). Truncated at the word boundary ≤ 24 chars to "Beijing Innovation…", giving the final tooltip label `Beijing Innovation… Tiangong Ultra`. The other three entries rendered in full: `Agility Robotics Cassie`, `Unitree Robotics H1`, `Honor Flash`.
+- **/about anchor assertions confirmed:** "Fallujah" appears exactly twice (intentional — city + Second Battle); `hello@bioparity.io` present.
+- **Discrepancy with spec wording:** the task said "'Fallujah' appears exactly once", but the supplied final copy references "Fallujah, Iraq" then "the Second Battle of Fallujah" in the same sentence — two mentions. I preserved the copy as written and aligned the test assertion to `=== 2` so the anchor still locks the factual claim.
+
+### Full cumulative file list — 8a + 8b + 8c + 8d + 8e
+
+**Added**
+- `components/Brand.js` (8a)
+- `lib/sport-glyphs.js` (8a)
+- `.claude/launch.json` (8a, preview)
+- `lib/timeline.js` (8b; manufacturer field added in 8e)
+- `components/TimelineHero.js` (8b; label logic upgraded in 8e)
+- `tests/timeline.test.js` (8b)
+- `data/pipeline.json` (8c)
+- `data/sanctioned-events.json` (8c)
+- `lib/briefs.js` (8c)
+- `content/briefs/half-marathon-harder-than-marathon.md` (8c)
+- `components/PipelineCard.js`, `components/CalendarEntry.js`, `components/BriefCard.js` (8c)
+- `app/pipeline/page.js`, `app/calendar/page.js`, `app/briefs/page.js`, `app/briefs/[slug]/page.js` (8c)
+- `tests/pipeline.test.js`, `tests/calendar.test.js`, `tests/briefs.test.js` (8c)
+- `tests/about.test.js` (8d; rewritten in 8e)
+
+**Modified**
+- `tailwind.config.js` (8a)
+- `app/globals.css` (8a)
+- `app/layout.js` (8a)
+- `app/methodology/page.js` (8a)
+- `app/event/[event_id]/page.js` (8a)
+- `app/page.js` (8a + 8b + 8c)
+- `components/EventCard.js` (8a)
+- `components/ParityMeter.js` (8a + 8b)
+- `components/FilterBar.js` (8a)
+- `components/SiteNav.js` (8a + 8c + 8d + 8e)
+- `app/about/page.js` (8d scaffold + 8e final copy)
+- `package.json` (8c — `react-markdown@^9`)
+- `CHANGELOG.md` (entry per commit)
+
+## [Unreleased] — Commit 8d — /about page scaffold (2026-04-22)
+
+Visual-structure-only commit for the `/about` page. No real biographical or project copy was written — every section is an explicit `PLACEHOLDER` block. Tests: 78 → 79 passing.
+
+### Added
+- `tests/about.test.js` — guard test under group 25. Asserts `app/about/page.js` contains ≥ 6 `PLACEHOLDER` markers. Designed to FAIL when Brandon fills in the copy — that failure is the signal that the page is done.
+
+### Changed
+- `app/about/page.js` — replaced the prior "For sanctioning bodies / researchers / builders" layout with the 8d scaffold: six sections (header + Who + Why + How + What I'm looking for + Contact), each wrapping unwritten copy in a dashed-border italic ink-muted `<Placeholder>` block so the page reads as visibly unfinished both on localhost and in production. 8 total PLACEHOLDER markers across the page. Metadata extended with OpenGraph + Twitter tags pointing at the site-wide `/og.png`.
+- `components/SiteNav.js` — final nav order is now Home (logo) · Pipeline · Calendar · Briefs · Methodology · About. `/submit` and `/audit` were removed from the nav per 8d's explicit order spec; the routes still exist and are reachable by direct URL.
+
+### Notes
+- Task 3 (homepage footer About link) was skipped per 8d's "skip if no homepage-specific footer" clause: the footer lives in `app/layout.js` as a site-wide component, not in `app/page.js`. Nav link covers the About route.
+- The contact section on `/about` has a real (non-placeholder) paragraph with the `hello@bioparity.io` mailto and the GitHub repo link — per spec, only the "response expectations" tail paragraph is a placeholder.
+
 ## [Unreleased] — Commit 8c — Content layers: pipeline, calendar, briefs (2026-04-21)
 
 Three new content surfaces. No data schema changes to the ledger. Tests: 69 → 78 passing.
