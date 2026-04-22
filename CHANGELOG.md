@@ -3,6 +3,24 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased] — Commit 8b — Homepage hero upgrade (2026-04-21)
+
+Homepage only. No data, route, or copy changes. Tests: 67 → 69 passing.
+
+### Added
+- `lib/timeline.js` — `buildTimeline(ledger)` returns an array of `{ date, event_id, event_name, robot_name, value, display_value, autonomy, eligibility, tier }` sorted by date ascending (tie-break by event_id then robot_name). Skips performances with null value. **Eligibility field used: `performance.record_eligibility.eligible` (boolean).**
+- `components/TimelineHero.js` — hand-rolled SVG time-axis hero (no chart library). Plots every real performance as a dot. Autonomy → color (`autonomous`=`accent-verified` green, `assisted`=`accent-experimental` amber, `teleoperated`=`accent-data` blue, `unknown`=`ink-muted`). Eligibility → fill style (eligible=filled, ineligible=2px hollow ring). Hover/focus/tap reveals a tooltip `"{robot_name} · {event_name} · {display_value} · {autonomy} · {eligibility}"`. Year labels every 1 year when span ≤ 8, every 2 when greater. Dots jittered deterministically within a ±20px vertical band when their x-positions are within 20px. Mobile (<640px) wraps the plot in `overflow-x-auto` with a 560px min-width. Dot radius is 10px desktop / 8px mobile via responsive `w-4 md:w-5`.
+- `tests/timeline.test.js` — two cases, both under assertion group 21: `buildTimeline` returns exactly 4 entries matching the four real performances by robot name; output is sorted by date ascending.
+
+### Changed
+- `components/ParityMeter.js` — now a client component. On mount, primary animates 0→target over 1200ms with `ease-out-cubic` via `requestAnimationFrame`; secondary starts 200ms later. The "gap" underline (red at 0%, amber mid-range, no underline at 100% — per 8a) is suppressed during the animation and fades in only when `done = true`. Honors `prefers-reduced-motion: reduce` by skipping the animation and rendering the final value + underline immediately. Current parity is 0% so the animation is cosmetic — the hook is in place for future non-zero states.
+- `app/page.js` — loads `buildTimeline(ledger)` alongside `summarizeLedger(ledger)` and renders `<TimelineHero entries={timeline} />` between the parity meter and the event list, separated by 8a `SectionRule`s above and below.
+
+### Notes
+- Final dot count on the timeline: **4** (Cassie 2022-09-28, Tiangong Ultra 2025-08-15, H1 2025-08-15, Flash 2026-04-19).
+- Robot name displayed in the tooltip is `performance.robot_model` (e.g. "Flash", "Tiangong Ultra") to match the rest of the app. The spec verification string "Honor Flash" combines `manufacturer + robot_model` — if you want that, say the word and I'll prefix manufacturer when it's a single word.
+- Count-up mid-animation text update at target=0% is not observable (0 × eased = 0 for all t); the `done` → underline transition is the observable proof the hook fires. For non-zero targets the rAF loop will tick the number every frame.
+
 ## [Unreleased] — Commit 8a — Design foundation (2026-04-21)
 
 Pure visual layer. No data, routes, or copy were changed. Tests: 67 → 67 passing.
