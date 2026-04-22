@@ -3,6 +3,21 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Commit 12 — Byline unification (2026-04-22)
+
+Unified all public-facing author attributions to "Brandon" only. Brandon's legal name is Brandon Kent Sterne; he goes by Brandon on all public surfaces of the site.
+
+Changed:
+- content/briefs/half-marathon-harder-than-marathon.md frontmatter author field: Brandon Kent → Brandon
+
+Preserved intentionally:
+- LICENSE: copyright holder remains "Brandon Sterne" (legal convention)
+- README.md: copyright line remains "Brandon Sterne" (matches LICENSE)
+- The "by Brandon Kent" phrase inside the Commit 11 CHANGELOG entry is preserved as-is (audit trail integrity — CHANGELOG entries record what shipped at the time, not what was later corrected)
+
+Tests: 93/93 passing, unchanged count
+Build: clean
+
 ## [Unreleased] — Commit 11 — First Research Brief + Beijing 2026 attribution correction (2026-04-22)
 
 Publishes Bioparity's first Research Brief and corrects the Beijing E-Town 2026 humanoid half-marathon attribution in the ledger. Primary reporting from NPR, Global Times, China Daily, and 36Kr establishes the actual podium: Honor Lightning (Robotics D1, Monkey King Team) won the autonomous category in 50:26, Thunderbolt finished 2nd at 50:56, and Spark finished 3rd at ~53:00. The prior ledger state misattributed the 2nd- and 3rd-place autonomous finishes to "Lightning" and mis-labeled the 50:26 champion as a separate "Flash" model tagged `autonomy: assisted`. Tests remain at 93 passing.

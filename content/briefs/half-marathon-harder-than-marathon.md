@@ -2,7 +2,7 @@
 title: "Why the half-marathon is harder than the marathon for bipedal humanoids"
 description: "Why the half-marathon is a harder locomotion challenge for bipedal humanoids than the marathon — pacing, thermal load, and control horizon."
 date: 2026-04-21
-author: Brandon Kent
+author: Brandon
 tags:
   - mens-half-marathon
   - mens-marathon
