@@ -1,0 +1,67 @@
+[
+  {
+    "id": "osu-cassie-100m-2022",
+    "name": "Cassie 100m Guinness World Record Attempt",
+    "sanctioning_body": "Guinness World Records",
+    "start_date": "2022-05-11",
+    "end_date": "2022-05-11",
+    "venue": "Corvallis, Oregon, USA",
+    "event_types": ["mens-100m"],
+    "rules_url": "https://www.guinnessworldrecords.com/world-records/629600-fastest-100-m-by-a-bipedal-robot",
+    "results_url": "https://news.oregonstate.edu/news/bipedal-robot-developed-oregon-state-achieves-guinness-world-record-100-meters",
+    "status": "completed",
+    "notes": "Cassie ran 100m from standing in 24.73s at Oregon State's Whyte Track, ratified by Guinness as the fastest 100m by a bipedal robot."
+  },
+  {
+    "id": "whrg-2025-beijing",
+    "name": "1st World Humanoid Robot Games",
+    "sanctioning_body": "World Humanoid Robot Games",
+    "start_date": "2025-08-15",
+    "end_date": "2025-08-17",
+    "venue": "Beijing, China",
+    "event_types": ["mens-100m", "mens-400m", "mens-1500m"],
+    "rules_url": null,
+    "results_url": "https://www.globaltimes.cn/page/202508/1341057.shtml",
+    "status": "completed",
+    "notes": "Inaugural World Humanoid Robot Games. Tiangong Ultra won the 100m (26.87s); Unitree H1 took 1500m gold (6:34.40) and 400m gold, plus wins in 100m obstacle and 4\u00d7100m relay. Both performances are in the Bioparity ledger."
+  },
+  {
+    "id": "beijing-etown-half-marathon-2026",
+    "name": "2026 Beijing E-Town Humanoid Robot Half Marathon",
+    "sanctioning_body": "Beijing E-Town Half Marathon",
+    "start_date": "2026-04-19",
+    "end_date": "2026-04-19",
+    "venue": "Beijing E-Town, Yizhuang, Beijing, China",
+    "event_types": ["mens-half-marathon"],
+    "rules_url": null,
+    "results_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+    "status": "completed",
+    "notes": "Honor's \"Flash\" won in 50:26 over the 21.0975 km course. Ineligible under Bioparity's strict methodology: robots and humans ran on separated lanes (not a standardized-surface race), and the event was organized by Beijing E-Town rather than sanctioned by World Athletics."
+  },
+  {
+    "id": "prorl-combine-2026",
+    "name": "Inaugural ProRL Combine",
+    "sanctioning_body": "ProRL",
+    "start_date": "2026-04-19",
+    "end_date": "2026-04-19",
+    "venue": "Seaport District, Boston, Massachusetts, USA",
+    "event_types": [],
+    "rules_url": "https://www.massrobotics.org/event/professional-robotics-league-prorl-combine/",
+    "results_url": "https://www.eweek.com/news/americas-first-robot-sports-league-boston/",
+    "status": "completed",
+    "notes": "First Professional Robotics League event in American history. Humanoid and quadruped robots raced on a 50 m spectator-lined course. The 50 m sprint has no ratified World Athletics record at this distance, so event_types is empty; the ledger tracks this in spirit via the ProRL sanctioning body entry but the course distance falls outside Bioparity's anchored record list."
+  },
+  {
+    "id": "whrg-2026-beijing",
+    "name": "2nd World Humanoid Robot Games",
+    "sanctioning_body": "World Humanoid Robot Games",
+    "start_date": "2026-08-22",
+    "end_date": "2026-08-26",
+    "venue": "Beijing, China",
+    "event_types": ["mens-100m", "mens-400m", "mens-1500m"],
+    "rules_url": "https://english.news.cn/20260421/936d6d0f467045a58f6956d4a77c686b/c.html",
+    "results_url": null,
+    "status": "upcoming",
+    "notes": "Second WHRG. Organizers confirmed the 100m race becomes a fully autonomous event for the first time. Competitive category spans athletics, football, gymnastics, weightlifting, martial arts, dance, tug-of-war, and pitch-pot."
+  }
+]

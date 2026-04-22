@@ -1,0 +1,41 @@
+[
+  {
+    "id": "unitree-sub-10s-100m",
+    "lab": "Unitree Robotics",
+    "target_event_id": "mens-100m",
+    "target_metric": "Sub-10-second 100m sprint (below human WR 9.58s)",
+    "declared_timeline": "Mid-2026",
+    "source_type": "interview",
+    "source_url": "https://www.globaltimes.cn/page/202604/1358712.shtml",
+    "source_date": "2026-04-13",
+    "last_verified_status": "in progress",
+    "last_verified_date": "2026-04-21",
+    "notes": "Unitree founder Wang Xingxing stated at the 2026 Yabuli Entrepreneurs Forum that humanoid robots could break the 10-second 100m barrier by mid-2026. Unitree's H1 was recorded at a peak 10.1 m/s during an April 2026 internal sprint test."
+  },
+  {
+    "id": "mirrorme-bolt-sprint-capability-2026",
+    "lab": "MirrorMe",
+    "target_event_id": "mens-100m",
+    "target_metric": "10 m/s peak running speed (capability claim, not a parity target)",
+    "declared_timeline": "announced February 2026",
+    "source_type": "press release",
+    "source_url": "https://cnevpost.com/2026/02/03/mirrorme-unveils-worlds-fastest-humanoid-robot-bolt/",
+    "source_date": "2026-02-03",
+    "last_verified_status": "announced",
+    "last_verified_date": "2026-04-22",
+    "notes": "MirrorMe Technology unveiled the Bolt humanoid on February 2, 2026 with a claimed peak running speed of 10 m/s (~22.4 mph) in real-world testing. Not a sanctioned event attempt, no timed 100 m performance on a standardized track yet. Source URL substituted from the Commit 10 spec's reference (which pointed at a Unitree article) to the CnEVPost coverage of MirrorMe's own announcement."
+  },
+  {
+    "id": "honor-autonomous-sub-record-halfmarathon-2027",
+    "lab": "Honor",
+    "target_event_id": "mens-half-marathon",
+    "target_metric": "Fully autonomous (no handler intervention, no battery swaps, no course corrections) sub-human-world-record half marathon",
+    "declared_timeline": "2027 or later (inferred from post-2026 commentary)",
+    "source_type": "press coverage",
+    "source_url": "https://www.globaltimes.cn/page/202604/1359229.shtml",
+    "source_date": "2026-04-19",
+    "last_verified_status": "in progress",
+    "last_verified_date": "2026-04-22",
+    "notes": "Honor's Lightning won the 2026 Beijing E-Town event at 50:26 under autonomous navigation but with handler interventions, battery swaps, and course corrections that kept the result ineligible against World Athletics rules. A fully-compliant autonomous repeat (no interventions) is an inferred open target, not a verbatim Honor commitment — flagged as such in the notes. When a clearer Honor public statement exists, update this entry's source_url and source_type."
+  }
+]

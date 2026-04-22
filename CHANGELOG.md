@@ -3,6 +3,51 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased] — Commit 8c — Content layers: pipeline, calendar, briefs (2026-04-21)
+
+Three new content surfaces. No data schema changes to the ledger. Tests: 69 → 78 passing.
+
+### Added
+- `data/pipeline.json` — publicly declared lab targets, schema locked in `tests/pipeline.test.js`. One verified entry at launch: Unitree's sub-10-second 100m target (Wang Xingxing, Yabuli Forum, per Global Times April 13, 2026).
+- `data/sanctioned-events.json` — calendar of humanoid competitions Bioparity recognizes. Five seed entries: Cassie 100m Guinness attempt (OSU, 2022-05-11), 1st World Humanoid Robot Games (Beijing, Aug 2025), 2026 Beijing E-Town Humanoid Half Marathon (2026-04-19), Inaugural ProRL Combine (Boston Seaport, 2026-04-19), 2nd World Humanoid Robot Games (Beijing, Aug 22–26, 2026 — upcoming).
+- `lib/briefs.js` — brief loader with a tiny inline YAML-subset frontmatter parser (strings, arrays, dates). No YAML dependency.
+- `content/briefs/half-marathon-harder-than-marathon.md` — seed brief *scaffold* (not written content). Six section headings, each with a `[PLACEHOLDER — to be written]` paragraph. Status `draft`. Authored as "Bioparity contributors".
+- `components/PipelineCard.js` — sport-glyph + lab + target-metric card with status pill colored per spec (announced=data blue, in progress=experimental amber, achieved=verified green, silent=muted gray, abandoned=ineligible red). External source link uses `target="_blank" rel="noopener noreferrer"`.
+- `components/CalendarEntry.js` — date-range + event name + sanctioning-body tier badge (governing/league/event-organizer with matching accent colors). Event-type chips resolve against the ledger.
+- `components/BriefCard.js` — abstract preview, draft label, event tag chips, date + author line.
+- `app/pipeline/page.js`, `app/calendar/page.js`, `app/briefs/page.js`, `app/briefs/[slug]/page.js` — four new routes. All prerender statically at build time.
+- `tests/pipeline.test.js`, `tests/calendar.test.js`, `tests/briefs.test.js` — nine new tests under groups 22/23/24: schema validation, URL shape validation (no fetching), and event-id cross-check against the ledger.
+- Homepage "Explore" section — three cards linking to Pipeline, Calendar, Briefs, using the 8a glyphs (sprint / hurdles / archery) as repurposed UI icons.
+
+### Changed
+- `components/SiteNav.js` — added Pipeline, Calendar, Briefs to both desktop inline nav and mobile hamburger drawer. Order: Home (logo) · Pipeline · Calendar · Briefs · Methodology · Submit · Audit · About.
+- `package.json` — added `react-markdown@^9` as the lightest option between the user's two choices (`@next/mdx` vs `react-markdown`). Required by `app/briefs/[slug]/page.js` to render future contributor markdown. Tailwind tokens from 8a are re-applied via custom `components` prop on `<ReactMarkdown>`.
+
+### Notes — research provenance
+Pipeline entries were constrained by the anti-fabrication rule: a lab entry is included only if (a) the target is concretely stated with a number and a date, (b) a working source URL exists, and (c) the source is a paper, press release, demo, or quoted interview. Labs I searched and checked:
+
+| Lab | Outcome |
+|---|---|
+| **Unitree Robotics** | INCLUDED — Wang Xingxing stated at the 2026 Yabuli Entrepreneurs Forum that humanoids will break the 10-second 100m by mid-2026 (globaltimes.cn). |
+| Honor | Dropped — Honor's test engineer spoke of transferring liquid-cooling and structural reliability tech "to industrial scenarios", not a concrete parity target for a new event. No numeric + dated commitment found. |
+| Figure AI | Dropped — CEO video showed running demo; 4.3 km/h walking spec is a product stat, not a declared parity target. |
+| Boston Dynamics | Dropped — CES 2026 Atlas announcement was industrial/enterprise deployment, not an athletic parity target. |
+| Tesla | Dropped — Optimus Gen 3 "8 mph legs" is a product spec, not a tied-to-event parity target. |
+| XPeng | Dropped — 2026 mass-production target is manufacturing, not parity. |
+| 1X, Sanctuary AI, Apptronik, Fourier, UBTech, Agility Robotics (post-Cassie), Engineered Arts, Kepler, Galbot | Dropped — no specific numeric + dated + sourced parity target surfaced in the searches we ran. Generic roadmap language ("we're working on endurance / dexterity / mass production") does not meet the inclusion bar. |
+
+Calendar entries were built from the four real performances already in the ledger plus two upcoming/known-real events (ProRL Combine, 2nd WHRG). Every `sanctioning_body` matches a code in `lib/sanctioning-bodies.js` — enforced by `tests/calendar.test.js`.
+
+### Coverage check
+No `event_id` in `data/ledger.json` is uncovered by the 8a `glyphForEvent` mapping — all 19 events resolve to one of the seven glyphs (5 sprint, 2 middle, 4 distance, 2 hurdles, 2 high-jump, 2 long-jump, 2 archery). Verified programmatically in 8b summary.
+
+### Final counts
+- Pipeline entries: **1** (Unitree sub-10s 100m)
+- Calendar entries: **5** (1 upcoming + 4 completed)
+- Brief scaffolds: **1** (draft)
+- Tests: **78 passing** (69 → +3 pipeline + 4 calendar + 2 briefs)
+- Static routes generated: **31** (27 → +4 new: /pipeline, /calendar, /briefs, /briefs/half-marathon-harder-than-marathon)
+
 ## [Unreleased] — Commit 8b — Homepage hero upgrade (2026-04-21)
 
 Homepage only. No data, route, or copy changes. Tests: 67 → 69 passing.
