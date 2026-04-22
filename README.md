@@ -1,6 +1,6 @@
 # Bioparity
 
-**Tracking when humanoid robots match human Olympic world records. A public ledger.**
+**Tracking when humanoid robots match human track and field world records (World Athletics–ratified). A public ledger.**
 
 Live: **https://bioparity.io**
 
@@ -9,9 +9,9 @@ Live: **https://bioparity.io**
 ## What this is
 
 Bioparity is a canonical, public, auditable ledger of the **Biological Parity Gap** —
-the gap between the best human Olympic world record on a given event and the best
-performance achieved by a humanoid bipedal robot on the same event under regulation
-conditions.
+the gap between the current World Athletics–ratified human world record on a given
+track and field event and the best performance achieved by a humanoid bipedal robot
+on the same event under regulation conditions.
 
 Robots already beat humans at many things. None of those things matter to the question
 this project exists to answer: *can a machine built like us outperform us at what we

@@ -1,6 +1,6 @@
 ---
 name: New event request
-about: Request that an Olympic event be added to the ledger
+about: Request that a World Athletics–ratified event be added to the ledger
 title: "[event] "
 labels: event-request
 ---
@@ -23,7 +23,7 @@ labels: event-request
 
 ## Why this event fits the scope
 
-<!-- Bioparity tracks individual, measurable Olympic events. Team sports, judged team events, and events without a quantitative world record are out of scope. Confirm this event meets the criteria. -->
+<!-- Bioparity tracks individual, measurable events with a World Athletics–ratified world record. Team sports, judged team events, and events without a quantitative world record are out of scope. Confirm this event meets the criteria. -->
 
 ## Anything else
 

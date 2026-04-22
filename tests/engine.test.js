@@ -836,21 +836,25 @@ test('17. disclaimer gating: Flash (mens-half-marathon ineligible) has non-null 
 });
 
 // ---------------------------------------------------------------------------
-// 18. Real-data-only guardrails: after scope cleanup the ledger must contain
-//     exactly 19 events, exactly 4 real performances (Cassie, Tiangong Ultra,
-//     Unitree H1, Honor Flash), and no fabricated placeholder rows.
+// 18. Real-data-only guardrails: after Commit 10's ingestion sweep the ledger
+//     contains 25 events and 10 real performances (Cassie; Tiangong Ultra;
+//     Unitree H1 ×3 across 1500m, 400m, 100m hurdles; Honor Flash; Honor
+//     Lightning ×3 teleop + 2 autonomous; Booster K1), no fabricated rows.
 // ---------------------------------------------------------------------------
-test('18. ledger contains exactly 19 tracked events', () => {
+test('18. ledger contains exactly 25 tracked events', () => {
   const ledger = loadLedger(LEDGER_PATH);
-  assert.equal(ledger.events.length, 19, 'expected 19 events, got ' + ledger.events.length);
+  assert.equal(ledger.events.length, 25, 'expected 25 events, got ' + ledger.events.length);
 });
 
-test('18. every event id is one of the 19 approved ids', () => {
+test('18. every event id is one of the 25 approved ids', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const approved = new Set([
     'mens-100m', 'mens-200m', 'mens-400m', 'mens-800m', 'mens-1500m',
+    'mens-5000m', 'mens-10000m', 'mens-3000m-steeplechase',
     'mens-half-marathon', 'mens-marathon',
-    'womens-100m', 'womens-200m', 'womens-half-marathon', 'womens-marathon',
+    'womens-100m', 'womens-200m',
+    'womens-5000m', 'womens-10000m', 'womens-3000m-steeplechase',
+    'womens-half-marathon', 'womens-marathon',
     'mens-high-jump', 'mens-long-jump',
     'womens-high-jump', 'womens-long-jump',
     'mens-archery-70m', 'womens-archery-70m',
@@ -871,12 +875,15 @@ test('18. no fabricated placeholder performances remain (Humanoid [A-Z] or Place
   }
 });
 
-test('18. exactly 4 real performances across the full ledger', () => {
+test('18. exactly 10 real performances across the full ledger', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const all = ledger.events.flatMap(ev => ev.performances || []);
-  assert.equal(all.length, 4, 'expected 4 performances, got ' + all.length);
+  assert.equal(all.length, 10, 'expected 10 performances after Commit 10 ingestion, got ' + all.length);
   const models = all.map(p => p.robot_model).sort();
-  assert.deepEqual(models, ['Cassie', 'Flash', 'H1', 'Tiangong Ultra']);
+  assert.deepEqual(
+    models,
+    ['Cassie', 'Flash', 'H1', 'H1', 'H1', 'K1', 'Lightning', 'Lightning', 'Lightning', 'Tiangong Ultra']
+  );
 });
 
 test('18. no cut sports remain (swimming, throws, winter, triple jump, rowing)', () => {
@@ -899,7 +906,7 @@ test('18. no cut sports remain (swimming, throws, winter, triple jump, rowing)',
 test('19. summarizeLedger reports 0 parity_or_better and 0% on both denominators', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const summary = summarizeLedger(ledger);
-  assert.equal(summary.total_events, 19);
+  assert.equal(summary.total_events, 25);
   assert.equal(summary.parity_or_better, 0, 'no event should be at Parity or Robot Lead');
   assert.equal(summary.primary_pct, 0);
   assert.equal(summary.secondary_pct, 0);
@@ -927,16 +934,18 @@ test('20. every ledger performance has an explicit autonomy value from the allow
   }
 });
 
-test('20. autonomy: three autonomous + one assisted across the four real entries', () => {
+test('20. autonomy distribution after Commit 10 ingestion: 7 autonomous, 1 assisted, 1 teleoperated, 1 unknown', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const perfs = ledger.events.flatMap(e => e.performances || []);
-  assert.equal(perfs.length, 4, 'expected exactly 4 real performances');
+  assert.equal(perfs.length, 10, 'expected exactly 10 real performances');
   const counts = perfs.reduce((acc, p) => {
     acc[p.autonomy] = (acc[p.autonomy] || 0) + 1;
     return acc;
   }, {});
-  assert.equal(counts.autonomous, 3);
+  assert.equal(counts.autonomous, 7);
   assert.equal(counts.assisted, 1);
+  assert.equal(counts.teleoperated, 1);
+  assert.equal(counts.unknown, 1);
 });
 
 test('20. autonomy: selectBestPerformance preserves autonomy on the returned performance', () => {

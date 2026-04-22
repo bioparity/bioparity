@@ -3,6 +3,45 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased] — Commit 9 — Scope reframe: World Athletics–ratified records + 6 new events (2026-04-22)
+
+Dropped "Olympic" framing in favor of World Athletics–ratified records. Added 5000m, 10000m, and 3000m steeplechase (men's and women's) to the ledger. Parity meter denominator is now 25 events. Methodology rewritten to anchor on the current World Athletics record list rather than the IOC program.
+
+### Added
+- `data/ledger.json` — six new event entries: `mens-5000m` (Joshua Cheptegei 12:35.36 / 755.36 s / 2020-08-14 Monaco), `womens-5000m` (Beatrice Chebet 13:58.06 / 838.06 s / 2024-05-25 Eugene), `mens-10000m` (Joshua Cheptegei 26:11.00 / 1571.00 s / 2020-10-07 Valencia), `womens-10000m` (Beatrice Chebet 28:54.14 / 1734.14 s / 2024-05-25 Eugene), `mens-3000m-steeplechase` (Lamecha Girma 7:52.11 / 472.11 s / 2023-06-09 Paris), `womens-3000m-steeplechase` (Beatrice Chepkoech 8:44.32 / 524.32 s / 2018-07-20 Monaco). All six start with `performances: []` and `verified_by: "World Athletics"`. `course_notes` field added on the two steeplechase events referencing World Athletics Rule 22 (28 barriers, 7 water jumps).
+- `lib/sport-glyphs.js` — new `SteeplechaseGlyph` (24×24, 1.5 px stroke, currentColor; shape: fixed barrier + water pit with wavy line). 5000 m and 10 000 m reuse `DistanceGlyph` rather than a fragmented long-distance variant — the shape reads as "long distance" and the track-length chip + event name already carry the finer distinction.
+- `tests/scope.test.js` — 4 new cases under group 26: ledger has exactly 25 events, every track-and-field event's `verified_by` is `World Athletics` (archery events excepted — World Archery), no `event_id` contains "olympic", all six Commit 9 `event_ids` are present.
+- `tests/copy.test.js` — 2 new cases under group 27: case-insensitive "Olympic" regression guard on `app/page.js`, `app/methodology/page.js`, and `app/about/page.js`; `World Athletics` appears ≥ 2 times in the methodology source.
+
+### Changed
+- `lib/sport-glyphs.js` — `glyphForEvent` extended: steeplechase → `SteeplechaseGlyph`; 5000m/10000m → `DistanceGlyph`; fallback chain preserved.
+- `app/page.js` — homepage tagline reframed to "human track and field world records. A canonical, public, auditable ledger anchored on the World Athletics–ratified record list."
+- `app/layout.js` — site title, description, Open Graph, and Twitter cards all reframed. New title: `Bioparity — Human vs Robot Track & Field Parity Ledger`.
+- `app/methodology/page.js` — Commit 7's "Scope: Why Summer Olympics Only" section rewritten as "Scope: Why World Athletics–Ratified Records" with three paragraphs explaining the ceiling argument, the quadrennial-subset point, and the locomotion-biomechanics exclusion (winter/equipment-mediated/throws). Event list updated to 25 entries. Added a new paragraph to "What Counts as an Attempt": "The parity meter measures against World Athletics world records. An attempt that would beat the record but fails sanctioning rules (wind, surface, equipment, handler intervention) is recorded as ineligible and does not move the meter."
+- `app/about/page.js` — OG alt text and subhead reframed away from "Olympic" to "track and field world records". The Navy/Fallujah paragraph stays unchanged.
+- `scripts/build-og.js` — OG card tagline reframed; regenerated `public/og.png` now reads "Tracking when humanoid robots match human track and field world records." Footer reads "0% across all 25 tracked."
+- `data/sanctioned-events.json` — ProRL Combine notes rewritten to drop "Olympic" and explain that the 50 m sprint course has no ratified World Athletics record at that distance.
+- `README.md`, `CONTRIBUTING.md`, `.github/ISSUE_TEMPLATE/new-event-request.md`, `package.json` — all one-liners reframed to "track and field world records (World Athletics–ratified)" or equivalent.
+- `CHANGELOG.md` — historical 0.1.0 entry scrubbed of "Olympic" references (event counts adjusted, phrasing shifted to "summer and winter disciplines" with a pointer forward to Commit 9).
+- `tests/engine.test.js` — test 18 updated from 19 → 25 event count and its approved-IDs set now lists all 25 IDs. Test 19 (`summarizeLedger.total_events`) updated from 19 → 25.
+- `tests/about.test.js` — guard extended with a third assertion: no "Olympic" anywhere in `app/about/page.js`.
+
+### Verification anchors — World Record sources (from worldathletics.org only)
+| Event | Holder | Time | Date | Venue | Source |
+|---|---|---|---|---|---|
+| mens-5000m | Joshua Cheptegei (UGA) | 12:35.36 | 2020-08-14 | Monaco | [worldathletics.org press release](https://worldathletics.org/news/press-release/cheptegei-5000m-world-record-ratified) |
+| womens-5000m | Beatrice Chebet (KEN) | 13:58.06 | 2024-05-25 | Eugene, USA | [worldathletics.org report](https://worldathletics.org/news/report/chebet-world-5000m-record-eugene-sub-14-prefontaine-classic) |
+| mens-10000m | Joshua Cheptegei (UGA) | 26:11.00 | 2020-10-07 | Valencia, Spain | [worldathletics.org all-time list](https://worldathletics.org/records/all-time-toplists/middlelong/10000-metres/outdoor/men/senior) |
+| womens-10000m | Beatrice Chebet (KEN) | 28:54.14 | 2024-05-25 | Eugene, USA | [worldathletics.org report](https://worldathletics.org/news/report/world-record-prefontaine-classic-eugene-2024) |
+| mens-3000m-steeplechase | Lamecha Girma (ETH) | 7:52.11 | 2023-06-09 | Paris, France | [worldathletics.org press release](https://worldathletics.org/news/press-releases/ratified-world-records-kipyegon-1500m-5000m-girma-steeplechase-perez-race-walk) |
+| womens-3000m-steeplechase | Beatrice Chepkoech (KEN) | 8:44.32 | 2018-07-20 | Monaco | [worldathletics.org press release](https://worldathletics.org/news/press-release/world-record-ratified-chepkoech) |
+
+### Notes
+- Parity meter is **fully data-driven** — `components/ParityMeter.js` reads `summary.total_events` and `summary.events_with_attempts` from `summarizeLedger(ledger)`. No hardcoded `19` or `25` anywhere in the UI.
+- TimelineHero dot count unchanged at **4** — adding events with zero performances does not change the dot set.
+- 6 new static event routes prerender cleanly: `/event/mens-5000m`, `/event/womens-5000m`, `/event/mens-10000m`, `/event/womens-10000m`, `/event/mens-3000m-steeplechase`, `/event/womens-3000m-steeplechase`. Total static pages: 31 → 37.
+- Final test count: **85** (79 → +4 scope + 2 copy; existing tests 18/19 retargeted, about.test got one new assertion — no net change beyond the 6 additions).
+
 ## [Unreleased] — Commit 8e — Final /about copy + pre-push fixes (2026-04-22)
 
 Last commit before the 8a–8e stack pushes to `main`. Tests stay at 79.
@@ -171,10 +210,11 @@ Initial public release.
 
 ### Added
 
-- Canonical event schema (`data/ledger.json`) with 23 individual Olympic events spanning
+- Canonical event schema (`data/ledger.json`) with 23 individual events spanning
   track sprint, track endurance, field jumps, field throws, swimming sprint and
-  endurance, speed skating (long and short track), archery, and rowing. Both Summer
-  and Winter Olympic events represented.
+  endurance, speed skating (long and short track), archery, and rowing. Both summer
+  and winter disciplines represented at initial release. (Scope was later narrowed
+  to World Athletics–ratified track and field events only; see Commit 9.)
 - Validation engine (`lib/engine.js`):
   - HARD FAIL constraints (locomotion, energy source, terrain match)
   - Compliance eligibility (wind speed, wind legality, surface, equipment)

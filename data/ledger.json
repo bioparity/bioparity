@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-04-20",
+  "last_updated": "2026-04-22",
   "events": [
     {
       "event_id": "mens-100m",
@@ -54,13 +54,13 @@
           "performance_id": "66666666-6666-4666-8666-100000000001",
           "robot_model": "Tiangong Ultra",
           "manufacturer": "Beijing Innovation Center of Humanoid Robots",
-          "value": 26.87,
+          "value": 21.50,
           "date": "2025-08-15",
           "validation_status": "experimental",
           "autonomy": "autonomous",
           "source_url": "https://www.globaltimes.cn/page/202508/1341057.shtml",
           "sanctioning_body": "World Humanoid Robot Games",
-          "notes": "Actual raw 100m time of 26.87s at the inaugural 2025 World Humanoid Robot Games in Beijing (August 15-17, 2025). The Games awarded Tiangong Ultra a 'winning' time of 21.50s under a time-credit bonus for full autonomy compared to remote-controlled entrants — that 21.50s figure is NOT a comparable 100m time and is excluded from this ledger. The raw 26.87s is the actual course completion time and is recorded here as experimental because the event is not a recognized governing-body record but is a real, publicly documented competition.",
+          "notes": "Gold medal, men's 100 metres at the inaugural 2025 World Humanoid Robot Games in Beijing (August 15–17, 2025). Time of 21.50 seconds reported by Global Times (2025-08-17 closing coverage) as the winning 100m time. Experimental because the WHRG is an event-organizer body and not a recognized governing record-ratification body. A prior Commit 7 draft recorded 26.87 s as the 'raw' time and claimed 21.50 s was a bonus-adjusted figure; Commit 10 corrected the value to 21.50 s per the Global Times coverage, which does not describe the time as adjusted.",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -115,7 +115,41 @@
         "source_url": "https://worldathletics.org/records/by-category/world-records",
         "verified_by": "World Athletics"
       },
-      "performances": []
+      "performances": [
+        {
+          "performance_id": "88888888-8888-4888-8888-100000000001",
+          "robot_model": "H1",
+          "manufacturer": "Unitree Robotics",
+          "value": 88.00,
+          "date": "2025-08-15",
+          "validation_status": "experimental",
+          "autonomy": "autonomous",
+          "source_url": "https://www.globaltimes.cn/page/202508/1341057.shtml",
+          "sanctioning_body": "World Humanoid Robot Games",
+          "notes": "Gold medal, men's 400 metres at the inaugural 2025 World Humanoid Robot Games in Beijing. Global Times (2025-08-17 closing coverage) lists Unitree Robotics as the 400m gold medalist in the sweep of 1500m, 400m, 4x100m relay, and 100m hurdles. Winning time 1:28 (88.00 s) per roboticsandautomationnews.com coverage of the Games; Global Times did not publish the exact time. Date range for the Games was Aug 15–17, 2025; exact 400m final date not disclosed in available English-language sources — recorded at the opening date with this caveat.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "National Speed Skating Oval, Beijing, China",
+            "altitude_m": 44
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": true,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": true,
+            "reason": null
+          }
+        }
+      ]
     },
     {
       "event_id": "mens-800m",
@@ -197,6 +231,7 @@
         "source_url": "https://worldathletics.org/competitions/world-athletics-label-road-races/news/jacob-kiplimo-half-marathon-world-record-lisbon",
         "verified_by": "World Athletics"
       },
+      "event_notes": "The Beijing E-Town Humanoid Half Marathon 2026 had over 100 participating humanoid teams. Per Global Times reporting, 47 teams completed the course (18 autonomous, 29 teleoperated), a 45% completion rate. Bioparity records the top 5 finishers per autonomy tier where times are sourced. Full field results are maintained by the event organizer.",
       "performances": [
         {
           "performance_id": "44444444-4444-4444-8444-100000000001",
@@ -229,6 +264,138 @@
           "record_eligibility": {
             "eligible": false,
             "reason": "surface_standardized=false: race was run on parallel separated lanes from human competitors, not a directly comparable race environment. Additionally, race organized by Beijing E-Town, not sanctioned by World Athletics. Autonomy: assisted — the run involved human handlers on-course, mid-event battery swaps, and manual course corrections, which further disqualifies it from unassisted parity comparison."
+          }
+        },
+        {
+          "performance_id": "aaaaaaaa-aaaa-4aaa-8aaa-100000000001",
+          "robot_model": "Lightning",
+          "manufacturer": "Honor",
+          "value": 2899,
+          "date": "2026-04-19",
+          "validation_status": "experimental",
+          "autonomy": "teleoperated",
+          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "sanctioning_body": "Beijing E-Town Half Marathon",
+          "notes": "First humanoid across the finish line at the 2026 Beijing E-Town Humanoid Half Marathon in 48:19, operating under remote/teleoperated control. Event-organizer rules penalized teleoperation with a 20% time handicap, moving the autonomous Flash entry (50:26) into the recognized 'winner' slot in coverage. Bioparity records the raw 48:19 finish per Global Times / PBS reporting. Secondary source: https://www.npr.org/2026/04/20/g-s1-118086/humanoid-robot-half-marathon",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "road",
+            "conditions": "variable",
+            "location": "Beijing E-Town, Yizhuang, Beijing, China",
+            "altitude_m": 45
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": false,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "Teleoperation does not represent humanoid capability parity. A human pilot provided continuous locomotion control during the event. Recorded for field completeness; does not constitute a parity attempt."
+          }
+        },
+        {
+          "performance_id": "bbbbbbbb-bbbb-4bbb-8bbb-100000000001",
+          "robot_model": "Lightning",
+          "manufacturer": "Honor",
+          "value": 3060,
+          "date": "2026-04-19",
+          "validation_status": "experimental",
+          "autonomy": "autonomous",
+          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "sanctioning_body": "Beijing E-Town Half Marathon",
+          "notes": "Autonomous Honor runner-up at the 2026 Beijing E-Town Humanoid Half Marathon. Finish time reported as approximately 51 minutes per CCTV via PBS; exact time not published. Value stored in seconds is an approximation (51:00 = 3060 s).",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "road",
+            "conditions": "variable",
+            "location": "Beijing E-Town, Yizhuang, Beijing, China",
+            "altitude_m": 45
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": false,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "Beijing E-Town 2026 humanoid half-marathon conducted under event-organizer rules that permitted human handlers, battery swaps, and course corrections during the run. These interventions disqualify results from parity comparison against the World Athletics half-marathon record."
+          }
+        },
+        {
+          "performance_id": "cccccccc-cccc-4ccc-8ccc-100000000001",
+          "robot_model": "Lightning",
+          "manufacturer": "Honor",
+          "value": 3180,
+          "date": "2026-04-19",
+          "validation_status": "experimental",
+          "autonomy": "autonomous",
+          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "sanctioning_body": "Beijing E-Town Half Marathon",
+          "notes": "Autonomous Honor third-place at the 2026 Beijing E-Town Humanoid Half Marathon. Finish time reported as approximately 53 minutes per CCTV via PBS; exact time not published. Value stored in seconds is an approximation (53:00 = 3180 s).",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "road",
+            "conditions": "variable",
+            "location": "Beijing E-Town, Yizhuang, Beijing, China",
+            "altitude_m": 45
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": false,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "Beijing E-Town 2026 humanoid half-marathon conducted under event-organizer rules that permitted human handlers, battery swaps, and course corrections during the run. These interventions disqualify results from parity comparison against the World Athletics half-marathon record."
+          }
+        },
+        {
+          "performance_id": "dddddddd-dddd-4ddd-8ddd-100000000001",
+          "robot_model": "K1",
+          "manufacturer": "Booster Robotics",
+          "value": 6780,
+          "date": "2026-04-19",
+          "validation_status": "experimental",
+          "autonomy": "unknown",
+          "source_url": "https://www.globaltimes.cn/page/202604/1359229.shtml",
+          "sanctioning_body": "Beijing E-Town Half Marathon",
+          "notes": "Booster Robotics' K1 model finished the 2026 Beijing E-Town Humanoid Half Marathon in 1:53:00 per Global Times coverage (2026-04-19). The article reports 47 of the starting ~100 teams completed the course (18 autonomous, 29 teleoperated) but does not classify K1's specific autonomy tier.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "road",
+            "conditions": "variable",
+            "location": "Beijing E-Town, Yizhuang, Beijing, China",
+            "altitude_m": 45
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": false,
+            "equipment_compliant": true
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "Autonomy status not documented in available sources. Per Global Times coverage, the Beijing E-Town 2026 event had 18 autonomous and 29 teleoperated completions, but K1's specific classification was not reported. Recorded with unknown autonomy pending verification."
           }
         }
       ]
@@ -438,6 +605,144 @@
         "date": "2022-07-24",
         "source_url": "https://worldathletics.org/records/by-category/world-records",
         "verified_by": "World Athletics"
+      },
+      "performances": [
+        {
+          "performance_id": "99999999-9999-4999-8999-100000000001",
+          "robot_model": "H1",
+          "manufacturer": "Unitree Robotics",
+          "value": null,
+          "date": "2025-08-15",
+          "validation_status": "experimental",
+          "autonomy": "autonomous",
+          "source_url": "https://www.globaltimes.cn/page/202508/1341057.shtml",
+          "sanctioning_body": "World Humanoid Robot Games",
+          "notes": "Gold medal for Unitree Robotics in the WHRG 2025 '100 metres hurdles' event. Global Times 2025-08-17 closing coverage lists this as one of Unitree's four WHRG gold medals (alongside 1500m, 400m, and 4×100m relay) but does not publish a finish time. Model assumed H1 based on the WHRG platform Unitree campaigned elsewhere in the Games; not explicitly named in the 100m hurdles line of the article.",
+          "compliance": {
+            "locomotion_type": "bipedal",
+            "energy_source": "integrated",
+            "terrain_match": true
+          },
+          "environment": {
+            "surface": "track",
+            "conditions": "standardized",
+            "location": "National Speed Skating Oval, Beijing, China",
+            "altitude_m": 44
+          },
+          "conditions_adjustment": {
+            "wind_speed_mps": null,
+            "wind_legal": null,
+            "surface_standardized": false,
+            "equipment_compliant": false
+          },
+          "record_eligibility": {
+            "eligible": false,
+            "reason": "Event conducted under WHRG 2025 rules. The competition was designated '100-meter hurdles' without specification of gender category, barrier heights, or barrier spacing conforming to World Athletics sanctioned specifications. World Athletics ratifies men's 110m hurdles and women's 100m hurdles as distinct events. The WHRG event's 100m distance matches the women's category by distance alone; category-mismatch and specification-verification gaps preclude treating this as a parity attempt. Result recorded for completeness."
+          }
+        }
+      ]
+    },
+    {
+      "event_id": "mens-5000m",
+      "event_name": "Men's 5000 metres",
+      "sport_category": "track-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 755.36,
+        "holder": "Joshua Cheptegei",
+        "date": "2020-08-14",
+        "location": "Monaco",
+        "source_url": "https://worldathletics.org/news/press-release/cheptegei-5000m-world-record-ratified",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "womens-5000m",
+      "event_name": "Women's 5000 metres",
+      "sport_category": "track-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 838.06,
+        "holder": "Beatrice Chebet",
+        "date": "2024-05-25",
+        "location": "Eugene, Oregon, USA (Prefontaine Classic)",
+        "source_url": "https://worldathletics.org/news/report/chebet-world-5000m-record-eugene-sub-14-prefontaine-classic",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-10000m",
+      "event_name": "Men's 10,000 metres",
+      "sport_category": "track-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 1571.0,
+        "holder": "Joshua Cheptegei",
+        "date": "2020-10-07",
+        "location": "Valencia, Spain",
+        "source_url": "https://worldathletics.org/records/all-time-toplists/middlelong/10000-metres/outdoor/men/senior",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "womens-10000m",
+      "event_name": "Women's 10,000 metres",
+      "sport_category": "track-endurance",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 1734.14,
+        "holder": "Beatrice Chebet",
+        "date": "2024-05-25",
+        "location": "Eugene, Oregon, USA (Prefontaine Classic)",
+        "source_url": "https://worldathletics.org/news/report/world-record-prefontaine-classic-eugene-2024",
+        "verified_by": "World Athletics"
+      },
+      "performances": []
+    },
+    {
+      "event_id": "mens-3000m-steeplechase",
+      "event_name": "Men's 3000 metres steeplechase",
+      "sport_category": "track-steeplechase",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 472.11,
+        "holder": "Lamecha Girma",
+        "date": "2023-06-09",
+        "location": "Paris, France (Diamond League)",
+        "source_url": "https://worldathletics.org/news/press-releases/ratified-world-records-kipyegon-1500m-5000m-girma-steeplechase-perez-race-walk",
+        "verified_by": "World Athletics",
+        "course_notes": "Sanctioned 3000 m steeplechase course includes 28 fixed barriers and 7 water jumps; barrier height, water-pit dimensions, and placement are set by World Athletics Rule 22."
+      },
+      "performances": []
+    },
+    {
+      "event_id": "womens-3000m-steeplechase",
+      "event_name": "Women's 3000 metres steeplechase",
+      "sport_category": "track-steeplechase",
+      "season": "summer",
+      "metric_type": "time_endurance",
+      "comparison_direction": "lower_is_better",
+      "human_record": {
+        "value": 524.32,
+        "holder": "Beatrice Chepkoech",
+        "date": "2018-07-20",
+        "location": "Monaco (Diamond League)",
+        "source_url": "https://worldathletics.org/news/press-release/world-record-ratified-chepkoech",
+        "verified_by": "World Athletics",
+        "course_notes": "Sanctioned 3000 m steeplechase course includes 28 fixed barriers and 7 water jumps; barrier height, water-pit dimensions, and placement are set by World Athletics Rule 22."
       },
       "performances": []
     }

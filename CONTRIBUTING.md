@@ -4,7 +4,7 @@ Bioparity is a public, MIT-licensed ledger. Contributions are welcome — partic
 
 - New verified robot performances on existing events.
 - Updates to existing human world records when they are broken.
-- New events that fit the scope (individual, measurable, Olympic).
+- New events that fit the scope (individual, measurable, with a World Athletics–ratified world record).
 - Corrections to source URLs, dates, or values.
 - Methodology refinements (open an issue first to discuss).
 - Documentation, accessibility, and code quality improvements.
