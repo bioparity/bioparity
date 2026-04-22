@@ -1,0 +1,34 @@
+{
+  "audit_date": "2026-04-22",
+  "methodology": "Web search across news, sanctioning body pages, and manufacturer press releases for humanoid performances on each event_id. Sources searched: WHRG 2025 results coverage, Beijing E-Town 2026 coverage, manufacturer press pages for Unitree, Honor, Boston Dynamics, Figure, Tesla, Agility, 1X, Sanctuary, Apptronik, Fourier, UBTech, MirrorMe, Booster Robotics.",
+  "events_verified_empty": [
+    "mens-200m",
+    "mens-800m",
+    "mens-marathon",
+    "mens-high-jump",
+    "mens-long-jump",
+    "mens-archery-70m",
+    "mens-5000m",
+    "mens-10000m",
+    "mens-3000m-steeplechase",
+    "mens-110m-hurdles",
+    "womens-100m",
+    "womens-200m",
+    "womens-half-marathon",
+    "womens-marathon",
+    "womens-high-jump",
+    "womens-long-jump",
+    "womens-archery-70m",
+    "womens-5000m",
+    "womens-10000m",
+    "womens-3000m-steeplechase"
+  ],
+  "events_populated_after_commit_10": [
+    "mens-100m",
+    "mens-400m",
+    "mens-1500m",
+    "mens-half-marathon",
+    "womens-100m-hurdles"
+  ],
+  "notes": "This file is the hand-off to Commit 11's scanner. Events in events_verified_empty should not be re-searched for 2024-2026 dates unless a new sanctioning event is announced. Note two deltas vs. the Commit 10 spec's expected split: (1) spec listed womens-100m as populated, but no sourceable performance was found in 2024-2026 coverage, so it remains empty; (2) spec listed mens-110m-hurdles as populated, but no documented performance exists yet (the WHRG 100m-hurdles gold was recorded on womens-100m-hurdles per Recording Rule 3 category-mismatch handling). Spec's empty list also referenced womens-400m/800m/1500m which are not Bioparity-tracked events under the current 25-event scope — omitted from this audit."
+}

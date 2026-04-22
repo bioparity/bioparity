@@ -3,6 +3,51 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased] — Commit 10 — Manual ingestion sweep (2026-04-22)
+
+Adds verified humanoid performances from WHRG 2025 and Beijing E-Town 2026, codifies three new methodology Recording Rules, and finishes Commit 9's reframe by cleaning "Olympic" references from NEXT_STEPS.md. Tests 85 → 93.
+
+### Changed
+- `data/ledger.json` — Tiangong Ultra mens-100m time corrected from 26.87 s → **21.50 s** per Global Times 2025-08-17 closing coverage of WHRG 2025. Commit 7's speculative note about the 21.50 figure being "bonus-adjusted" was retired; the Global Times article reports 21.50 as the winning time with no adjustment language.
+- `app/event/[event_id]/page.js` — renders a new `event_notes` field (dashed-border, italic-muted) when present on the event, below the status badge.
+- `tests/engine.test.js` — test 18 retargeted from "exactly 4 real performances" → 10, with the new sorted model list. Test 20's autonomy-distribution assertion retargeted to 7 autonomous / 1 assisted / 1 teleoperated / 1 unknown.
+- `tests/timeline.test.js` — test 21 retargeted from 4 → 9 timeline entries (one per valued performance; null-value Unitree hurdles entry is filtered out by `buildTimeline`).
+- `tests/pipeline.test.js` — `ALLOWED_SOURCE_TYPES` extended with `'press coverage'` to distinguish third-party news reporting from first-party company press releases.
+- `NEXT_STEPS.md` — three remaining "Olympic" references (lines from the original Commit 9 inventory) reframed to "track and field world records" / "World Athletics–ratified". Grep now returns zero matches for "olympic" in NEXT_STEPS.md.
+
+### Added
+- **WHRG 2025 performances:**
+  - `mens-400m` — Unitree H1 gold, 1:28.00 (88.00 s), 2025-08-15, autonomous + eligible, cited to Global Times (exact 400m time per roboticsandautomationnews coverage since Global Times did not publish it).
+  - `womens-100m-hurdles` — Unitree H1 gold, value `null` (no time published), 2025-08-15, autonomous + ineligible with a long category-mismatch reason explaining that WHRG's "100m hurdles" did not publish barrier height / gender category / spec-conformance and therefore cannot be treated as a parity attempt on the World Athletics women's 100m hurdles.
+- **Beijing E-Town 2026 performances** (all on `mens-half-marathon`):
+  - Honor Lightning, 48:19 (2899 s), **teleoperated** + ineligible (Rule 1), sourced from PBS/NPR; documented as the first humanoid across the finish line before the event's 20% teleop handicap moved Flash into the recognized-winner slot.
+  - Honor Lightning, ~51:00 (3060 s approximate), autonomous + ineligible (event-rules: handler intervention, battery swaps, course corrections), CCTV-via-PBS source; exact time not published.
+  - Honor Lightning, ~53:00 (3180 s approximate), autonomous + ineligible, same source and same event-rules reason.
+  - Booster Robotics K1, 1:53:00 (6780 s), **unknown autonomy** + ineligible, cited to Global Times 2026-04-19 which reports the raw finish but does not classify K1's autonomy tier.
+- **Event-level note** on `mens-half-marathon`: "The Beijing E-Town Humanoid Half Marathon 2026 had over 100 participating humanoid teams. Per Global Times reporting, 47 teams completed the course (18 autonomous, 29 teleoperated), a 45% completion rate. Bioparity records the top 5 finishers per autonomy tier where times are sourced. Full field results are maintained by the event organizer."
+- **Recording Rules section** in `app/methodology/page.js` (verbatim headings, as required):
+  - "Teleoperation is automatically ineligible."
+  - "Large-field events are capped at five entries per autonomy tier."
+  - "Approximate or category-mismatched events are not treated as parity attempts."
+  - Cross-link added to the tail of "What Counts as an Attempt".
+- `scripts/empty-events-audit-2026-04-22.json` — records the 5 events populated by Commit 10 (`mens-100m`, `mens-400m`, `mens-1500m`, `mens-half-marathon`, `womens-100m-hurdles`) and the 20 events that remain empty after a dedicated search. Two spec deltas reported in the audit's `notes` field (spec expected womens-100m and mens-110m-hurdles populated, but no sourced performance was found).
+- **Pipeline additions** in `data/pipeline.json`:
+  - `mirrorme-bolt-sprint-capability-2026` — MirrorMe's February 2, 2026 Bolt unveiling (10 m/s peak capability claim). Source URL substituted from the Commit 10 spec's reference (which pointed at an unrelated Unitree article) to CnEVPost's MirrorMe coverage, which actually documents the announcement.
+  - `honor-autonomous-sub-record-halfmarathon-2027` — inferred open target (no direct Honor statement). Flagged as inferred in the notes.
+- **Tests:**
+  - `tests/ingestion.test.js` — 5 cases under group 28 (mens-400m has ≥1 perf, womens-100m-hurdles has ≥1, mens-half-marathon has ≥5, every source_url is syntactically valid, every teleoperated perf is ineligible with a teleop reason).
+  - `tests/methodology-rules.test.js` — 3 cases under group 29 (verbatim Recording Rules headings).
+
+### Task outcomes
+- **TASK 1 path taken:** correction-in-place. The existing Tiangong Ultra entry on `mens-100m` had `source_url: globaltimes.cn/.../1341057.shtml` and `date: 2025-08-15`, both matching the Commit 10 spec's WHRG-2025 heuristic. The Global Times article itself (fetched during research) reports 21.50 s as the winning time with no handicap or adjustment language. Value updated from 26.87 → 21.50; notes rewritten to drop the prior unverified "bonus-adjusted" claim and point at the Global Times coverage.
+- **Final parity denominator:** `events_with_attempts = 4` (not 7 as the spec projected). The denominator counts events with compliance-valid attempts, where `compliance-valid` requires `value !== null`. The womens-100m-hurdles entry has `value: null` per the spec and therefore does not raise the denominator; the 5 other populated events are: mens-100m (2 perfs), mens-400m (1), mens-1500m (1), and mens-half-marathon (5), but the Tiangong value fix and multiple perfs on half-marathon do not split an event across multiple "with attempts" rows — each event counts once. The net delta is 4 (up from 3) because mens-400m newly entered the "with attempts" set.
+- **Final timeline dot count:** **9** (baseline 4 + Unitree H1 on 400m + 3 Honor Lightning runs + Booster K1; the null-value Unitree hurdles is properly filtered by `buildTimeline`).
+- **Final test count: 93** (Commit 9 left 85 → +5 ingestion + 3 methodology-rules = 93).
+
+### Notes
+- **Lightning vs Flash naming:** the existing `mens-half-marathon` winner entry is `robot_model: "Flash"` per PBS and the original Commit 7.5 ingestion. Other outlets (Global Times, ITV, webpronews) name Honor's autonomous half-marathon platform "Lightning." Commit 10 kept Flash unchanged on the 50:26 winner per the spec, and used "Lightning" on the three new Honor entries matching the source material that identifies them. The model-name inconsistency is documented in the individual performance `notes` fields; a future commit may reconcile if Honor publishes an authoritative naming.
+- **Event schema additions:** `event_notes` is a new top-level field on event objects. No tests are regression-protecting its presence yet; adding it is backwards-compatible with the engine, which does not read it.
+
 ## [Unreleased] — Commit 9 — Scope reframe: World Athletics–ratified records + 6 new events (2026-04-22)
 
 Dropped "Olympic" framing in favor of World Athletics–ratified records. Added 5000m, 10000m, and 3000m steeplechase (men's and women's) to the ledger. Parity meter denominator is now 25 events. Methodology rewritten to anchor on the current World Athletics record list rather than the IOC program.
