@@ -1,8 +1,8 @@
 import path from 'node:path';
 import { loadLedger, computeStatus, summarizeLedger, computeEventPriority } from '../lib/engine.js';
-import { buildTimeline } from '../lib/timeline.js';
+import { buildLeaderboard } from '../lib/leaderboard.js';
 import ParityMeter from '../components/ParityMeter.js';
-import TimelineHero from '../components/TimelineHero.js';
+import ParityLeaderboard from '../components/ParityLeaderboard.js';
 import FilterBar from '../components/FilterBar.js';
 import { SignatureDot, SectionRule } from '../components/Brand.js';
 import { SprintGlyph, HurdlesGlyph, ArcheryGlyph } from '../lib/sport-glyphs.js';
@@ -11,7 +11,7 @@ function loadData() {
   const ledgerPath = path.join(process.cwd(), 'data', 'ledger.json');
   const ledger = loadLedger(ledgerPath);
   const summary = summarizeLedger(ledger);
-  const timeline = buildTimeline(ledger);
+  const leaderboard = buildLeaderboard(ledger);
   const events = ledger.events.map(ev => ({
     event_id: ev.event_id,
     event_name: ev.event_name,
@@ -27,11 +27,11 @@ function loadData() {
     if (b.priority !== a.priority) return b.priority - a.priority;
     return a.event_name.localeCompare(b.event_name);
   });
-  return { events, summary, timeline };
+  return { events, summary, leaderboard };
 }
 
 export default function HomePage() {
-  const { events, summary, timeline } = loadData();
+  const { events, summary, leaderboard } = loadData();
   return (
     <div className="max-w-6xl mx-auto px-6 py-10 md:py-16">
       <section className="mb-10 md:mb-14">
@@ -51,7 +51,7 @@ export default function HomePage() {
       <SectionRule className="mb-10 md:mb-14" />
 
       <section className="mb-10 md:mb-14">
-        <TimelineHero entries={timeline} />
+        <ParityLeaderboard rows={leaderboard} />
       </section>
 
       <SectionRule className="mb-10 md:mb-14" />

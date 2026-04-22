@@ -3,6 +3,28 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Commit 14 — Closest-to-Parity leaderboard replaces Timeline Hero (2026-04-22)
+
+Replaces the horizontal dot-timeline (`TimelineHero`) on the homepage with a ranked "Closest to Parity" leaderboard that answers the single most pressing question for readers: which events are closest to robots matching humans?
+
+Each event is scored with a parity ratio — `human/robot` for `lower_is_better` metrics and `robot/human` for `higher_is_better` — and bucketed as Robot Lead (ratio ≥ 1, also covers engine-declared Parity), Near Parity (ratio ≥ 0.8), Human Lead, or No Data. Events with robot performances rank descending by ratio; no-data events trail alphabetized and visually dimmed. The Robot Lead row carries a subtle green left-border and background tint.
+
+Added:
+- `lib/leaderboard.js` — pure-function `buildLeaderboard(ledger)` plus `computeParityRatio`, `bucketFor`, `NEAR_PARITY_THRESHOLD = 0.8`, and a `BUCKET` enum.
+- `components/ParityLeaderboard.js` — client component rendering the ordered list with rank, event name, status badge, gap summary ("Robot ahead by 6:54.00" / "Robot behind by 15.15s" / "No robot record"), and parity percent. Responsive: flex-column on mobile, flex-row md+ with right-aligned percent.
+- `tests/leaderboard.test.js` — six new assertions covering row count, Men's Half Marathon at rank 1 in Robot Lead bucket with ratio > 1, no-data tail ordering, monotonic descending ratios, `computeParityRatio` math, and `bucketFor` threshold boundaries.
+
+Removed:
+- `components/TimelineHero.js` (and its autonomy/eligibility dot-plot logic).
+- `lib/timeline.js` + its `buildTimeline` export (no other consumers).
+- `tests/timeline.test.js` — the two timeline-specific assertions are superseded by the six leaderboard assertions.
+
+Changed:
+- `app/page.js` — imports and passes `buildLeaderboard(ledger)` into `<ParityLeaderboard rows={…}/>` where the timeline used to sit. `ParityMeter` above it is untouched; the count-up animation continues to run on first paint.
+
+Tests: 97/97 passing (previous baseline was 93, net +4 after swapping 2 timeline tests for 6 leaderboard tests — note the task brief cited "was 69" but the current suite is 93).
+Build: clean (37 static routes).
+
 ## Commit 13 — Remove obsolete Summer/Winter season filter (2026-04-22)
 
 Removes the Summer/Winter season filter from the events grid on the homepage. The filter was scaffolding from the pre-World Athletics-only era when events were split by season. After the Commit 9 scope reframe, all 25 tracked events are summer; the Winter filter button returned zero results by construction and the "All seasons" button was a no-op.
