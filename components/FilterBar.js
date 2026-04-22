@@ -10,12 +10,6 @@ const STATUS_FILTERS = [
   { key: 'no-attempts', label: 'No attempts' },
 ];
 
-const SEASON_FILTERS = [
-  { key: 'all', label: 'All seasons' },
-  { key: 'summer', label: 'Summer' },
-  { key: 'winter', label: 'Winter' },
-];
-
 function statusBucket(status) {
   if (status === 'Parity' || status === 'Robot Lead') return 'parity-or-better';
   if (status === 'Human Lead (no robot attempts)') return 'no-attempts';
@@ -24,14 +18,12 @@ function statusBucket(status) {
 
 export default function FilterBar({ events }) {
   const [statusKey, setStatusKey] = useState('all');
-  const [seasonKey, setSeasonKey] = useState('all');
   const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return events.filter(ev => {
       if (statusKey !== 'all' && statusBucket(ev.computed.status) !== statusKey) return false;
-      if (seasonKey !== 'all' && ev.season !== seasonKey) return false;
       if (q && !(
         ev.event_name.toLowerCase().includes(q) ||
         ev.sport_category.toLowerCase().includes(q) ||
@@ -39,7 +31,7 @@ export default function FilterBar({ events }) {
       )) return false;
       return true;
     });
-  }, [events, statusKey, seasonKey, query]);
+  }, [events, statusKey, query]);
 
   return (
     <div>
@@ -61,20 +53,6 @@ export default function FilterBar({ events }) {
           ))}
         </div>
         <div className="flex flex-wrap gap-2 items-center">
-          {SEASON_FILTERS.map(f => (
-            <button
-              key={f.key}
-              onClick={() => setSeasonKey(f.key)}
-              className={
-                'text-xs px-3 py-1.5 rounded border transition-colors ' +
-                (seasonKey === f.key
-                  ? 'border-paper text-paper bg-edge'
-                  : 'border-rule text-dim hover:text-paper hover:border-edge')
-              }
-            >
-              {f.label}
-            </button>
-          ))}
           <input
             type="text"
             value={query}

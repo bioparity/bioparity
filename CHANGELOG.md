@@ -3,6 +3,21 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Commit 13 — Remove obsolete Summer/Winter season filter (2026-04-22)
+
+Removes the Summer/Winter season filter from the events grid on the homepage. The filter was scaffolding from the pre-World Athletics-only era when events were split by season. After the Commit 9 scope reframe, all 25 tracked events are summer; the Winter filter button returned zero results by construction and the "All seasons" button was a no-op.
+
+Changed:
+- `components/FilterBar.js`: removed `SEASON_FILTERS` constant, `seasonKey` state, and the season filter button row. Removed season-based filtering from the `filtered` `useMemo`.
+
+Preserved intentionally:
+- `season` field remains on each event in `data/ledger.json` (data untouched).
+- `EventCard.js` still renders the small colored season dot alongside the sport category badge.
+- Test 18 still asserts no `winter` event slips back into the ledger (guardrail against future regressions).
+
+Tests: 93/93 passing, unchanged count
+Build: clean
+
 ## Commit 12 — Byline unification (2026-04-22)
 
 Unified all public-facing author attributions to "Brandon" only. Brandon's legal name is Brandon Kent Sterne; he goes by Brandon on all public surfaces of the site.
