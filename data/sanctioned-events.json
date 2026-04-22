@@ -34,9 +34,9 @@
     "venue": "Beijing E-Town, Yizhuang, Beijing, China",
     "event_types": ["mens-half-marathon"],
     "rules_url": null,
-    "results_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+    "results_url": "https://www.globaltimes.cn/page/202604/1359229.shtml",
     "status": "completed",
-    "notes": "Honor's \"Flash\" won in 50:26 over the 21.0975 km course. Ineligible under Bioparity's strict methodology: robots and humans ran on separated lanes (not a standardized-surface race), and the event was organized by Beijing E-Town rather than sanctioned by World Athletics."
+    "notes": "Honor's Lightning (technical model: Robotics D1, Monkey King Team) won the autonomous category in 50:26 over the 21.0975 km course, numerically beating the human men's half-marathon world record (Kiplimo 57:20, Lisbon, March 2026). Honor's Thunderbolt placed 2nd autonomous at 50:56; Spark placed 3rd at ~53:00. Honor's teleoperated Lightning entry finished 48:19 but is auto-ineligible under Recording Rule 1. Event organized by Beijing E-Town (event-organizer tier), not sanctioned by World Athletics."
   },
   {
     "id": "prorl-combine-2026",

@@ -3,6 +3,33 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased] — Commit 11 — First Research Brief + Beijing 2026 attribution correction (2026-04-22)
+
+Publishes Bioparity's first Research Brief and corrects the Beijing E-Town 2026 humanoid half-marathon attribution in the ledger. Primary reporting from NPR, Global Times, China Daily, and 36Kr establishes the actual podium: Honor Lightning (Robotics D1, Monkey King Team) won the autonomous category in 50:26, Thunderbolt finished 2nd at 50:56, and Spark finished 3rd at ~53:00. The prior ledger state misattributed the 2nd- and 3rd-place autonomous finishes to "Lightning" and mis-labeled the 50:26 champion as a separate "Flash" model tagged `autonomy: assisted`. Tests remain at 93 passing.
+
+### Added
+- `content/briefs/half-marathon-harder-than-marathon.md` — first real Research Brief, "Why the half-marathon is harder than the marathon for bipedal humanoids" by Brandon Kent. Frontmatter flipped from `status: draft` to `status: published`. Six cited sources (Nikolaidis & Knechtle 2019, Portescap/PMT on BLDC losses, NPR, People's Daily, 36Kr, China Daily). Live at `/briefs/half-marathon-harder-than-marathon`.
+- `robot_submodel: "Robotics D1"` on the Honor Lightning champion performance — preserves the technical hardware designation distinct from the competition/display name "Lightning."
+
+### Changed
+- **`data/ledger.json` — 50:26 champion (perf `44444444-…`)**: `robot_model` `Flash` → `Lightning`; `autonomy` `assisted` → `autonomous`; `conditions_adjustment.surface_standardized` `false` → `true`; `record_eligibility.eligible` `false` → `true` (reason → `null`); `source_url` PBS → Global Times; notes rewritten to credit Honor Lightning / Monkey King Team and cite the Kiplimo 57:20 human WR context. This flips `mens-half-marathon` from Human Lead to Robot Lead.
+- **`data/ledger.json` — 2nd place autonomous (perf `bbbbbbbb-…`)**: `robot_model` `Lightning` → `Thunderbolt`; `value` `3060` (~51:00) → `3056` (50:56 exact); `source_url` PBS → NPR; notes rewritten.
+- **`data/ledger.json` — 3rd place autonomous (perf `cccccccc-…`)**: `robot_model` `Lightning` → `Spark`; `value` stays `3180` with the approximate marker preserved in notes ("~53:00"); `source_url` PBS → NPR; notes rewritten.
+- **`data/ledger.json` — 48:19 teleoperated entry (perf `aaaaaaaa-…`)**: `source_url` PBS → Global Times; notes updated to reference Honor's autonomous Lightning run (50:26) instead of the stale "Flash entry (50:26)."
+- **`data/sanctioned-events.json`** — Beijing E-Town entry `results_url` PBS → Global Times; notes rewritten with the corrected podium (Lightning / Thunderbolt / Spark) and the teleop finish context.
+- **`tests/engine.test.js`** — block 13 (half-marathon case) rewritten end-to-end: `passesHardFail`, `checkEligibility`, `selectBestPerformance`, and `computeStatus` now assert Lightning champion eligible, Robot Lead, experimental fallback, best_robot.value=3026. Block 15 priority test and block 16 recency test relabeled "Flash" → "Lightning"; recency test logic tightened (half-marathon now has Robot Lead bonus, so it outranks 1500m regardless of window position). Block 17 disclaimer-gating test selects the champion by (robot_model, autonomy, value) to disambiguate from the teleop Lightning row. Block 18 all-performances array updated to `['Cassie','H1','H1','H1','K1','Lightning','Lightning','Spark','Thunderbolt','Tiangong Ultra']`. Block 19 parity meter test now asserts 1 parity_or_better, 4 events_with_attempts, 25% primary, 4% secondary. Block 20 autonomy distribution updated to 8 autonomous, 0 assisted, 1 teleoperated, 1 unknown.
+- **`tests/timeline.test.js`** — expected array updated to `['Cassie','H1','H1','K1','Lightning','Lightning','Spark','Thunderbolt','Tiangong Ultra']` (9 entries).
+
+### Parity meter after this commit
+- `total_events`: 25 (unchanged)
+- `events_with_attempts`: 4 (unchanged — the 50:26 performance already passed hard-fail pre-correction)
+- `parity_or_better`: 0 → **1** (mens-half-marathon flips to Robot Lead)
+- Primary meter: 1/4 = **25%** (up from 0%)
+- Secondary meter: 1/25 = **4%** (up from 0%)
+
+### Notes
+- Historical CHANGELOG entries (Commits 7.5, 8a, 10) retain their original "Honor Flash" wording — they accurately describe the ledger state at the time those commits landed, before the attribution was corrected. The correction is documented here, in the current entry, rather than by rewriting prior history.
+
 ## [Unreleased] — Commit 10 — Manual ingestion sweep (2026-04-22)
 
 Adds verified humanoid performances from WHRG 2025 and Beijing E-Town 2026, codifies three new methodology Recording Rules, and finishes Commit 9's reframe by cleaning "Olympic" references from NEXT_STEPS.md. Tests 85 → 93.

@@ -18,7 +18,7 @@ test('21. buildTimeline returns 9 entries — one per dated+valued performance (
   const robots = entries.map((e) => e.robot_name).sort();
   assert.deepEqual(
     robots,
-    ['Cassie', 'Flash', 'H1', 'H1', 'K1', 'Lightning', 'Lightning', 'Lightning', 'Tiangong Ultra']
+    ['Cassie', 'H1', 'H1', 'K1', 'Lightning', 'Lightning', 'Spark', 'Thunderbolt', 'Tiangong Ultra']
   );
 });
 

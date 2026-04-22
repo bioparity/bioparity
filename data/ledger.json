@@ -235,15 +235,16 @@
       "performances": [
         {
           "performance_id": "44444444-4444-4444-8444-100000000001",
-          "robot_model": "Flash",
+          "robot_model": "Lightning",
+          "robot_submodel": "Robotics D1",
           "manufacturer": "Honor",
           "value": 3026,
           "date": "2026-04-19",
           "validation_status": "experimental",
-          "autonomy": "assisted",
-          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "autonomy": "autonomous",
+          "source_url": "https://www.globaltimes.cn/page/202604/1359229.shtml",
           "sanctioning_body": "Beijing E-Town Half Marathon",
-          "notes": "Real event: winning autonomous-navigation robot at the 2026 Beijing E-Town Half Marathon and Humanoid Robot Half Marathon, April 19, 2026. Completed the 21.0975km course in 50:26. First widely-documented humanoid bipedal robot to beat the human half marathon world record numerically. Ineligible under strict methodology: race used parallel separated lanes (not a direct comparable environment) and was organized by Beijing E-Town, not sanctioned by World Athletics.",
+          "notes": "Honor's Lightning (technical model: Robotics D1, operated by the Monkey King Team) won the autonomous category at the 2026 Beijing E-Town Humanoid Half Marathon, April 19, 2026, in 50:26 over the 21.0975 km course — numerically beating the human men's half-marathon world record of 57:20 (Jacob Kiplimo, Lisbon, March 2026). Compliance-valid under current Recording Rules: bipedal, integrated power, terrain match, autonomous locomotion, event-organizer-tier sanctioning (Beijing E-Town, not World Athletics). Secondary sources: https://www.npr.org/2026/04/20/g-s1-118086/humanoid-robot-half-marathon , https://www.chinadaily.com.cn/a/202604/19/WS69e43c9da310d6866eb443d5.html , https://eu.36kr.com/en/p/3774636894388739",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -258,12 +259,12 @@
           "conditions_adjustment": {
             "wind_speed_mps": null,
             "wind_legal": null,
-            "surface_standardized": false,
+            "surface_standardized": true,
             "equipment_compliant": true
           },
           "record_eligibility": {
-            "eligible": false,
-            "reason": "surface_standardized=false: race was run on parallel separated lanes from human competitors, not a directly comparable race environment. Additionally, race organized by Beijing E-Town, not sanctioned by World Athletics. Autonomy: assisted — the run involved human handlers on-course, mid-event battery swaps, and manual course corrections, which further disqualifies it from unassisted parity comparison."
+            "eligible": true,
+            "reason": null
           }
         },
         {
@@ -274,9 +275,9 @@
           "date": "2026-04-19",
           "validation_status": "experimental",
           "autonomy": "teleoperated",
-          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "source_url": "https://www.globaltimes.cn/page/202604/1359229.shtml",
           "sanctioning_body": "Beijing E-Town Half Marathon",
-          "notes": "First humanoid across the finish line at the 2026 Beijing E-Town Humanoid Half Marathon in 48:19, operating under remote/teleoperated control. Event-organizer rules penalized teleoperation with a 20% time handicap, moving the autonomous Flash entry (50:26) into the recognized 'winner' slot in coverage. Bioparity records the raw 48:19 finish per Global Times / PBS reporting. Secondary source: https://www.npr.org/2026/04/20/g-s1-118086/humanoid-robot-half-marathon",
+          "notes": "First humanoid across the finish line at the 2026 Beijing E-Town Humanoid Half Marathon in 48:19, operating under remote/teleoperated control. Event-organizer rules penalized teleoperation with a 20% time handicap, moving Honor's autonomous Lightning run (50:26) into the recognized 'winner' slot in coverage. Bioparity records the raw 48:19 finish per Global Times / NPR reporting. Sources: https://www.globaltimes.cn/page/202604/1359229.shtml , https://www.npr.org/2026/04/20/g-s1-118086/humanoid-robot-half-marathon",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -301,15 +302,15 @@
         },
         {
           "performance_id": "bbbbbbbb-bbbb-4bbb-8bbb-100000000001",
-          "robot_model": "Lightning",
+          "robot_model": "Thunderbolt",
           "manufacturer": "Honor",
-          "value": 3060,
+          "value": 3056,
           "date": "2026-04-19",
           "validation_status": "experimental",
           "autonomy": "autonomous",
-          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "source_url": "https://www.npr.org/2026/04/20/g-s1-118086/humanoid-robot-half-marathon",
           "sanctioning_body": "Beijing E-Town Half Marathon",
-          "notes": "Autonomous Honor runner-up at the 2026 Beijing E-Town Humanoid Half Marathon. Finish time reported as approximately 51 minutes per CCTV via PBS; exact time not published. Value stored in seconds is an approximation (51:00 = 3060 s).",
+          "notes": "Autonomous 2nd place (Honor Thunderbolt) at the 2026 Beijing E-Town Humanoid Half Marathon, 50:56. Finish time confirmed by NPR and Global Times reporting. Secondary sources: https://www.globaltimes.cn/page/202604/1359229.shtml , https://www.chinadaily.com.cn/a/202604/19/WS69e43c9da310d6866eb443d5.html",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",
@@ -334,15 +335,15 @@
         },
         {
           "performance_id": "cccccccc-cccc-4ccc-8ccc-100000000001",
-          "robot_model": "Lightning",
+          "robot_model": "Spark",
           "manufacturer": "Honor",
           "value": 3180,
           "date": "2026-04-19",
           "validation_status": "experimental",
           "autonomy": "autonomous",
-          "source_url": "https://www.pbs.org/newshour/world/humanoid-robot-wins-beijing-half-marathon-defeating-the-human-world-record",
+          "source_url": "https://www.npr.org/2026/04/20/g-s1-118086/humanoid-robot-half-marathon",
           "sanctioning_body": "Beijing E-Town Half Marathon",
-          "notes": "Autonomous Honor third-place at the 2026 Beijing E-Town Humanoid Half Marathon. Finish time reported as approximately 53 minutes per CCTV via PBS; exact time not published. Value stored in seconds is an approximation (53:00 = 3180 s).",
+          "notes": "Autonomous 3rd place (Honor Spark) at the 2026 Beijing E-Town Humanoid Half Marathon, approximately 53:00 (display as ~53:00; exact seconds not published). Value stored in seconds is an approximation (53:00 = 3180 s). Attribution confirmed by NPR and 36Kr reporting. Secondary sources: https://www.globaltimes.cn/page/202604/1359229.shtml , https://eu.36kr.com/en/p/3774636894388739",
           "compliance": {
             "locomotion_type": "bipedal",
             "energy_source": "integrated",

@@ -594,10 +594,11 @@ test('12. null-value performance is excluded from selection but real attempts st
 });
 
 // ---------------------------------------------------------------------------
-// 13. Real-event case: men's half marathon — Kiplimo (human WR) vs Honor Flash
-//     (Beijing E-Town, ineligible). The robot is faster but the surface is not
-//     standardized, so it must NOT be selected as best and the event must
-//     resolve to "Human Lead (no eligible robot performance)".
+// 13. Real-event case: men's half marathon — Kiplimo (human WR 57:20) vs Honor
+//     Lightning (Beijing E-Town autonomous champion, 50:26). Lightning is
+//     autonomous, passes hard-fail and eligibility under current Recording
+//     Rules, and is faster than the human WR — so the event resolves to
+//     "Robot Lead" via the experimental fallback path.
 // ---------------------------------------------------------------------------
 test('13. half marathon event loads from the seed without throwing', () => {
   const ledger = loadLedger(LEDGER_PATH);
@@ -608,48 +609,60 @@ test('13. half marathon event loads from the seed without throwing', () => {
   assert.equal(ev.human_record.verified_by, 'World Athletics');
 });
 
-test('13. Honor Flash performance passes hard-fail validation', () => {
+function findChampionLightning(ev) {
+  return ev.performances.find(
+    p => p.robot_model === 'Lightning' && p.autonomy === 'autonomous' && p.value === 3026
+  );
+}
+
+test('13. Honor Lightning (autonomous champion, 50:26) passes hard-fail validation', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
-  const flash = ev.performances.find(p => p.robot_model === 'Flash');
-  assert.ok(flash, 'Flash performance must exist');
-  assert.equal(passesHardFail(flash), true);
+  const champion = findChampionLightning(ev);
+  assert.ok(champion, 'Lightning autonomous champion must exist');
+  assert.equal(passesHardFail(champion), true);
 });
 
-test('13. Honor Flash record_eligibility resolves to false on surface_standardized', () => {
+test('13. Honor Lightning (champion) is eligible under current Recording Rules (surface_standardized=true)', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
-  const flash = ev.performances.find(p => p.robot_model === 'Flash');
-  const elig = checkEligibility(flash);
-  assert.equal(elig.eligible, false);
-  assert.match(elig.reason, /surface_standardized=false/);
+  const champion = findChampionLightning(ev);
+  const elig = checkEligibility(champion);
+  assert.equal(elig.eligible, true);
+  assert.equal(elig.reason, null);
 });
 
-test('13. selectBestPerformance returns null for the half marathon (no eligible row)', () => {
+test('13. selectBestPerformance returns Honor Lightning (50:26) as best for the half marathon (experimental fallback)', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
   const sel = selectBestPerformance(ev.performances, ev.comparison_direction);
-  assert.equal(sel.performance, null);
-  assert.equal(sel.fallback, false);
+  assert.ok(sel.performance, 'selectBestPerformance must return a performance');
+  assert.equal(sel.performance.robot_model, 'Lightning');
+  assert.equal(sel.performance.value, 3026);
+  assert.equal(sel.performance.autonomy, 'autonomous');
+  // Lightning is experimental (no World Athletics sanction), so fallback=true.
+  assert.equal(sel.fallback, true);
 });
 
-test('13. computeStatus returns "Human Lead (no eligible robot performance)" for the half marathon', () => {
+test('13. computeStatus returns "Robot Lead" for the half marathon (Lightning 50:26 < Kiplimo 57:20)', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
   const result = computeStatus(ev);
-  assert.equal(result.status, STATUS.HUMAN_LEAD_NO_ELIGIBLE);
-  assert.equal(result.best_robot, null);
+  assert.equal(result.status, STATUS.ROBOT_LEAD);
+  assert.ok(result.best_robot, 'best_robot must be set');
+  assert.equal(result.best_robot.robot_model, 'Lightning');
+  assert.equal(result.best_robot.value, 3026);
 });
 
-test('13. Flash row is preserved in event.performances (not filtered out) so the UI can render it as ineligible', () => {
+test('13. Honor Lightning champion row is preserved in event.performances with expected identifying fields', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
-  assert.ok(ev.performances.length >= 1, 'performances array must retain ineligible attempts');
-  const flash = ev.performances.find(p => p.robot_model === 'Flash');
-  assert.ok(flash, 'Flash row must remain in event.performances even though ineligible');
-  assert.equal(flash.value, 3026);
-  assert.equal(flash.manufacturer, 'Honor');
-  assert.equal(flash.sanctioning_body, 'Beijing E-Town Half Marathon');
+  assert.ok(ev.performances.length >= 1, 'performances array must retain all attempts');
+  const champion = findChampionLightning(ev);
+  assert.ok(champion, 'Lightning autonomous champion must remain in event.performances');
+  assert.equal(champion.value, 3026);
+  assert.equal(champion.manufacturer, 'Honor');
+  assert.equal(champion.sanctioning_body, 'Beijing E-Town Half Marathon');
 });
 
 // ---------------------------------------------------------------------------
@@ -767,7 +780,7 @@ test('15. priority: live mens-100m (Cassie verified) scores >= 100', () => {
   assert.ok(score >= 100, 'mens-100m priority expected >= 100, got ' + score);
 });
 
-test('15. priority: live mens-half-marathon (Flash cited) scores >= 50', () => {
+test('15. priority: live mens-half-marathon (Lightning cited) scores >= 50', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
   const score = computeEventPriority(ev);
@@ -797,27 +810,24 @@ test('16. recency: a performance older than 30 days does NOT add the recency bon
   assert.equal(computeEventPriority(ev), 10);
 });
 
-test('16. recency: live mens-half-marathon (Flash dated 2026-04-19) ranks above mens-1500m (H1 2025-08-15) when build is within 30 days of Flash', () => {
+test('16. recency: live mens-half-marathon (Lightning dated 2026-04-19) ranks above mens-1500m (H1 2025-08-15)', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const half = ledger.events.find(e => e.event_id === 'mens-half-marathon');
   const m1500 = ledger.events.find(e => e.event_id === 'mens-1500m');
-  // The recency window is rolling — only assert ordering when we are still inside it.
-  const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
-  const flashWithinWindow = Date.parse('2026-04-19') >= cutoff;
-  if (flashWithinWindow) {
-    assert.ok(
-      computeEventPriority(half) > computeEventPriority(m1500),
-      'with Flash inside the recency window, half-marathon must outrank 1500m'
-    );
-  } else {
-    // Outside the window the two scores tie at 60; either ordering is acceptable.
-    assert.equal(computeEventPriority(half), computeEventPriority(m1500));
-  }
+  // After the Beijing correction, half-marathon has Robot Lead status (Lightning
+  // 50:26 < Kiplimo 57:20) which adds +25 to priority on top of citation + compliant
+  // attempt. mens-1500m is Human Lead (H1 fallback), so half-marathon outranks 1500m
+  // regardless of whether the Lightning date is still inside the 30-day recency window.
+  assert.ok(
+    computeEventPriority(half) > computeEventPriority(m1500),
+    'half-marathon (Robot Lead) must outrank mens-1500m (Human Lead): half=' +
+      computeEventPriority(half) + ' m1500=' + computeEventPriority(m1500)
+  );
 });
 
 // ---------------------------------------------------------------------------
 // 17. Disclaimer gating: the "illustrative seed data" disclaimer should fire
-//     only on rows with source_url === null. Real cited entries (H1, Flash)
+//     only on rows with source_url === null. Real cited entries (H1, Lightning)
 //     must have a non-null source_url so the disclaimer is suppressed.
 // ---------------------------------------------------------------------------
 test('17. disclaimer gating: H1 (mens-1500m best) has non-null source_url so the disclaimer is suppressed', () => {
@@ -828,18 +838,22 @@ test('17. disclaimer gating: H1 (mens-1500m best) has non-null source_url so the
   assert.notEqual(best.source_url, null, 'H1 must have a non-null source_url for the disclaimer to suppress');
 });
 
-test('17. disclaimer gating: Flash (mens-half-marathon ineligible) has non-null source_url', () => {
+test('17. disclaimer gating: Honor Lightning (mens-half-marathon autonomous champion) has non-null source_url', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const ev = ledger.events.find(e => e.event_id === 'mens-half-marathon');
-  const flash = ev.performances.find(p => p.robot_model === 'Flash');
-  assert.notEqual(flash.source_url, null, 'Flash must have a non-null source_url');
+  const champion = ev.performances.find(
+    p => p.robot_model === 'Lightning' && p.autonomy === 'autonomous' && p.value === 3026
+  );
+  assert.ok(champion, 'Lightning autonomous champion row must exist');
+  assert.notEqual(champion.source_url, null, 'Lightning champion must have a non-null source_url');
 });
 
 // ---------------------------------------------------------------------------
-// 18. Real-data-only guardrails: after Commit 10's ingestion sweep the ledger
-//     contains 25 events and 10 real performances (Cassie; Tiangong Ultra;
-//     Unitree H1 ×3 across 1500m, 400m, 100m hurdles; Honor Flash; Honor
-//     Lightning ×3 teleop + 2 autonomous; Booster K1), no fabricated rows.
+// 18. Real-data-only guardrails: after the Beijing 2026 attribution correction
+//     the ledger contains 25 events and 10 real performances (Cassie; Tiangong
+//     Ultra; Unitree H1 ×3 across 1500m, 400m, 100m hurdles; Honor Lightning
+//     ×2 [autonomous champion 50:26, teleoperated 48:19]; Honor Thunderbolt
+//     2nd 50:56; Honor Spark 3rd ~53:00; Booster K1), no fabricated rows.
 // ---------------------------------------------------------------------------
 test('18. ledger contains exactly 25 tracked events', () => {
   const ledger = loadLedger(LEDGER_PATH);
@@ -882,7 +896,7 @@ test('18. exactly 10 real performances across the full ledger', () => {
   const models = all.map(p => p.robot_model).sort();
   assert.deepEqual(
     models,
-    ['Cassie', 'Flash', 'H1', 'H1', 'H1', 'K1', 'Lightning', 'Lightning', 'Lightning', 'Tiangong Ultra']
+    ['Cassie', 'H1', 'H1', 'H1', 'K1', 'Lightning', 'Lightning', 'Spark', 'Thunderbolt', 'Tiangong Ultra']
   );
 });
 
@@ -900,17 +914,21 @@ test('18. no cut sports remain (swimming, throws, winter, triple jump, rowing)',
 });
 
 // ---------------------------------------------------------------------------
-// 19. Parity meter math: with only real data, no event is at Parity or Robot
-//     Lead yet. Both denominators must resolve to 0%.
+// 19. Parity meter math: after the Beijing 2026 attribution correction, the
+//     mens-half-marathon flips to Robot Lead (Honor Lightning 50:26 < Kiplimo
+//     57:20). Exactly one event is at Parity or Robot Lead. The denominator
+//     for the primary meter is the count of events with a compliance-valid
+//     robot attempt (currently 4); the secondary meter denominator is all 25
+//     tracked events.
 // ---------------------------------------------------------------------------
-test('19. summarizeLedger reports 0 parity_or_better and 0% on both denominators', () => {
+test('19. summarizeLedger reports 1 parity_or_better (mens-half-marathon Robot Lead) and 25% / 4% on the two denominators', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const summary = summarizeLedger(ledger);
   assert.equal(summary.total_events, 25);
-  assert.equal(summary.parity_or_better, 0, 'no event should be at Parity or Robot Lead');
-  assert.equal(summary.primary_pct, 0);
-  assert.equal(summary.secondary_pct, 0);
-  assert.ok(summary.events_with_attempts >= 1, 'at least one event has a compliance-valid attempt');
+  assert.equal(summary.parity_or_better, 1, 'exactly one event (mens-half-marathon) should be at Robot Lead');
+  assert.equal(summary.events_with_attempts, 4, 'four events have a compliance-valid attempt');
+  assert.equal(summary.primary_pct, 25, 'primary meter = 1/4 = 25%');
+  assert.equal(summary.secondary_pct, 4, 'secondary meter = 1/25 = 4%');
 });
 
 // ---------------------------------------------------------------------------
@@ -934,7 +952,7 @@ test('20. every ledger performance has an explicit autonomy value from the allow
   }
 });
 
-test('20. autonomy distribution after Commit 10 ingestion: 7 autonomous, 1 assisted, 1 teleoperated, 1 unknown', () => {
+test('20. autonomy distribution after Beijing 2026 attribution correction: 8 autonomous, 0 assisted, 1 teleoperated, 1 unknown', () => {
   const ledger = loadLedger(LEDGER_PATH);
   const perfs = ledger.events.flatMap(e => e.performances || []);
   assert.equal(perfs.length, 10, 'expected exactly 10 real performances');
@@ -942,8 +960,12 @@ test('20. autonomy distribution after Commit 10 ingestion: 7 autonomous, 1 assis
     acc[p.autonomy] = (acc[p.autonomy] || 0) + 1;
     return acc;
   }, {});
-  assert.equal(counts.autonomous, 7);
-  assert.equal(counts.assisted, 1);
+  // Honor Lightning champion (50:26) flipped from assisted→autonomous when the
+  // Flash/Lightning attribution was corrected; Thunderbolt 50:56 and Spark
+  // ~53:00 remain autonomous; Lightning 48:19 stays teleoperated; Booster K1
+  // remains unknown. That drops assisted to 0 and lifts autonomous to 8.
+  assert.equal(counts.autonomous, 8);
+  assert.equal(counts.assisted || 0, 0);
   assert.equal(counts.teleoperated, 1);
   assert.equal(counts.unknown, 1);
 });
