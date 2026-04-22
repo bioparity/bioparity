@@ -3,6 +3,23 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Commit 16 — Cumulative parity coverage chart (2026-04-22)
+
+Adds a small line chart beneath the leaderboard that tells the trajectory story: "is parity accelerating?" At each unique compliance-valid performance date in the ledger, the engine recomputes (events at Parity or Robot Lead) / (events with at least one hard-fail-passing robot attempt) and plots the result as a step function from 0% to 100%.
+
+Current ledger produces three data points: Sep 2022 (0%, 0 of 1), Aug 2025 (0%, 0 of 3), and Apr 2026 (25%, 1 of 4 — the Honor Lightning half-marathon flipping that single event into Robot Lead).
+
+Added:
+- `lib/coverage.js` — pure `buildCoverageSeries(ledger)` function. Filters each performance through `passesHardFail`, orders by date, and at every unique cutoff date rebuilds a shadow event with only the performances up to that date, then runs `computeStatus` to decide Parity/Robot Lead membership. Returns `[{ date, attempted, parity_or_better, pct }]`.
+- `components/ParityCoverageChart.js` — client component rendering an inline SVG (no charting library). Gridlines + axis + step path + data-point circles live inside the SVG with `preserveAspectRatio="none"` so they stretch cleanly to any container width. Text labels (y-axis ticks, FULL PARITY, first+last date, current-value badge) live as absolutely-positioned HTML over the SVG so they stay crisp on any screen size. Step path animates in on mount via `stroke-dasharray`/`stroke-dashoffset` (~1.1s ease-out) and short-circuits to final state under `prefers-reduced-motion`. Middle date labels are suppressed to prevent overlap on narrow viewports.
+- `tests/coverage.test.js` — three assertions covering (1) strictly-ascending unique performance dates, (2) final entry equals the current summary (25%, 1 of 4), (3) monotonicity of both `attempted` and `parity_or_better` across the series.
+
+Changed:
+- `app/page.js` — imports `buildCoverageSeries`, computes `coverage` and a unique-category count, and renders `<ParityCoverageChart />` in its own section between the leaderboard and the Events grid. The intermediate `<SectionRule />` between them is dropped since the chart and leaderboard read as one continuous parity panel.
+
+Tests: 101/101 passing (was 98, +3 coverage tests).
+Build: clean (37 static routes).
+
 ## Commit 15 — Parity ratio bars on leaderboard rows (2026-04-22)
 
 Adds a horizontal progress bar under each leaderboard row's text content. Each bar visualizes the row's parity ratio against a single shared "PARITY" line at the 100% mark. The effect: scanning the page, one green bar breaks past the line (Men's Half Marathon) and everything else falls short — the whole parity story in one glance.
