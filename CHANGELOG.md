@@ -3,6 +3,40 @@
 All notable changes to Bioparity are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Commit 17 — Admin scanner review UI (2026-04-22)
+
+Adds `/admin/scanner` — a private, password-gated dashboard that surfaces claims written by the scanner Worker (separate repo) into the SupperMates Supabase table `bioparity_scanner_claims`. This is the first dynamic route on the site; all other routes remain statically prerendered.
+
+Sections rendered:
+- **Pending review** — every row with `disposition = 'safety_valve'`. Each card shows the article title (linked), source, extracted robot/event/time/autonomy/date, the `safety_valve_reason`, and the `rule_results` array with green ✓ / amber ⚠ / red ✕ glyphs. Approve and Reject buttons; reject opens a single-line input for a rejection reason.
+- **Recent auto-approved (30d)** — `disposition in ('auto_approved', 'manually_approved')`. Read-only cards with a Revoke button (safety net — sets `manually_rejected` with reason `revoked by admin after auto-approval`).
+- **Recent rejections (30d)** — `disposition in ('auto_rejected', 'manually_rejected')`. Compact cards showing rule that failed (rejection_reason) and timestamp.
+- **Stats (all time)** — totals per disposition plus a rejection breakdown ranked by frequency.
+
+Auth: a single shared admin password (`ADMIN_PASSWORD` env var) gated client-side via sessionStorage; every API request carries `Authorization: Bearer <password>` and the route handler re-validates against the env var before touching Supabase. The service role key never leaves the server. Mobile-friendly throughout — the metadata grid collapses from 5 columns at md+ to 2 columns under 768px, and Approve/Reject buttons meet the 44×44 tap-target spec.
+
+Added:
+- `lib/supabase.js` — singleton service-role client using `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`. Wraps `global.fetch` with `cache: 'no-store'` so Next.js 14's default fetch cache doesn't serve stale Postgres reads or shadow-cache mutations through the admin API. Exports a `DISPOSITION` enum.
+- `lib/scanner-claims.js` — pure helpers: `fetchClaimsBoard()` runs the four queries in parallel (pending / approved / rejected / all-for-stats) and returns a normalized payload; `patchClaim(id, patch)` for individual row updates; `normalizeRow()` maps the table's actual column names (`extracted_robot`, `extracted_event`, `extracted_time_raw`, `extracted_time_seconds`, `extracted_autonomy`, `extracted_date`, `source_id`, `extraction_confidence`, `ledger_committed`, `rule_results`) into the shape the UI components expect, with a `formatSeconds()` fallback when `extracted_time_raw` is missing.
+- `app/admin/scanner/page.js` — minimal server component that renders the `<AdminGate />` shell. `dynamic = 'force-dynamic'` and `runtime = 'nodejs'`. Page metadata sets `robots: { index: false, follow: false }`.
+- `app/admin/scanner/AdminGate.js` — client password gate. Reads from `sessionStorage`; on submit, probes `GET /api/admin/claims` with the entered password as a Bearer token and only persists the password if the call returns 200. 401 → "Incorrect password." Sign-out clears sessionStorage.
+- `app/admin/scanner/ClaimsBoard.js` — client component that fetches the board on mount, renders the four sections with section dots in semantic colors (verified/experimental/ineligible/dim), exposes a Refresh button, handles re-fetch after every mutation, and surfaces server errors inline.
+- `app/admin/scanner/ClaimCard.js` — three card variants: `<PendingCard />` (full card with action buttons + collapsible reject input), `<ApprovedCard />` (full card with confirm-prompt Revoke), `<RejectedCard />` (compact two-column grid card on md+). Shared `<MetaPair />`, `<RuleResults />`, `<CardHeader />` primitives.
+- `app/api/admin/claims/route.js` — `GET` handler returning the board payload. `dynamic = 'force-dynamic'`, `runtime = 'nodejs'`.
+- `app/api/admin/claims/[id]/route.js` — `PATCH` handler dispatching `approve` / `reject` / `revoke` actions. Approve sets `disposition = 'manually_approved'`, `reviewed_at = now()`, clears `rejection_reason`. Reject sets `manually_rejected` with the supplied reason (truncated to 500 chars, defaults to `'rejected by admin'`). Revoke sets `manually_rejected` with reason `'revoked by admin after auto-approval'`.
+- `app/api/admin/_auth.js` — shared `requireAdmin(request)` helper. Returns a 401 `NextResponse` if the `Authorization: Bearer …` header doesn't match `process.env.ADMIN_PASSWORD`, or a 500 if the env var is unset. Returns `null` on success.
+
+Changed:
+- `package.json` — adds `@supabase/supabase-js` (^2.104.0) as the first runtime data dependency.
+
+New env vars (gitignored in `.env.local`, configured in Vercel for prod):
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `ADMIN_PASSWORD`
+
+Tests: 101/101 passing (no new tests — this commit is admin tooling against an external service; the route handlers and Supabase mapping are exercised end-to-end against the live SupperMates table during dev rather than mocked in the unit suite).
+Build: clean (37 static routes + 1 dynamic page + 2 dynamic API routes). The `/admin/scanner` route is rendered on demand; everything else remains pre-rendered as before.
+
 ## Commit 16 — Cumulative parity coverage chart (2026-04-22)
 
 Adds a small line chart beneath the leaderboard that tells the trajectory story: "is parity accelerating?" At each unique compliance-valid performance date in the ledger, the engine recomputes (events at Parity or Robot Lead) / (events with at least one hard-fail-passing robot attempt) and plots the result as a step function from 0% to 100%.
